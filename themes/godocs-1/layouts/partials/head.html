@@ -1,0 +1,45 @@
+<head>
+  <meta charset="utf-8">
+  <title>{{ .Title }}</title>
+
+  <!-- mobile responsive meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta name="description" content="{{ with .Params.Description }}{{ . }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}">
+  {{ with site.Params.author }}<meta name="author" content="{{ . }}">{{ end }}
+  {{ hugo.Generator }}
+
+  <!-- plugins -->
+  {{ $permalink:= .Permalink }}
+  {{ range site.Params.plugins.css}}
+  {{ if eq $permalink (.page | lower | urlize | absURL ) }}
+  <link rel="stylesheet" href="{{ .link | absURL }}" {{.attributes | safeHTMLAttr}}>
+  {{ else if eq .page "/"}}
+  <link rel="stylesheet" href="{{ .link | absURL }}" {{.attributes | safeHTMLAttr}}>
+  {{ else }}
+  <link rel="stylesheet" href="{{ .link | absURL }}" {{.attributes | safeHTMLAttr}}>
+  {{ end }}
+  {{ end }}
+
+  <!-- Main Stylesheet -->
+  {{ $styles := resources.Get "scss/style.scss" | toCSS }}
+  <link rel="stylesheet" href="{{ $styles.Permalink }}" media="screen">
+
+  <!--Favicon-->
+  <link rel="shortcut icon" href="{{ `images/favicon.png` | absURL }}" type="image/x-icon">
+  <link rel="icon" href="{{ `images/favicon.png` | absURL }}" type="image/x-icon">
+
+  <!-- multilingual SEO optimizations -->
+  {{ if .IsTranslated }}
+  {{ range .Page.AllTranslations }}
+  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+  {{ end }}
+  {{ end }}
+
+  {{ with .Params.Image }}
+  <meta property="og:image" content="{{ . | absURL }}" />
+  {{ end }}
+  {{ template "_internal/opengraph.html" . }}
+  {{ template "_internal/google_analytics.html" . }}
+  {{ template "_internal/google_analytics_async.html" . }}
+
+</head>
