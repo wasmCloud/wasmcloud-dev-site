@@ -1,5 +1,5 @@
 ######################## default configuration ####################
-baseURL = "https://wasmCloud.dev"
+baseURL = "/"
 title = "wasmCloud Documentation"
 theme = "godocs-1"
 # google analytics
