@@ -226,7 +226,7 @@ copyright = "Copyright &copy; 2021 wasmCloud LLC"
 # banner
 [Languages.en.banner]
 title = "wasmCloud"
-subtitle = "wasmCloud is a secure, distributed actor platform with an autonomous mesh network built for bridging disparate and far-flung infrastructure."
+subtitle = "wasmCloud is a platform for writing portable business logic that can run anywhere from the edge to the cloud, that boasts a secure-by-default, boilerplate-free developer experience with rapid feedback loop."
 image = "images/banner.jpg"
 
 # call to action
