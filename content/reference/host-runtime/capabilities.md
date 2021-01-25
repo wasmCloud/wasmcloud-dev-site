@@ -9,8 +9,8 @@ A **_capability_** is an abstraction or representation of a non-functional requi
 
 In wasmCloud, _capability providers_ are dynamic libraries that implement a _capability contract_. A capability contract is a unique name that identifies the interface or abstraction. By convention, these capability contract IDs are prefixed by a vendor ID (the vendor of the _contract_, not necessarily the specific _implementation_). For example, the following is a list of the first-party capability contract IDs supported by default wasmCloud providers:
 
-* wasmcloud:http_server
-* wasmcloud:http_client
+* wasmcloud:httpserver
+* wasmcloud:httpclient
 * wasmcloud:messaging
 * wasmcloud:telnet
 * wasmcloud:keyvalue
