@@ -9,7 +9,7 @@ An **_actor_** is the smallest unit of deployable, portable compute within the w
 
 ### Single-Threaded
 
-_Concurrency is hard_. Even when we get concurrency correct, it's still hard. Building systems that work properly either through multi-threading or through so-called "green threads" or "coroutines" is difficult. Concurency introduces friction in writing new code, maintaining old code, troubleshooting, and routinely wreaks havoc on production systems.
+_Concurrency is hard_. Even when we get concurrency correct, it's still hard. Building systems that work properly either through multi-threading or through so-called "green threads" or "coroutines" is difficult. Concurrency introduces friction in writing new code, maintaining old code, troubleshooting, and routinely wreaks havoc on production systems.
 
 Developers want to write business logic, without having to worry about the concurrency properties of the surrounding environment. In alignment with [the actor model](https://en.wikipedia.org/wiki/Actor_model), wasmCloud actors are single-threaded _internally_. The surrounding environment provided by the host runtime may have varying levels of concurrency support, or could even have entirely different concurrency models depending on whether it's running in a browser, on a constrained device, or in the cloud. The code we write for actors should not have to worry about these things.
 
@@ -46,4 +46,6 @@ There are a number of _first-party_ [actor interfaces](https://github.com/wasmcl
 
 ### Secure
 
-Actors are secure by default. They must be explicitly granted access to each capability provider contract (abstraction/interface), otherwise the host runtime will not allow it to make calls to that provider or receive messages from it. Granting access to capabilities is discussed more in the [security](../security) section of the reference, but the short version is that each actor's WebAssembly module contains an embedded JSON Web Token (JWT) that holds claims, including claims attesting to which providers the actor is allowed to use.
+Actors are secure by default. Because actors are WebAssembly modules that cannot use the WASI extensions, these modules are physically incapable of interacting with any operating system functionality on their own. The only way actors can affect their external environment is through the use of a capability provider.
+
+Actors must be explicitly granted access to each capability provider contract (abstraction/interface), otherwise the host runtime will not allow it to make calls to that provider or receive messages from it. Granting access to capabilities is discussed more in the [security](../security) section of the reference, but the short version is that each actor's WebAssembly module contains an embedded JSON Web Token (JWT) that holds claims, including claims attesting to which providers the actor is allowed to use.
