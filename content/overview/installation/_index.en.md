@@ -10,53 +10,32 @@ thing you will want to install is the **wasmCloud core**, which includes the def
 
 If you plan on building capability providers or working within the Rust ecosystem, we highly recommend that you [install Rust](https://www.rust-lang.org/tools/install) in addition to the core.
 
-### Package Cloud
+### Install the Package Cloud Repository
 wasmCloud utilizes packagecloud.io for our deb and rpm package builds.
 
 You can find our packagecloud.io page [here](https://packagecloud.io/wasmCloud/core/) for more information.
 
-### Ubuntu, Debian, or Debian-based Distribution
+{{% tabs %}}
+   {{% tab "Ubuntu/Debian" %}}
+    curl -s https://packagecloud.io/install/repositories/wasmCloud/core/script.deb.sh | sudo bash
+   {{% /tab %}}
+   {{% tab "Fedora" %}}
+    curl -s https://packagecloud.io/install/repositories/wasmCloud/core/script.rpm.sh | sudo bash
+   {{% /tab %}}
+{{% /tabs %}}
 
-Quick Install of the packagecloud repository:
+### Install wasmCloud and wash
 
-```bash
-curl -s https://packagecloud.io/install/repositories/wasmCloud/core/script.deb.sh | sudo bash
-```
-
-Install wasmCloud and wash:
-```bash
-sudo apt install wasmcloud wash
-```
-
-### Fedora 32
-
-Quick Install of the packagecloud repository:
-
-```bash
-curl -s https://packagecloud.io/install/repositories/wasmCloud/core/script.rpm.sh | sudo bash
-```
-
-Install wasmCloud and wash:
-```bash
-dnf install wasmcloud wash
-```
-
-
-### MacOS
-
-Installation on MacOS requires [homebrew](https://brew.sh/)
-
-To add the homewbrew tap:
-```bash
-brew tap wasmcloud/wasmcloud
-```
-
-Install the homebrew packages:
-```bash
-brew install wasmcloud wash
-```
-
-### Windows
-
-TBD
+{{% tabs %}}
+   {{% tab "Ubuntu/Debian" %}}
+    sudo apt install wasmcloud wash
+   {{% /tab %}}
+   {{% tab "Fedora" %}}
+    dnf install wasmcloud wash
+   {{% /tab %}}
+   {{% tab "MacOS" %}}
+    brew tap wasmcloud/wasmcloud
+    brew install wasmcloud wash
+   {{% /tab %}}
+{{% /tabs %}}
 
