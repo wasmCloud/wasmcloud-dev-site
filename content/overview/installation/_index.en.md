@@ -31,7 +31,7 @@ You can find our packagecloud.io page [here](https://packagecloud.io/wasmCloud/c
     sudo apt install wasmcloud wash
    {{% /tab %}}
    {{% tab "Fedora" %}}
-    dnf install wasmcloud wash
+    sudo dnf install wasmcloud wash
    {{% /tab %}}
    {{% tab "MacOS" %}}
     brew tap wasmcloud/wasmcloud
