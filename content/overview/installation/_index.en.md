@@ -28,7 +28,7 @@ Install wasmCloud and wash:
 sudo apt install wasmcloud wash
 ```
 
-### Fedora
+### Fedora 32
 
 Quick Install of the packagecloud repository:
 
