@@ -10,15 +10,32 @@ thing you will want to install is the **wasmCloud core**, which includes the def
 
 If you plan on building capability providers or working within the Rust ecosystem, we highly recommend that you [install Rust](https://www.rust-lang.org/tools/install) in addition to the core.
 
-### Linux
+### Install the Package Cloud Repository
+wasmCloud utilizes packagecloud.io for our deb and rpm package builds.
 
-TBD
+You can find our packagecloud.io page [here](https://packagecloud.io/wasmCloud/core/) for more information.
 
-### MacOS
+{{% tabs %}}
+   {{% tab "Ubuntu/Debian" %}}
+    curl -s https://packagecloud.io/install/repositories/wasmCloud/core/script.deb.sh | sudo bash
+   {{% /tab %}}
+   {{% tab "Fedora" %}}
+    curl -s https://packagecloud.io/install/repositories/wasmCloud/core/script.rpm.sh | sudo bash
+   {{% /tab %}}
+{{% /tabs %}}
 
-TBD
+### Install wasmCloud and wash
 
-### Windows
-
-TBD
+{{% tabs %}}
+   {{% tab "Ubuntu/Debian" %}}
+    sudo apt install wasmcloud wash
+   {{% /tab %}}
+   {{% tab "Fedora" %}}
+    sudo dnf install wasmcloud wash
+   {{% /tab %}}
+   {{% tab "MacOS" %}}
+    brew tap wasmcloud/wasmcloud
+    brew install wasmcloud wash
+   {{% /tab %}}
+{{% /tabs %}}
 
