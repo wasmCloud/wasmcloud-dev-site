@@ -116,8 +116,10 @@ type PaymentMethodList {
 }
 ```
 
-At the moment, the code generation for **waPC** doesn't isolate the guest and host portions of the shared code the way we would like. Therefore, until the automated generation requires no hand-manipulation of the files, you can use existing actor interfaces as an example for how to apply minor tweaks. You can see the entire [payments-interface](https://github.com/wasmCloud/tree/master/payments/payments-interface) Rust project to see what the code should look like.
+At the moment, the code generation for **waPC** doesn't isolate the guest and host portions of the shared code the way we would like. Therefore, until the automated generation requires no hand-manipulation of the files, you can use existing actor interfaces as an example for how to apply minor tweaks. You can see the entire [payments-interface](https://github.com/wasmCloud/examples/tree/main/payments/payments-interface) Rust project to see what the code should look like.
 
-Before proceeding to the next step, you should create your `payments-interface` crate, which is just a standard Rust library with dependencies on `wapc-guest` that uses the waPC code generation facility, including a `codegen.yaml` file. To make things easy, you could also just copy the crate from our examples repository.
+Before proceeding to the next step, you should create your own `payments-interface` project by copying the one from the github repository. This project contains the schema that we've just created, a `Makefile` that generates code into a `src/generated.rs` file, and the appropriate dependencies in `Cargo.toml`.
+
+If you want to learn more about using [waPC](/reference/wapc) to generate code from widl schemas, you can consult the reference guide.
 
 Now that we have a Rust crate that we can use from both our actor and our capability provider, let's move on to the next step: _Creating a Capability Provider in Rust_.
