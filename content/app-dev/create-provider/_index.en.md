@@ -9,13 +9,9 @@ Creating a capability provider is one of the more involved tasks when working wi
 
 ### The Sample Use Case
 
-For the purposes of this guide, we're going to be creating a capability provider for a _payments service_ that accepts payments from customers. When composing applications with actors and capabilities, actors in an ecommerce setting may contain business logic that includes the need to accept payments from customers. There are a couple of ways we could solve this problem:
+For the purposes of this guide, we're going to be creating a capability provider for a _payment service_ that accepts payments from customers. When composing applications with actors and capabilities, actors in an ecommerce setting may contain business logic that includes the need to accept payments from customers.
 
-* **Embed Vendor-Specific Knowledge** - In this scenario, an actor might make use of an _HTTP Client_ capability provider, and potentially use providers like a _key-value store_ and even an _event stream_. The actor could be performing a complex transactional dance of creating and retrieving tokens, accessing multiple data sources, and even making potentially long-lived synchronous calls to third parties over HTTP. Despite all our best efforts at isolating business logic in the self-contained unit of an actor, this actor would require recompilation and redeployment if any aspect of _how_ the company accepted payments were to change.
-* **Create a Capability Provider** - Hide the implementation details of accepting payments behind the contract of a capability provider, allowing for those details to be swapped at runtime without any impact on running actors.
-* **Create another Actor** - We could always defer the problem, and ask another actor to perform the payment processing for us. However, this just "kicks the can down the road" because that new actor would now have the same problem we have with the original one--_how to perform the actual payment processing?_
-
-Obviously, as this is a guide for creating new capability providers, we've decided that for this use case, **creating a new capability provider** makes the most sense.
+To solve this problem, we're going to hide the implementation details of accepting payments behind the contract of a capability provider, allowing for those details to be swapped or re-configured at runtime without any impact on running actors.
 
 Creating a new capability provider involves:
 

@@ -5,7 +5,9 @@ weight: 6
 draft: false
 ---
 
-The first thing we're going to need for our _payments service_ sample capability provider is a **contract**. This contract will describe the data types to be exchanged by the actor and provider, and the _supported operations_ that can be invoked on this contract. Our example may be a little simpler than a traditional payments system, but you should hopefully get a good idea for what this process looks like.
+The first thing we're going to need for our _payments service_ sample capability provider is a **contract**. A contract describes the data types that actors and providers exchange, as well as the supported operations that can be invoked.
+
+Contract-driven design and development has been a long-favored technique for developers building microservices and other types of composable systems. CDD not only makes our initial design experience easier, but it continues to pay dividends throughout the life cycle of our application.
 
 ### Creating a widl Schema
 
