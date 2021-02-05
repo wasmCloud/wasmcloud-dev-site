@@ -7,6 +7,6 @@ description: "Guides and tutorials tailored for developers building applications
 type : "docs"
 ---
 
-![image](getting-started.jpg?width=500px)
+The wasmCloud documentation is separated out _roughly_ by task. If you are a _platform builder_, and are working on building a foundation on which other application developers can build, then you'll want to check out the [platform builder](/platform-builder) section.
 
-Most of the documentation site are looks identical. Thats why we take an initiative to make something different and bring some new concept with minimal design. Meet Godocs , a documentation and knowledge based website template. It can be used for software, API, frameworks, plugins and templates online documentation website building.
+This section is for application developers--developers looking to build applications that they can take from a napkin sketch to production. If you're looking to build portable, composable, easily deployed business logic that can securely utilize all kinds of capabilities without ever taking on direct dependencies, then this section is for you.
