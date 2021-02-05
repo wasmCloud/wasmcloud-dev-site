@@ -11,7 +11,7 @@ Creating an actor with **wasmCloud** involves a few steps. First, you'll need to
 * TinyGo
 * AssemblyScript
 
-Next, you'll need to use the appropriate tooling to create a new actor in your language of choice. As of version `0.2.0` of the **wash** CLI, we do not currently support the generation of new actors from scaffolding. As such, if you want scaffolding, you should use `cargo generate`, which is what this guide assumes.
+Next, you'll need to use the appropriate tooling to create a new actor in your language of choice. The current (`0.2.0`) version of the **wash** CLI does not **yet** support code generation or the production of scaffolding. As such, if you want scaffolding for Rust, you should use `cargo generate`, which is what this guide assumes. Check the [actor interfaces](https://github.com/wasmcloud/actor-interfaces) GitHub repository for information on scaffolding for other languages.
 
 This guide will walk you through the following steps to creating an actor:
 

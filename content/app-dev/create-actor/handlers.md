@@ -5,18 +5,42 @@ weight: 4
 draft: false
 ---
 
-{{% tabs %}}
-   {{% tab "Rust" %}}
-    println!("Test");
-   {{% /tab %}}
+Our new actor already has one handler, the health check. Let's add a new handler for an HTTP request that will perform the actor equivalent of "hello world"--return an HTTP response with that as the body. To make it a little bit more practical, let's return the "hello world" string in a field of a JSON payload.
 
-   {{% tab "TinyGo" %}}
-    console.log("foo");
-   {{% /tab %}}
+First, we'll need to add a reference to the HTTP server actor interface and JSON serialization to our `Cargo.toml` file:
 
-   {{% tab "AssemblyScript" %}}
-    console.log("foo");
-   {{% /tab %}}
- {{% /tabs %}}
+```toml
+serde_json = "1.0.59"
+actor-http-server = { git = "https://github.com/wasmcloud/actor-interfaces", branch = "main", features = ["guest"]}
+```
 
-TBD
+In this case we're using a git reference for the actor interface,
+ but you'll want to use the [crates.io](https://crates.io/crates/actor-http-server) version for anything more than experimentation.
+
+Now let's add the handler to our (Rust) actor (`src/lib.rs`):
+
+```rust
+extern crate wapc_guest as guest;
+use actor_core as actorcore;
+use actor_http_server as http;
+
+use guest::prelude::*;
+
+#[no_mangle]
+pub fn wapc_init() {
+    actorcore::Handlers::register_health_request(health);
+    http::Handlers::register_handle_request(say_hello);
+}
+
+fn say_hello(_req: http::Request) -> HandlerResult<http::Response> {
+  let result = json!({"greeting": "Hello world!" });
+  Ok(http::Response::json(&result, 200, "OK"))
+}
+
+fn health(_h: actorcore::HealthCheckRequest) -> 
+    HandlerResult<actorcore::HealthCheckResponse> {
+    Ok(actorcore::HealthCheckResponse::healthy())
+}
+```
+
+To make sure this actor is compiled and ready to run, we can simply run `make` in the project directory and `cargo` will compile it and generate a `.wasm` file and then the `wash` CLI will sign the module with a set of claims that includes access to the HTTP Server capability.
