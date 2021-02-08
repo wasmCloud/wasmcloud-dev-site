@@ -13,6 +13,9 @@
 - id: last_name
   translation: Nom de famille
 
+- id: company
+  translation: Enterprise
+
 - id: email
   translation: Email
 

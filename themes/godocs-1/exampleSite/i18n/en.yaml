@@ -13,6 +13,9 @@
 - id: last_name
   translation: Last Name
 
+- id: company
+  translation: Company
+
 - id: email
   translation: Email
 
@@ -20,7 +23,7 @@
   translation: Reason of Contact
 
 - id: write_message
-  translation: Start Writing From Here
+  translation: Comments
 
 - id: send
   translation: Send
