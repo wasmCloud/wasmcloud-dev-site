@@ -122,18 +122,18 @@ weight = 2
 
 # footer menu
 [[Languages.en.menu.footer]]
-name = "Releases"
-url = "releases"
+name = "Installation"
+url = "overview/installation/"
 weight = 1
 
 [[Languages.en.menu.footer]]
-name = "contact"
+name = "Contact"
 url = "contact"
 weight = 2
 
 [[Languages.en.menu.footer]]
 name = "Github"
-url = "https://github.com/themefisher/"
+url = "https://github.com/wasmcloud/"
 weight = 3
 
 
@@ -147,7 +147,7 @@ weight = 1
 
 [[Languages.fr.menu.main]]
 name = "Github"
-url = "https://github.com/themefisher/"
+url = "https://github.com/wasmcloud/"
 weight = 2
 
 
@@ -164,7 +164,7 @@ weight = 2
 
 [[Languages.fr.menu.footer]]
 name = "Github"
-url = "https://github.com/themefisher/"
+url = "https://github.com/wasmcloud/"
 weight = 3
 
 #################### default parameters ################################
@@ -172,9 +172,9 @@ weight = 3
 logo = "images/logo.png"
 # Meta data
 description = "This is meta description"
-author = "Themefisher"
+author = "wasmCloud LLC"
 # contact form action
-contact_form_action = "#" # contact form works with https://formspree.io
+contact_form_action = "https://formspree.io/f/mvovydey" # contact form works with https://formspree.io
 
 # Preloader
 [params.preloader]
@@ -197,7 +197,7 @@ link = "contact"
 #[[params.social]]
 #title = "facebook"
 #icon = "ti-facebook" # themify icon : https://themify.me/themify-icons
-#link = "#"
+#link = "https://www.facebook.com/WasmCloud-102542298375661/"
 
 [[params.social]]
 title = "twitter"
@@ -212,7 +212,7 @@ link = "https://github.com/wasmCloud"
 #[[params.social]]
 #title = "linkedin"
 #icon = "ti-linkedin" # themify icon : https://themify.me/themify-icons
-#link = "#"
+#link = "https://www.linkedin.com/company/wasmCloud"
 
 
 ################################### English language #####################################
@@ -253,8 +253,8 @@ copyright = "Copyright &copy; 2021 wasmCloud LLC"
 
 # banner
 [Languages.fr.banner]
-title = "Documentation Theme By Themefisher Team"
-subtitle = "Lorem ipsum dolor amet, consetetur sadiffspscing elitr, diam nonumy invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua At."
+title = "wasmCloud Developer Documentation"
+subtitle = "Build|Run|Deploy|Scale microservices quickly."
 image = "images/banner.jpg"
 
 # call to action
