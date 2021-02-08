@@ -42,7 +42,10 @@ You can find our packagecloud.io page [here](https://packagecloud.io/wasmCloud/c
 ### (MacOS) Install the Homebrew tap
 wasmCloud uses [Homebrew](https://brew.sh/) for our MacOS builds
 
-//TODO
+```
+brew tap wasmcloud/wasmcloud
+brew install wasmcloud wash
+```
 
 ### (All) Install from Source
 The [wasmCloud](https://github.com/wasmcloud/wasmcloud) and [wash](https://github.com/wasmcloud/wash) repositories are open sourced on GitHub. Both of these repositories can be cloned and build locally directly via [cargo](https://doc.rust-lang.org/cargo/), provided you have `Rust` installed.
