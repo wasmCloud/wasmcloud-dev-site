@@ -1,62 +1,31 @@
 ---
 title: "Release History"
-description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt dolore magna aliquyam erat, sed diam voluptua. At vero eos et ustoLorem ipsum dolor sit amet, consetetur."
+description: "This is a high-level overview of the additions, removals, and changes for releases of wasmCloud and related tooling. This is not a complete list. For all of the specific details, check out the release notes for each release in the appropriate repository."
 layout: "changelog"
 draft: false
 ---
 
-### February Updates
+### Release 0.15.0
 
-**Feb 6, 2019**
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt dolore magna aliquyam erat, sed diam voluptua. At vero eos et ustoLorem ipsum dolor sit amet, consetetur."
-
-{{< changelog "changed" >}}
-* Better support for using applying additional filters to posts_tax_query for categories for custom WordPress syncs
-
-* Reporting fine-tuning for speed improvements (up to 60% improvement in latency)
-
-* Replaced login / registration pre-app screens with a cleaner design
-{{</ changelog >}}
-
-
-{{< changelog "removed" >}}
-* Removed an issue with the sync autolinker only interlinking selectively.
-* Removed up an issue with prematurely logging out users
-{{</ changelog >}}
-
-<hr>
-
-
-### March Updates
-
-**Mar 6, 2019**
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor <br> invidunt dolore magna aliquyam erat, sed diam voluptua. At vero eos et ustoLorem ipsum dolor sit amet, consetetur."
+The **0.15.0** release is the single biggest release we've had since the project began. It is essentially a bottom-up rewrite of the entire wasmCloud host runtime. In addition to this internal rewrite, we've incorporated lessons learned from the past year of development and applied those to the way we build capability providers, define actor interfaces, and support the developer experience. The core theme of this release is the ruthless focus on developer experience.
 
 {{< changelog "added" >}}
-* Some scheduled changelogs, tweets, and slack messages queued up this weekend and were not published on time. We fixed the issue and all delayed publications should be out.
-* We now prioritize keywords over title and body so customers can more effectively influence search results
-* Support form in the Assistant is now protected with reCaptcha to reduce spam reinitializeOnUrlChange added to the JavaScript API to improve support for pages with turbolinks
+
+* Consolidated multiple CLI tools (`nk`, `wascap`, etc) into the new wasmCloud shell [wash](https://github.com/wasmCloud/wash)
+* Added a fully functioning REPL to the `wash` CLI
+* Provider archives - allows for the bundling of multiple OS/CPU native libraries into a single archive
+* **OCI** support - You can now deploy actors and capability providers into a host/lattice from an OCI registry
+* First-party capability providers and sample actors are all available in our OCI registry `wasmcloud.azurecr.io`
+* `wasmCloud` and `wash` are now installable via package cloud, homebrew, and other convenient methods
+
 {{</ changelog >}}
 
+{{< changelog "changed" >}}
 
-{{< changelog "fixed" >}}
-* Fixed an issue with the sync autolinker only interlinking selectively.
-* Fixed up an issue with prematurely logging out users
-{{</ changelog >}}
+* Completely rewrote the `wasmcloud-host` crate to allow for easier maintenance and adding features
+* The [wasmcloud-host](https://crates.io/crates/wasmcloud-host) crate is now entirely `async` and based on the `actix` framework
+* Too many others to list here...
 
-<hr>
-
-### Changelog label
-
-{{< changelog "Added" >}}
-{{</ changelog >}}
-
-{{< changelog "Changed" >}}
-{{</ changelog >}}
-
-{{< changelog "Depricated" >}}
 {{</ changelog >}}
 
 {{< changelog "Removed" >}}
@@ -70,3 +39,5 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 
 {{< changelog "Unreleased" >}}
 {{</ changelog >}}
+
+<hr/>
