@@ -2,7 +2,7 @@
 title: "Reference"
 date: 2020-01-18T11:02:05+06:00
 icon: "ti-book" # themify icon pack : https://themify.me/themify-icons
-description: "Full, in-depth reference material on all aspects of wasmCloud."
+description: "Full, in-depth reference material on all aspects of wasmcloud."
 # type dont remove or customize
 type : "docs"
 ---

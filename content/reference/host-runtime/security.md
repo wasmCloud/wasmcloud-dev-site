@@ -5,11 +5,11 @@ weight: 6
 draft: false
 ---
 
-wasmCloud embraces a [zero trust](https://en.wikipedia.org/wiki/Zero_trust_networks) security model. This means that the runtime, by default, does not trust any actor with the ability to do anything. Without adding security claims to an actor, the actor cannot send or receive messages in a wasmCloud runtime environment.
+wasmcloud embraces a [zero trust](https://en.wikipedia.org/wiki/Zero_trust_networks) security model. This means that the runtime, by default, does not trust any actor with the ability to do anything. Without adding security claims to an actor, the actor cannot send or receive messages in a wasmcloud runtime environment.
 
 ### Embedding JSON Web Tokens
 
-Every actor in the wasmCloud ecosystem is a WebAssembly module that contains an embedded [JSON Web Token](https://jwt.io/). These tokens have a standard set of required fields, including:
+Every actor in the wasmcloud ecosystem is a WebAssembly module that contains an embedded [JSON Web Token](https://jwt.io/). These tokens have a standard set of required fields, including:
 
 * **Issuer** - As the name implies, the issuer of the token. The JWT specification requires only that this be a string.
 * **Subject** - The subject is the subject of the token, the identity of the thing to which the token corresponds.
@@ -24,7 +24,7 @@ Each JWT embedded within an actor is cryptographically signed using the [ed25519
 
 ### Actor Identity
 
-As you may have picked up from reading about **ed25519** keys and encryption, this is an _asymmetric_ process. What wasmCloud uses is a fit-for-purpose implementation of [Public Key Infrastructure](https://en.wikipedia.org/wiki/Public_key_infrastructure). This means that each actor is given a private key, called a **seed** key in **ed25519** terminology (you will likely see the word _seed_ appear multiple times in our tooling). Each seed corresponds to one globally unique public key.
+As you may have picked up from reading about **ed25519** keys and encryption, this is an _asymmetric_ process. What wasmcloud uses is a fit-for-purpose implementation of [Public Key Infrastructure](https://en.wikipedia.org/wiki/Public_key_infrastructure). This means that each actor is given a private key, called a **seed** key in **ed25519** terminology (you will likely see the word _seed_ appear multiple times in our tooling). Each seed corresponds to one globally unique public key.
 
 This means that if an account (the _issuer_ of an actor's embedded JWT) signs a token using its private key, then we can use the account's _public key_ to verify the signature on the JWT. This has the added benefit of making JWT's _verifiable in public_. That is, they contain no secrets, but cannot be created without access to secrets. This makes them an ideal format for bearer-type credentials and claims.
 
@@ -32,7 +32,7 @@ Further, since one of the claims (discussed next) in the token is a _hash_ of th
 
 ### Claims
 
-In addition to the standard claims required by all [JSON Web Token (JWT)](https://jwt.io/)s, wasmCloud adds an additional claim field called **wascap** (wasmCloud capabilities). _All_ wasmCloud-related metadata exists under this field in the token's JSON structure. The following JSON shows the metadata field for one of our sample actors:
+In addition to the standard claims required by all [JSON Web Token (JWT)](https://jwt.io/)s, wasmcloud adds an additional claim field called **wascap** (wasmcloud capabilities). _All_ wasmcloud-related metadata exists under this field in the token's JSON structure. The following JSON shows the metadata field for one of our sample actors:
 
 ```json
 {
@@ -59,15 +59,15 @@ The preceding token indicates that the _Key Value Counter_ actor has been grante
 
 ### Managing Keys
 
-The act of key management could be a book or tome all its own. In short, managing keys in wasmCloud involves managing the 57-character plain ASCII strings that represent the developer-friendly encoding of ed25519 keys and identities we use. The entire security system of wasmCloud is designed around the idea that, while running in a production (or any) environment, _no private key access is required_. You will never need to expose a private key to any portion of your running environment.
+The act of key management could be a book or tome all its own. In short, managing keys in wasmcloud involves managing the 57-character plain ASCII strings that represent the developer-friendly encoding of ed25519 keys and identities we use. The entire security system of wasmcloud is designed around the idea that, while running in a production (or any) environment, _no private key access is required_. You will never need to expose a private key to any portion of your running environment.
 
 That said, you will need to ensure that offline access to your keys is secured. Your choice for how you do that is entirely up to you and the needs of your organization.
 
 #### Key Types
 
-wasmCloud uses a special, user-friendly encoding for ed25519 keys that is identical to the encoding used by [NATS](https://nats.io) for its 2.0+ decentralized security mechanism. This encoding uses all uppercase letters with an **S** prefix for seeds followed by a key type prefix. An underrated benefit of this key encoding mechanism is that keys are double-clickable on most operating systems and a fixed length.
+wasmcloud uses a special, user-friendly encoding for ed25519 keys that is identical to the encoding used by [NATS](https://nats.io) for its 2.0+ decentralized security mechanism. This encoding uses all uppercase letters with an **S** prefix for seeds followed by a key type prefix. An underrated benefit of this key encoding mechanism is that keys are double-clickable on most operating systems and a fixed length.
 
-While the number of key encodings available is larger than this list, the following are key types that may be of interest to wasmCloud developers:
+While the number of key encodings available is larger than this list, the following are key types that may be of interest to wasmcloud developers:
 
 * Actor (**M**odule) - Produces public keys with the **M** prefix.
 * **A**ccount - Produces public keys with the **A** prefix.
@@ -76,4 +76,4 @@ While the number of key encodings available is larger than this list, the follow
 * **O**perator - Produces public keys with the **O** prefix.
 * **C**luster - Produces public keys with the **C** prefix.
 
-As mentioned, _by convention_, actor tokens are issued by accounts. **A**ccounts are, by convention, issued by operators. Ser**v**ices (capability pro**v**iders) are also issued/signed by accounts. Servers (wasmCloud processes/**n**odes) are currently self-issued/self-signed, though in the future they could potentially be issued by a cluster to provide additional levels of security.
+As mentioned, _by convention_, actor tokens are issued by accounts. **A**ccounts are, by convention, issued by operators. Ser**v**ices (capability pro**v**iders) are also issued/signed by accounts. Servers (wasmcloud processes/**n**odes) are currently self-issued/self-signed, though in the future they could potentially be issued by a cluster to provide additional levels of security.

@@ -7,7 +7,7 @@ draft: false
 
 A [provider archive](/reference/host-runtime/provider-archive) is a bundle containing a number of platform-specific (OS and CPU) plugin libraries (e.g. `.dll`, `.dylib`, `.so`) and an embedded, cryptographically signed JSON Web Token (JWT) that contains a set of claims attestations for the capability provider.
 
-This provider archive is then something that can be uploaded to or downloaded from OCI registries, and passed in raw binary format to the wasmCloud `Host` API.
+This provider archive is then something that can be uploaded to or downloaded from OCI registries, and passed in raw binary format to the wasmcloud `Host` API.
 
 To build a capability provider, the first thing we'll need to do is make a release build. In this sample, we're building it on `Linux` (Ubuntu). From the root directory of the `fakepay-provider`, run:
 
@@ -15,7 +15,7 @@ To build a capability provider, the first thing we'll need to do is make a relea
 cargo build --release
 ```
 
-Once you've created a release build of the library, you can create a PAR (provider archive). This is done with the `wash par` command. You can find a robust example of this in the [Makefiles](https://github.com/wasmCloud/capability-providers/blob/main/http-server/Makefile) of our default scaffolding and example capability providers.
+Once you've created a release build of the library, you can create a PAR (provider archive). This is done with the `wash par` command. You can find a robust example of this in the [Makefiles](https://github.com/wasmcloud/capability-providers/blob/main/http-server/Makefile) of our default scaffolding and example capability providers.
 
 To show you how to do this without a makefile, run the following command (Linux). You will need a slightly different command depending on your CPU architecture and operating system:
 
@@ -25,7 +25,7 @@ wash par create \
   --arch x86_64-linux \
   --binary target/release/libfakepay_provider.so \
   --capid examples:payments \
-  --vendor wasmCloud \
+  --vendor wasmcloud \
   --version 1.0 \
   --revision 1 \
   --destination fakepay.par.gz \
@@ -57,7 +57,7 @@ wash par inspect fakepay.par.gz
 ╠═══════════════════════╬══════════════════════════════════════════════╣
 ║ Capability Contract ID║                            examples:payments ║
 ╠═══════════════════════╬══════════════════════════════════════════════╣
-║ Vendor                ║                                    wasmCloud ║
+║ Vendor                ║                                    wasmcloud ║
 ╠═══════════════════════╬══════════════════════════════════════════════╣
 ║ Version               ║                                          1.0 ║
 ╠═══════════════════════╬══════════════════════════════════════════════╣

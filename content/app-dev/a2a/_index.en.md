@@ -5,11 +5,11 @@ weight: 6
 draft: false
 ---
 
-The ability for one actor to call another actor is critical to being able to create _composable_ actor systems. wasmCloud supports RPC-style communication between actors, even if those actors are running in hosts scattered across disparate infrastructure, connected only via the [lattice](/reference/lattice).
+The ability for one actor to call another actor is critical to being able to create _composable_ actor systems. wasmcloud supports RPC-style communication between actors, even if those actors are running in hosts scattered across disparate infrastructure, connected only via the [lattice](/reference/lattice).
 
 ### Identifying Actors
 
-The single most important task when calling other actors is to identify the target actor. wasmCloud supports three ways of identifying another actor:
+The single most important task when calling other actors is to identify the target actor. wasmcloud supports three ways of identifying another actor:
 
 * OCI Reference
 * Public Key (Subject)
@@ -39,7 +39,7 @@ Call aliases, when used appropriately, can provide consistent, developer-friendl
 
 ### Using the Actor Core API
 
-All actors in the wasmCloud ecosystem are capable of making calls to other actors. The wasmCloud host runtime allows for security plugins which can potentially _deny_ the invocation, but all compiled actors can access the RPC code. The function call for invoking an actor accepts a string, which can be any one of the 3 actor identification methods (wasmCloud can figure type which one by examining the string).
+All actors in the wasmcloud ecosystem are capable of making calls to other actors. The wasmcloud host runtime allows for security plugins which can potentially _deny_ the invocation, but all compiled actors can access the RPC code. The function call for invoking an actor accepts a string, which can be any one of the 3 actor identification methods (wasmcloud can figure type which one by examining the string).
 
 The following snippet of code illustrates the 3 different kinds of invocations for actor-to-actor calls (these OCI references and public keys are not real, and are used only for demonstration purposes):
 
@@ -84,6 +84,6 @@ The following snippet of code illustrates the 3 different kinds of invocations f
 
 In the preceding sample, you saw that a variable called `data` was used to pass a payload to the actor. The "call actor" API is opaque--it does not know or care about the contents of the payload you're sending. The only requirement is that the actor on the other side of the conversation know how to interpret what you've sent.
 
-wasmCloud and waPC/widl already have conventions and tools for creating [actor interfaces](/app-dev/create-provider/cdd). While the example code for actor interfaces shows them being used by actors and capability providers, you can also have multiple actors share an actor interface. Since `widl` is already used for generating polyglot, waPC-compatible serialization code, it's ideal for creating actor-to-actor contracts.
+wasmcloud and waPC/widl already have conventions and tools for creating [actor interfaces](/app-dev/create-provider/cdd). While the example code for actor interfaces shows them being used by actors and capability providers, you can also have multiple actors share an actor interface. Since `widl` is already used for generating polyglot, waPC-compatible serialization code, it's ideal for creating actor-to-actor contracts.
 
 [^1]: _Call aliases may not be introduced until version 0.15.1. Please check documentation before trying to use this feature_

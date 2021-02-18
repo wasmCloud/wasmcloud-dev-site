@@ -5,7 +5,7 @@ weight: 2
 draft: false
 ---
 
-We'll be taking a tour through some of the most common activities in the wasmCloud ecosystem, like starting and configuring [actors](../../reference/host-runtime/actors/) and [capability providers](../../reference/host-runtime/capabilities/).
+We'll be taking a tour through some of the most common activities in the wasmcloud ecosystem, like starting and configuring [actors](../../reference/host-runtime/actors/) and [capability providers](../../reference/host-runtime/capabilities/).
 
 ### Prerequisites
 In order to follow this guide, you'll need a few things:
@@ -13,7 +13,7 @@ In order to follow this guide, you'll need a few things:
 - [nats-server](https://docs.nats.io/nats-server/installation) **OR** [docker](https://docs.docker.com/engine/install/), recommended with [docker-compose](https://docs.docker.com/compose/install/)
 
 ### Starting NATS
-[NATS](https://nats.io/) is a message broker used by wasmCloud's self-managing [lattice](../../reference/lattice/) network.
+[NATS](https://nats.io/) is a message broker used by wasmcloud's self-managing [lattice](../../reference/lattice/) network.
 
 In a terminal window, use one of the following options to launch `nats-server` locally. We recommend using `docker-compose` as it will also launch services that are used in other places in this documentation.
 
@@ -48,8 +48,8 @@ In a terminal window, use one of the following options to launch `nats-server` l
    {{% /tab %}}
  {{% /tabs %}}
 
-### Running your first wasmCloud host
-In a separate terminal window, run the following command to launch an interactive wasmCloud REPL environment, including a preconfigured wasmCloud host:
+### Running your first wasmcloud host
+In a separate terminal window, run the following command to launch an interactive wasmcloud REPL environment, including a preconfigured wasmcloud host:
 ```shell
 wash up
 ```
@@ -78,19 +78,19 @@ Provider ID               Link Name                  Image Reference
 VDHPKGFKDI34Y4RN4PWWZH... default                    N/A               
 VAHNM37G4ARHZ3CYHB3L34... __wasmcloud_lattice_cache  N/A               
 ```
-Currently on this host, we have a few labels that show the environment this host is running on, and two default providers. The first, starting with `VDHPK`, is the `extras` provider, which provides an interface for wasmCloud resources to generate random numbers, GUIDS, etc. The second, starting with `VAHNM`, is the [lattice](../../reference/lattice/) cache provider, which provides a distributed cache to all hosts running in this lattice. We'll talk more about what a lattice is in the [Platform Builder](../../platform-builder) section of the documentation.
+Currently on this host, we have a few labels that show the environment this host is running on, and two default providers. The first, starting with `VDHPK`, is the `extras` provider, which provides an interface for wasmcloud resources to generate random numbers, GUIDS, etc. The second, starting with `VAHNM`, is the [lattice](../../reference/lattice/) cache provider, which provides a distributed cache to all hosts running in this lattice. We'll talk more about what a lattice is in the [Platform Builder](../../platform-builder) section of the documentation.
 
 #### Running an actor
-We can start scheduling actors and providers right away on this host using the `ctl start` command. To begin, we'll start our `Echo` sample actor. Run the following command to start the `Echo` actor from the wasmCloud registry:
+We can start scheduling actors and providers right away on this host using the `ctl start` command. To begin, we'll start our `Echo` sample actor. Run the following command to start the `Echo` actor from the wasmcloud registry:
 ```shell
-ctl start actor wasmcloud.azurecr.io/echo:0.1.0
+ctl start actor wasmcloud.azurecr.io/echo:0.2.0
 ```
 The `Echo` sample actor has a single operation `HandleRequest`, which will respond to a delivered HTTP Request with an identical response that "echoes" the request sent.
 
 #### Running a capability provider
 In order for this actor to receive HTTP requests, we're going to need to start the `HTTP Server` capability provider. Actors are signed WebAssembly modules, and they can have embedded claims declaring their ability to communicate with capability providers like the `HTTP Server`.
 ```shell
-ctl start provider wasmcloud.azurecr.io/httpserver:0.10.0
+ctl start provider wasmcloud.azurecr.io/httpserver:0.11.1
 ```
 Let's take a look at our host's inventory now. You can either type the command above again or use the `UP/DOWN` arrow keys to navigate to the previous command. It should look something like this (some output truncated for documentation):
 ```shell
@@ -102,12 +102,12 @@ hostcore.arch                                               x86_64
 repl_mode                                                   true                                                              
                                                                                                                               
 Actor ID       Image Reference                                                   
-MBCFOPM6JW2... wasmcloud.azurecr.io/echo:0.1.0                                         
+MBCFOPM6JW2... wasmcloud.azurecr.io/echo:0.2.0                                         
                                 
 Provider ID    Link Name        Image Reference                        
 VDHPKGFKDI3... default          N/A                                    
 VAHNM37G4AR... __wasmcloud_...  N/A                                    
-VAG3QITQQ2O... default          wasmcloud.azurecr.io/httpserver:0.10.0 
+VAG3QITQQ2O... default          wasmcloud.azurecr.io/httpserver:0.11.1 
 ```
 
 #### Linking actors and capability providers
@@ -144,6 +144,6 @@ Call response (raw): ��statusCode�Ȧstatus�OK�header��body�S{"me
 ```
 Because the actor isn't actually returning JSON, the return payload has some characters that the terminal doesn't know how to interpret from its bytes[^1]. However you can still see the response body which contains our exact "echoed" request.
 
-That covers the basics of wasmCloud development in our REPL environment. To learn more about actors, providers, and more concepts on wasmCloud, continue on to the [App Development](../../app-dev) or [Platform Building](../../platform-builder) sections depending on your interests.
+That covers the basics of wasmcloud development in our REPL environment. To learn more about actors, providers, and more concepts on wasmcloud, continue on to the [App Development](../../app-dev) or [Platform Building](../../platform-builder) sections depending on your interests.
 
 [^1]: We're using [msgpack](https://msgpack.org/) to serialize arbitrary byte payloads when sending information to/from actors. Due to this serialization format, the bytes that are sent to and from actors must be deserialized with the shape of the object already known, and in the case of `ctl call` we are doing our best guess as to what the return payload is going to look like. As you can see when using `curl`, when we know the shape of the data (an HTTP response) we're able to fully deserialize the actor's response.

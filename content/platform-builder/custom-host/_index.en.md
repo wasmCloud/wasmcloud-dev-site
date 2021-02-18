@@ -5,11 +5,11 @@ weight: 5
 draft: false
 ---
 
-wasmCloud releases all include a default set of binaries, including a `wasmCloud` binary that is available for multiple operating systems and processor architectures. However, you may want to create your own fit-for-purpose host. For this purpose, [wasmCloud](https://github.com/wasmCloud/wasmcloud) is also available for use as a [Rust crate](https://crates.io/crates/wasmcloud-host), allowing you to declare a dependency and create your own host.
+wasmcloud releases all include a default set of binaries, including a `wasmcloud` binary that is available for multiple operating systems and processor architectures. However, you may want to create your own fit-for-purpose host. For this purpose, [wasmcloud](https://github.com/wasmcloud/wasmcloud) is also available for use as a [Rust crate](https://crates.io/crates/wasmcloud-host), allowing you to declare a dependency and create your own host.
 
-### Declaring a Dependency on wasmCloud
+### Declaring a Dependency on wasmcloud
 
-Declaring a dependency on wasmCloud is just a matter of adding a reference to it in your `Cargo.toml` file:
+Declaring a dependency on wasmcloud is just a matter of adding a reference to it in your `Cargo.toml` file:
 
 ```toml
 wasmcloud-host = "0.15.0"
@@ -17,7 +17,7 @@ wasmcloud-host = "0.15.0"
 
 ### Choosing a Low-Level WebAssembly Engine
 
-By default, the wasmCloud crate will choose its default underlying WebAssembly engine, [wasm3](https://github.com/wasm3/wasm3). This is chosen as a default because it is the _all-around_ fastest engine, and since it does interpretation rather than JIT, it supports a larger number of potential targets. However, if you wish to change this (or make your choice explicit), then you can choose the supporting WebAssembly execution engine through a _feature flag_ in the `Cargo.toml` file.
+By default, the wasmcloud crate will choose its default underlying WebAssembly engine, [wasm3](https://github.com/wasm3/wasm3). This is chosen as a default because it is the _all-around_ fastest engine, and since it does interpretation rather than JIT, it supports a larger number of potential targets. However, if you wish to change this (or make your choice explicit), then you can choose the supporting WebAssembly execution engine through a _feature flag_ in the `Cargo.toml` file.
 
 Choose **wasm3**:
 

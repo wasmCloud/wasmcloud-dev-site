@@ -1,6 +1,6 @@
 ######################## default configuration ####################
 baseURL = "/"
-title = "wasmCloud Documentation"
+title = "wasmcloud Documentation"
 theme = "godocs-1"
 # google analytics
 googleAnalytics = "" # example : UA-123-45
@@ -116,7 +116,7 @@ weight = 1
 
 [[Languages.en.menu.main]]
 name = "Github"
-url = "https://github.com/wasmCloud"
+url = "https://github.com/wasmcloud"
 weight = 2
 
 
@@ -172,7 +172,7 @@ weight = 3
 logo = "images/logo.png"
 # Meta data
 description = "This is meta description"
-author = "wasmCloud LLC"
+author = "wasmcloud LLC"
 # contact form action
 contact_form_action = "https://formspree.io/f/mvovydey" # contact form works with https://formspree.io
 
@@ -197,22 +197,22 @@ link = "contact"
 #[[params.social]]
 #title = "facebook"
 #icon = "ti-facebook" # themify icon : https://themify.me/themify-icons
-#link = "https://www.facebook.com/WasmCloud-102542298375661/"
+#link = "https://www.facebook.com/wasmcloud-102542298375661/"
 
 [[params.social]]
 title = "twitter"
 icon = "ti-twitter-alt" # themify icon : https://themify.me/themify-icons
-link = "https://twitter.com/wasmCloud"
+link = "https://twitter.com/wasmcloud"
 
 [[params.social]]
 title = "github"
 icon = "ti-github" # themify icon : https://themify.me/themify-icons
-link = "https://github.com/wasmCloud"
+link = "https://github.com/wasmcloud"
 
 #[[params.social]]
 #title = "linkedin"
 #icon = "ti-linkedin" # themify icon : https://themify.me/themify-icons
-#link = "https://www.linkedin.com/company/wasmCloud"
+#link = "https://www.linkedin.com/company/wasmcloud"
 
 
 ################################### English language #####################################
@@ -221,12 +221,12 @@ languageName = "En"
 languageCode = "en-us"
 weight = 1
 # copyright
-copyright = "Copyright &copy; 2021 wasmCloud LLC"
+copyright = "Copyright &copy; 2021 wasmcloud LLC"
 
 # banner
 [Languages.en.banner]
-title = "wasmCloud"
-subtitle = "wasmCloud is a platform for writing portable business logic that can run anywhere from the edge to the cloud, that boasts a secure-by-default, boilerplate-free developer experience with rapid feedback loop."
+title = "wasmcloud"
+subtitle = "wasmcloud is a platform for writing portable business logic that can run anywhere from the edge to the cloud, that boasts a secure-by-default, boilerplate-free developer experience with rapid feedback loop."
 image = "images/banner.jpg"
 
 # call to action
@@ -234,7 +234,7 @@ image = "images/banner.jpg"
 enable = true
 title = "Still have questions?"
 image = "images/cta-illustration.jpg"
-content = "Whether you just want to chat, have specific questions, or are ready to contribute to wasmCloud, our open community is always looking to grow!"
+content = "Whether you just want to chat, have specific questions, or are ready to contribute to wasmcloud, our open community is always looking to grow!"
 
   # call to action button
   [Languages.en.call_to_action.button]
@@ -249,11 +249,11 @@ languageName = "Fr"
 languageCode = "fr-fr"
 weight = 2
 # copyright
-copyright = "Copyright &copy; 2021 wasmCloud LLC"
+copyright = "Copyright &copy; 2021 wasmcloud LLC"
 
 # banner
 [Languages.fr.banner]
-title = "wasmCloud Developer Documentation"
+title = "wasmcloud Developer Documentation"
 subtitle = "Build|Run|Deploy|Scale microservices quickly."
 image = "images/banner.jpg"
 

@@ -5,7 +5,7 @@ weight: 2
 draft: false
 ---
 
-Creating an actor with **wasmCloud** involves a few steps. First, you'll need to choose the programming language for your actor. As of the current release, we support the following programming languages for actors:
+Creating an actor with **wasmcloud** involves a few steps. First, you'll need to choose the programming language for your actor. As of the current release, we support the following programming languages for actors:
 
 * Rust
 * TinyGo

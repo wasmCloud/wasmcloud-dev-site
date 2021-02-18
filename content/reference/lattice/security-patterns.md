@@ -5,11 +5,11 @@ weight: 6
 draft: false
 ---
 
-There is a virtually limitless number of ways in which you can deploy and configure the NATS substrate that supports your lattice. The following are just a few of the common _security_ patterns that we recommend for deploying NATS for your wasmCloud applications.
+There is a virtually limitless number of ways in which you can deploy and configure the NATS substrate that supports your lattice. The following are just a few of the common _security_ patterns that we recommend for deploying NATS for your wasmcloud applications.
 
 ### The Sidecar Leaf Node
 
-In this pattern, each **wasmCloud** process is deployed on a host (virtual, container, etc) either alongside a NATS server process or connected to the same _local_ network as that host (e.g. docker compose shared network interface, Kubernetes pod network, etc).
+In this pattern, each **wasmcloud** process is deployed on a host (virtual, container, etc) either alongside a NATS server process or connected to the same _local_ network as that host (e.g. docker compose shared network interface, Kubernetes pod network, etc).
 
 This NATS server is configured as a leaf node. The leaf node authenticates _securely_ over TLS, ideally using de-centralized credentials (JWT+seed), to some other NATS server. This NATS leaf node server is configured to _only_ listen on `localhost` on a fixed port for client connections, and this listener allows anonymous connections.
 
@@ -27,4 +27,4 @@ You should never connect anonymously or without TLS to a remote NATS installatio
 
 ### User/Password Not Supported?
 
-You may have noticed that while NATS supports clear text username and password authentication, we do not support this for wasmCloud lattice authentication. This is currently a security opinion and we have chosen to support either anonymous connections or de-centralized authentication connections. If you feel that there is suitable justification to support username and password lattice authentication, please [file an issue](https://github.com/wasmcloud/wasmcloud/issues) with the team.
+You may have noticed that while NATS supports clear text username and password authentication, we do not support this for wasmcloud lattice authentication. This is currently a security opinion and we have chosen to support either anonymous connections or de-centralized authentication connections. If you feel that there is suitable justification to support username and password lattice authentication, please [file an issue](https://github.com/wasmcloud/wasmcloud/issues) with the team.

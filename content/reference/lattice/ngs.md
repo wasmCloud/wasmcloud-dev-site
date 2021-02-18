@@ -9,7 +9,7 @@ draft: false
 
 When you combine the power of [NATS leaf nodes](../leaf-nodes) with the ability to connect to a global network of NATS infrastructure through a single URL, the possibilities grow exponentially.
 
-For example, any time you need to connect multiple disparate infrastructures that are not open to each other through a secure tunnel, you can simply use NATS leaf nodes at the edge of each infrastructure that use NGS as a bridge. The NGS security context remains completely isolated from the security context(s) of your application. It's also worth pointing out that NATS supports _web sockets_ as well, giving you access to wasmCloud host runtimes that are running in a browser.
+For example, any time you need to connect multiple disparate infrastructures that are not open to each other through a secure tunnel, you can simply use NATS leaf nodes at the edge of each infrastructure that use NGS as a bridge. The NGS security context remains completely isolated from the security context(s) of your application. It's also worth pointing out that NATS supports _web sockets_ as well, giving you access to wasmcloud host runtimes that are running in a browser.
 
 Effectively, this gives you the ability to control traffic segmentation and the "interest graph" of the various nodes connected within a lattice, but as far as the lattice (and it's [control interface](../control-interface)) are concerned, everything is just a single, flat topology.
 

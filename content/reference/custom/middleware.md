@@ -5,7 +5,7 @@ weight: 4
 draft: false
 ---
 
-wasmCloud **_middleware plugins_** are used to allow code you write to be invoked during _every single invocation_. An invocation is a call between two entities within wasmCloud, and so can include the following use cases:
+wasmcloud **_middleware plugins_** are used to allow code you write to be invoked during _every single invocation_. An invocation is a call between two entities within wasmcloud, and so can include the following use cases:
 
 * Actor -> Actor
 * Actor -> Capability Provider
@@ -13,7 +13,7 @@ wasmCloud **_middleware plugins_** are used to allow code you write to be invoke
 
 **Note** that capability providers are forbidden from talking directly to each other for a number of reasons, not the least of which is security and the prevention of privilege escalation attacks.
 
-All wasmCloud middleware must conform to the `Middleware` trait, which is found in the [wasmcloud-host](https://crates.io/crates/wasmcloud-host) crate. The required functions of this trait are:
+All wasmcloud middleware must conform to the `Middleware` trait, which is found in the [wasmcloud-host](https://crates.io/crates/wasmcloud-host) crate. The required functions of this trait are:
 
 * `actor_pre_invoke(&Invocation) -> Result<()>`
 

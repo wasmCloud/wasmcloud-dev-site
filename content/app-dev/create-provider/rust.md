@@ -19,7 +19,7 @@ We're going to create a _fake_ implementation of the payments capability provide
 [package]
 name = "fakepay-provider"
 version = "0.1.0"
-authors = ["wasmCloud Team"]
+authors = ["wasmcloud Team"]
 edition = "2018"
 
 
@@ -140,7 +140,7 @@ impl CapabilityProvider for FakePaymentsProvider {
 
 If you're curious about why we're using `Arc<RwLock<T>>` for holding the dispatcher, it's because we need interior mutability (the `CapabilityProvider` trait does not have mutable self references) and if this was an asynchronous provider, we'd need thread-safe access to the dispatcher at some point.
 
-Now we're ready to provide some handlers for both the mandatory **wasmCloud** operations and the operations that are part of our shared `examples:payments` contract. Let's update the code so that our `handle_call` function looks as follows:
+Now we're ready to provide some handlers for both the mandatory **wasmcloud** operations and the operations that are part of our shared `examples:payments` contract. Let's update the code so that our `handle_call` function looks as follows:
 
 ```rust
 fn handle_call(
@@ -239,6 +239,6 @@ fn fake_methods() -> HashMap<String, String> {
 }
 ```
 
-You can find the full code for the fake payment service capability provider [here](https://github.com/wasmCloud/examples/tree/master/ecommerce/fakepay-provider).
+You can find the full code for the fake payment service capability provider [here](https://github.com/wasmcloud/examples/tree/master/ecommerce/fakepay-provider).
 
 Next, we'll create a new private key for this provider and create and sign a _provider archive_ file.

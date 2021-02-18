@@ -11,19 +11,19 @@ Creating the scaffold for a new actor in Rust is very easy. First, you'll need t
 cargo install cargo-generate
 ```
 
-Once you've installed `cargo-generate`, then we can create a new actor using wasmCloud's [new actor template](https://github.com/wasmCloud/new-actor-template):
+Once you've installed `cargo-generate`, then we can create a new actor using wasmcloud's [new actor template](https://github.com/wasmcloud/new-actor-template):
 
 ```
-cargo generate --git https://github.com/wasmCloud/new-actor-template
+cargo generate --git https://github.com/wasmcloud/new-actor-template
 ```
 
 You should see output similar to the following:
 
 ```shell
-cargo generate --git https://github.com/wasmCloud/new-actor-template
+cargo generate --git https://github.com/wasmcloud/new-actor-template
  Project Name: example
  Creating project called `example`...
- Done! New project created /home/test/wasmCloud/rust/example
+ Done! New project created /home/test/wasmcloud/rust/example
 ```
 
 Your new project should be ready to build. Your actor scaffolding comes equipped with a mandatory message handler: the health check. All actors
