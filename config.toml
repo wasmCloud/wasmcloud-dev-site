@@ -171,7 +171,7 @@ weight = 3
 [params]
 logo = "images/logo.png"
 # Meta data
-description = "This is meta description"
+description = "wasmcloud is a secure, distributed WebAssembly actor runtime"
 author = "wasmcloud LLC"
 # contact form action
 contact_form_action = "https://formspree.io/f/mvovydey" # contact form works with https://formspree.io
@@ -227,7 +227,7 @@ copyright = "Copyright &copy; 2021 wasmcloud LLC"
 [Languages.en.banner]
 title = "wasmcloud"
 subtitle = "wasmcloud is a platform for writing portable business logic that can run anywhere from the edge to the cloud, that boasts a secure-by-default, boilerplate-free developer experience with rapid feedback loop."
-image = "images/banner.jpg"
+image = "images/banner.png"
 
 # call to action
 [Languages.en.call_to_action]
