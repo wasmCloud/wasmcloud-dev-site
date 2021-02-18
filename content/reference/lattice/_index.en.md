@@ -9,7 +9,7 @@ The **_lattice_** is a self-forming, self-healing mesh network that provides a u
 
 ### Self-Forming
 
-With a lattice, there is no need to deploy complex _service discovery_ products or servers, no need to fuss with complicated and potentially error-prone and brittle dynamic DNS systems. Merely by connecting to whichever [NATS](https://nats.io) server you deem appropriate, wasmCloud hosts are automatically aware of each other and everything else of importance running within the lattice.
+With a lattice, there is no need to deploy complex _service discovery_ products or servers, no need to fuss with complicated and potentially error-prone and brittle dynamic DNS systems. Merely by connecting to whichever [NATS](https://nats.io) server you deem appropriate, wasmcloud hosts are automatically aware of each other and everything else of importance running within the lattice.
 
 ### Self-Healing
 

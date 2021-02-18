@@ -1,4 +1,4 @@
-# wasmCloud.dev
+# wasmcloud.dev
 
-Documentation site for wasmCloud.dev
+Documentation site for wasmcloud.dev
 

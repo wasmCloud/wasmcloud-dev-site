@@ -9,6 +9,9 @@ draft: false
 
 In this guide we're going to start the actor "the long way" so that you can get a feel for all of the moving parts of the process. Our tooling documentation should help you get actors started easier once you've been through this guide.
 
+### Start NATS
+Refer to the [Starting NATS](../../../overview/getting-started#starting-nats) section of the getting started guide for instructions on how to start NATS. NATS will be required to start your actor in the following steps.
+
 ### Deploy a Local Docker Registry
 
 The `wash` tooling and the embedded REPL launch actors and capability providers from OCI (Open Container Initiative)-compliant registries. One such registry is the docker registry. You can run this locally with the following command:
@@ -41,10 +44,10 @@ Once inside the wash REPL, you can issue this command to start the actor (make s
 ctl start actor localhost:5000/newactor:v1
 ```
 
-Next, we'll need to start the HTTP Server. Fortunately, the wasmCloud official HTTP server capability provider is published in Azure Container Registry, so you can start it with the following REPL command:
+Next, we'll need to start the HTTP Server. Fortunately, the wasmcloud official HTTP server capability provider is published in Azure Container Registry, so you can start it with the following REPL command:
 
 ```
-ctl start provider wasmcloud.azurecr.io/httpserver:0.10.0
+ctl start provider wasmcloud.azurecr.io/httpserver:0.11.1
 ```
 
 With both the provider and the actor running, the only thing left to do is _link_ the two. This provides a set of configuration values that is unique to one actor's use of a provider. Type the following command to link your actor with the provider:

@@ -9,7 +9,7 @@ Using existing capabilities from within an actor is quick and easy. If an actor 
 
 ### Find an Actor Interface
 
-If you're looking to see which types of supported, first-party capability provider contracts are available, you'll want to take a look at the [actor interfaces](https://github.com/wasmCloud/actor-interfaces) repository. Here you will find links to documentation as well as a list of which language-specific providers are available and links to multiple implementations of the same contract (_file system_ and _S3_ are both available implementations of `wasmcloud:blobstore`, for example).
+If you're looking to see which types of supported, first-party capability provider contracts are available, you'll want to take a look at the [actor interfaces](https://github.com/wasmcloud/actor-interfaces) repository. Here you will find links to documentation as well as a list of which language-specific providers are available and links to multiple implementations of the same contract (_file system_ and _S3_ are both available implementations of `wasmcloud:blobstore`, for example).
 
 ### Add the Actor Interface as a Dependency
 

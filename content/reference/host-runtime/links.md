@@ -11,7 +11,7 @@ From the actor's point of view, code written using an actor interface _only_ ref
 
 From the capability provider's point of view, it only ever dispatches messages to actors. When a link is established for a particular actor, the capability provider can remember that actor's public key and use it for subsequent dispatches. As a result, the only information a capability provider needs is the actor public key.
 
-From the wasmCloud host runtime's point of view, it _must_ know the following information when establishing a link between capability provider and an actor:
+From the wasmcloud host runtime's point of view, it _must_ know the following information when establishing a link between capability provider and an actor:
 
 * The actor's public key (which it can obtain indirectly via an [OCI reference](/platform-builder/oci)
 * The contract ID (e.g. `wasmcloud:keyvalue` or `wasmcloud:httpserver`)
@@ -20,13 +20,13 @@ From the wasmCloud host runtime's point of view, it _must_ know the following in
 
 The key scenario that resulted in this multi-field "key" for link definitions is the following:
 
-Assume that we have a **Redis** capability provider with the link name `default` running in the lattice. Now assume that we have an in-memory cache provider running with the link name `cache`. Finally, some other set of actors are also relying on a key-value provider, but this one is for **Consul** and its link name is `default`. If the link definition only contained contract ID and link name, then the host runtime would not have enough information to determine if an actor's request should be going to the **Redis** provider or the **Consul** provider. At its core, **wasmCloud** is basically a router. It needs enough information to establish routes between actors and capability providers.
+Assume that we have a **Redis** capability provider with the link name `default` running in the lattice. Now assume that we have an in-memory cache provider running with the link name `cache`. Finally, some other set of actors are also relying on a key-value provider, but this one is for **Consul** and its link name is `default`. If the link definition only contained contract ID and link name, then the host runtime would not have enough information to determine if an actor's request should be going to the **Redis** provider or the **Consul** provider. At its core, **wasmcloud** is basically a router. It needs enough information to establish routes between actors and capability providers.
 
 It's for this reason that every link definition declaration must include (directly or indirectly via OCI) the provider's unique public key.
 
 ### Link Definitions at Runtime
 
-Link definitions are declared, first-class citizens of a lattice network. This means that a link definition can be declared _before or after_ any of the pertinent parties of that link are running in the lattice. The wasmCloud host runtime will check every time an actor _or_ capability provider is started if an existing link definition pertains to them. If it does, the capability provider will be sent the "bind actor" message containing the previously stored link definition configuration values (basically a `HashMap`).
+Link definitions are declared, first-class citizens of a lattice network. This means that a link definition can be declared _before or after_ any of the pertinent parties of that link are running in the lattice. The wasmcloud host runtime will check every time an actor _or_ capability provider is started if an existing link definition pertains to them. If it does, the capability provider will be sent the "bind actor" message containing the previously stored link definition configuration values (basically a `HashMap`).
 
 This has a few interesting implications. The first is that it makes for an incredibly low-friction developer experience. Order of operations does not matter - you can add actors, providers, and their corresponding link definitions to a host (or lattice) in any order and it "just works". The second is that all capability providers must treat the "bind actor" message as idempotent, and return a positive result and ignore duplicate bind messages.
 

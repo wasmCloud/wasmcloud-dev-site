@@ -5,7 +5,7 @@ weight: 2
 draft: false
 ---
 
-Running the `wasmCloud` binary in a docker image is nearly as easy as running it locally. For more information on the docker image and how to use it, please see the official [docker hub organization](https://hub.docker.com/u/wasmcloud) for wasmCloud.
+Running the `wasmcloud` binary in a docker image is nearly as easy as running it locally. For more information on the docker image and how to use it, please see the official [docker hub organization](https://hub.docker.com/u/wasmcloud) for wasmcloud.
 
 To pull the docker image:
 
@@ -13,7 +13,7 @@ To pull the docker image:
 docker pull wasmcloud/wasmcloud:${VERSION}
 ```
 
-To run wasmCloud directly from the docker image:
+To run wasmcloud directly from the docker image:
 
 ```
 docker run wasmcloud/wasmcloud:${VERSION}

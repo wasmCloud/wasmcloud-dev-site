@@ -5,7 +5,7 @@ weight: 5
 draft: false
 ---
 
-Creating a capability provider is one of the more involved tasks when working within the wasmCloud ecosystem. First, you need to decide if you're creating a new provider for an existing contract or if you're creating an entirely new contract. If you don't need to create a new contract, then you can skip to the second step in this guide.
+Creating a capability provider is one of the more involved tasks when working within the wasmcloud ecosystem. First, you need to decide if you're creating a new provider for an existing contract or if you're creating an entirely new contract. If you don't need to create a new contract, then you can skip to the second step in this guide.
 
 ### The Sample Use Case
 
