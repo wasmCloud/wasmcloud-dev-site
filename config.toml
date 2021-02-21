@@ -3,7 +3,7 @@ baseURL = "/"
 title = "wasmcloud Documentation"
 theme = "godocs-1"
 # google analytics
-googleAnalytics = "" # example : UA-123-45
+googleAnalytics = "UA-190314505-2" # example : UA-123-45
 # disable language
 disableLanguages = ["fr"] # desable language from here
 
