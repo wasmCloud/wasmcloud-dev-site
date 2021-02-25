@@ -19,6 +19,6 @@ For the curious, here is the exact list of the waPC protocol’s functions. The 
 | `__guest_request` | Host | Called by the guest to tell the host the pointer addresses of where to store the request’s operation (string) and request payload (blob) values. |
 | `__guest_call` | Guest | Invoked by the host to tell the guest to begin processing a function call. The guest will then retrieve the parameters and set response values via host calls. |
 
-Thankfully, you don’t have to implement any of this yourself, as you can find Rust and Go host runtime libraries as well as guest libraries and code generation tools for AssemblyScript, Rust, TinyGo, and Zig to build actors for wasmcloud in the [actor-interfaces](https://github.com/wasmcloud/actor-interfaces) repository.
+The waPC FFI functions are already taken care of for you in the existing guest and host libraries that you can find in the [waPC](https://github.com/wapc) organization. Built on top of those libraries, using waPC code generation from `widl` schemas, we have the wasmcloud [actor-interfaces](https://github.com/wasmcloud/actor-interfaces).
 
-However, if you are interested in building your own language binding for waPC (and subsequently wasmCloud), check out the next section.
+If you are interested in building your own language binding for waPC (and subsequently wasmcloud), check out the next section.
