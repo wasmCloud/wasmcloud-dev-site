@@ -45,7 +45,7 @@ There are two external dependences here: `wapc_guest` and `wasmcloud_actor_core`
 `wapc_guest` provides the ability to receive function calls according to the [waPC](https://wapc.io/) specification. 
 `wasmcloud_actor_core` contains the data types required by all actors, namely the health check request and health check response, and CapabilityConfiguration, a struct used by capability providers to receive link data for an actor.
 
-The macro `actor::init` will create a default health check message handler.  All actors
+The attribute `actor::init` will create a default health check message handler.  All actors
 must respond to health checks whenever the host runtime requests them. This is how the host runtime 
 can tell if an actor that may appear to be running is truly healthy.
 Let's move on to defining some new message handlers.
