@@ -26,7 +26,7 @@ cargo generate --git https://github.com/wasmcloud/new-actor-template
  Done! New project created /home/test/wasmcloud/rust/example
 ```
 
-This creates an empty actor with the only function being the initialisation of the actor.
+This creates an empty actor with the only function being the initialisation of the actor and a default, mandatory health checker.
 Let's take a look at the created `src/lib.rs` file:
 
 ```rust
@@ -45,28 +45,8 @@ There are two external dependences here: `wapc_guest` and `wasmcloud_actor_core`
 `wapc_guest` provides the ability to receive function calls according to the [waPC](https://wapc.io/) specification. 
 `wasmcloud_actor_core` contains the data types required by all actors, namely the health check request and health check response, and CapabilityConfiguration, a struct used by capability providers to receive link data for an actor.
 
-The first thing we need to do is to create the mandatory health check message handler.  All actors
+The macro `actor::init` will create a default health check message handler.  All actors
 must respond to health checks whenever the host runtime requests them. This is how the host runtime 
 can tell if an actor that may appear to be running is truly healthy.
-
-This is the actor code with the mandatory health check added:
-
-```rust
-extern crate wapc_guest as guest;
-use actor_core as actorcore;
-
-use guest::prelude::*;
-
-#[no_mangle]
-pub fn wapc_init() {
-    actorcore::Handlers::register_health_request(health);
-}
-
-fn health(_h: actorcore::HealthCheckRequest) -> 
-    HandlerResult<actorcore::HealthCheckResponse> {
-        Ok(actorcore::HealthCheckResponse::healthy())
-}
-```
-
-This actor has a single message handler that always indicates the actor is healthy. Let's move on to defining some new message handlers.
+Let's move on to defining some new message handlers.
 
