@@ -22,6 +22,8 @@ docker run -d -p 5000:5000 --restart=always --name registry registry:2
 
 For more information on running the registry, you can read [Docker's documentation](https://docs.docker.com/registry/deploying/).
 
+Note: if you used the `docker-compose` script as described in the [Starting NATS](../../../overview/getting-started#starting-nats) section, you do not need to start the registry manually.
+
 ### Push Your Actor
 
 Next you'll want to push your actor to the local registry. If you haven't configured authentication or any other restrictions, you should be able to use the following `wash` command to push it to the registry:
