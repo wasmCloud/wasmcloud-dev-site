@@ -125,7 +125,10 @@ $(document).on("turbolinks:load", preloader);
 				});
 				clipInit = true;
 			}
-			code.after('<span class="copy-to-clipboard">copy</span>');
+			// prevents multiple spans from being appended to code blocks
+			if (!Array.from(code[0].parentElement.children).reduce((acc, elem) => acc || elem instanceof HTMLSpanElement, false)) {
+				code.after('<span class="copy-to-clipboard">copy</span>');
+			}
 		}
 	});
 	$('.copy-to-clipboard').click(function () {
