@@ -11,7 +11,7 @@ First, we'll need to add a reference to the HTTP server actor interface and JSON
 
 ```toml
 serde_json = "1.0.59"
-actor-http-server = { git = "https://github.com/wasmcloud/actor-interfaces", branch = "main", features = ["guest"]}
+wasmcloud-actor-http-server = { git = "https://github.com/wasmcloud/actor-interfaces", branch = "main", features = ["guest"]}
 ```
 
 In this case we're using a git reference for the actor interface,
@@ -23,6 +23,7 @@ Now let's add the handler to our (Rust) actor (`src/lib.rs`):
 extern crate wapc_guest as guest;
 use actor_core as actorcore;
 use actor_http_server as http;
+use serde_json::json;
 
 use guest::prelude::*;
 
