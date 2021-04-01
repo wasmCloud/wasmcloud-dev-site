@@ -21,8 +21,8 @@ Now let's add the handler to our (Rust) actor (`src/lib.rs`):
 
 ```rust
 extern crate wapc_guest as guest;
-use actor_core as actorcore;
-use actor_http_server as http;
+use wasmcloud_actor_core as actorcore;
+use wasmcloud_actor_http_server as http;
 use serde_json::json;
 
 use guest::prelude::*;

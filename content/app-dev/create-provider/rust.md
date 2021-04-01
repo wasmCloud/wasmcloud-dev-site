@@ -37,7 +37,7 @@ log = "0.4.14"
 uuid = { version = "0.8.2", features = ["serde", "v4"] }
 wascc-codec = "0.9.0"
 payments-interface = { path = "../payments-interface" }
-actor-core = { git = "https://github.com/wasmcloud/actor-interfaces", branch = "main" }
+wasmcloud-actor-core = { git = "https://github.com/wasmcloud/actor-interfaces", branch = "main" }
 ```
 
 There are a couple of things we've put in here because we know we're going to need them soon and, by convention, we like to build capability providers that can either be loaded by virtue of [provider archive](/reference/host-runtime/provider-archive) files or as a direct dependency in a Rust crate.
@@ -52,7 +52,7 @@ extern crate log;
 
 use std::sync::{Arc, RwLock};
 
-use actor_core::{deserialize, serialize, CapabilityConfiguration, HealthCheckResponse};
+use wasmcloud_actor_core::{deserialize, serialize, CapabilityConfiguration, HealthCheckResponse};
 use codec::capabilities::{CapabilityProvider, Dispatcher, NullDispatcher};
 use codec::core::{OP_BIND_ACTOR, OP_HEALTH_REQUEST, OP_REMOVE_ACTOR};
 
