@@ -11,7 +11,7 @@ First, we'll need to add a reference to the HTTP server actor interface and JSON
 
 ```toml
 serde_json = "1.0.59"
-wasmcloud-actor-http-server = { git = "https://github.com/wasmcloud/actor-interfaces", branch = "main", features = ["guest"]}
+wasmcloud-actor-http-server = { version = "0.2.2", branch = "main", features = ["guest"]}
 ```
 
 In this case we're using a git reference for the actor interface,

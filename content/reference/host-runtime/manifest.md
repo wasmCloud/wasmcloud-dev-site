@@ -42,11 +42,11 @@ actors:
     - ../actors/messages/target/wasm32-unknown-unknown/debug/messages_s.wasm
     - ../actors/broker-channel/target/wasm32-unknown-unknown/debug/broker_channel_s.wasm
 capabilities:
-    - image_ref: wasmcloud.azurecr.io/nats:0.10.2
+    - image_ref: wasmcloud.azurecr.io/nats:0.10.3
       link_name: frontend
-    - image_ref: wasmcloud.azurecr.io/nats:0.10.2
+    - image_ref: wasmcloud.azurecr.io/nats:0.10.3
       link_name: backend
-    - image_ref: wasmcloud.azurecr.io/logging:0.9.1
+    - image_ref: wasmcloud.azurecr.io/logging:0.9.3
     - image_ref: wasmcloud.azurecr.io/redisstreams:0.5.1
 links:
   # configure the broker channel actor - messaging, logging, extras

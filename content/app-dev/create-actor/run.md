@@ -49,7 +49,7 @@ ctl start actor localhost:5000/newactor:v1
 Next, we'll need to start the HTTP Server. Fortunately, the wasmcloud official HTTP server capability provider is published in Azure Container Registry, so you can start it with the following REPL command:
 
 ```
-ctl start provider wasmcloud.azurecr.io/httpserver:0.11.1
+ctl start provider wasmcloud.azurecr.io/httpserver:0.12.1
 ```
 
 With both the provider and the actor running, the only thing left to do is _link_ the two. This provides a set of configuration values that is unique to one actor's use of a provider. Type the following command to link your actor with the provider:
