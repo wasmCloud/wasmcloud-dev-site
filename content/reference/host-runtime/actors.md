@@ -20,7 +20,8 @@ Though we shouldn't have to worry about the surrounding concurrency model, we ne
 Actors are [reactive](https://en.wikipedia.org/wiki/Reactive_programming). An actor cannot initiate any action on its own, it can simply _react_ to outside stimuli in the form of messages delivered by the host. Actor developers register message handlers that receive input and return messages as output, as shown in the following example that receives a bank account query and responds with the bank account value:
 
 ```rust
-#[wasmcloud-actor-core::init]
+use wasmcloud_actor_core as actor;
+#[actor::init]
 pub fn init() {
     bank::Handlers::register_handle_query(handle_balance_inquiry);
     // other handlers...

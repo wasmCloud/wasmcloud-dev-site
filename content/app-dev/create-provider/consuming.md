@@ -36,7 +36,8 @@ We could design this actor to respond to an RPC-style operation called `Checkout
 For the sake of example, let's take a look at what it might look like to respond directly to a checkout operation via actor-to-actor RPC (this is non-compiling psuedocode):
 
 ```rust
-#[wasmcloud-actor-core::init]
+use wasmcloud_actor_core as actor;
+#[actor::init]
 pub fn init() {
     commerce::Handlers::register_checkout(checkout);
 
