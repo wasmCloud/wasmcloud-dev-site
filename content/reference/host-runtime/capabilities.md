@@ -32,7 +32,7 @@ pub extern "C" fn __capability_provider_create() -> *mut CapabilityProvider
 
 where `CapabilityProvider` is a trait implemented in Rust. If you're writing a capability provider in another language other than Rust, you can feel free to return a pointer to that object, provided the associated function calls match the signature required by the trait.
 
-When implementing your own capability provider in Rust, you can use the [wasmcloud-codec](https://github.com/wasmcloud/wascc-codec) crate's `capability_provider!` macro to provide a developer-friendly way of implementing the FFI function.
+When implementing your own capability provider in Rust, you can use the [wasmcloud-provider-core](https://github.com/wasmCloud/wasmCloud/tree/main/crates/wasmcloud-provider-core) crate's `capability_provider!` macro to provide a developer-friendly way of implementing the FFI function.
 
 #### Capability Provider Trait Requirements
 

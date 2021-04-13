@@ -11,7 +11,7 @@ First, we'll need to add a reference to the HTTP server actor interface and JSON
 
 ```toml
 serde_json = "1.0.59"
-wasmcloud-actor-http-server = { git = "https://github.com/wasmcloud/actor-interfaces", branch = "main", features = ["guest"]}
+wasmcloud-actor-http-server = { version = "0.2.2", branch = "main", features = ["guest"]}
 ```
 
 In this case we're using a git reference for the actor interface,
@@ -27,20 +27,14 @@ use serde_json::json;
 
 use guest::prelude::*;
 
-#[no_mangle]
-pub fn wapc_init() {
-    actorcore::Handlers::register_health_request(health);
-    http::Handlers::register_handle_request(say_hello);
+#[actorcore::init]
+pub fn init() {
+  http::Handlers::register_handle_request(say_hello);
 }
 
 fn say_hello(_req: http::Request) -> HandlerResult<http::Response> {
   let result = json!({"greeting": "Hello world!" });
   Ok(http::Response::json(&result, 200, "OK"))
-}
-
-fn health(_h: actorcore::HealthCheckRequest) -> 
-    HandlerResult<actorcore::HealthCheckResponse> {
-    Ok(actorcore::HealthCheckResponse::healthy())
 }
 ```
 

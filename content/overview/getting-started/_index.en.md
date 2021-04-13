@@ -83,14 +83,14 @@ Currently on this host, we have a few labels that show the environment this host
 #### Running an actor
 We can start scheduling actors and providers right away on this host using the `ctl start` command. To begin, we'll start our `Echo` sample actor. Run the following command to start the `Echo` actor from the wasmcloud registry:
 ```shell
-ctl start actor wasmcloud.azurecr.io/echo:0.2.0
+ctl start actor wasmcloud.azurecr.io/echo:0.2.1
 ```
 The `Echo` sample actor has a single operation `HandleRequest`, which will respond to a delivered HTTP Request with an identical response that "echoes" the request sent.
 
 #### Running a capability provider
 In order for this actor to receive HTTP requests, we're going to need to start the `HTTP Server` capability provider. Actors are signed WebAssembly modules, and they can have embedded claims declaring their ability to communicate with capability providers like the `HTTP Server`.
 ```shell
-ctl start provider wasmcloud.azurecr.io/httpserver:0.11.1
+ctl start provider wasmcloud.azurecr.io/httpserver:0.12.1
 ```
 Let's take a look at our host's inventory now. You can either type the command above again or use the `UP/DOWN` arrow keys to navigate to the previous command. It should look something like this (some output truncated for documentation):
 ```shell
@@ -102,12 +102,12 @@ hostcore.arch                                               x86_64
 repl_mode                                                   true                                                              
                                                                                                                               
 Actor ID       Image Reference                                                   
-MBCFOPM6JW2... wasmcloud.azurecr.io/echo:0.2.0                                         
+MBCFOPM6JW2... wasmcloud.azurecr.io/echo:0.2.1                                         
                                 
 Provider ID    Link Name        Image Reference                        
 VDHPKGFKDI3... default          N/A                                    
 VAHNM37G4AR... __wasmcloud_...  N/A                                    
-VAG3QITQQ2O... default          wasmcloud.azurecr.io/httpserver:0.11.1 
+VAG3QITQQ2O... default          wasmcloud.azurecr.io/httpserver:0.12.1 
 ```
 
 #### Linking actors and capability providers

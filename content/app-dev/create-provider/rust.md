@@ -35,9 +35,9 @@ chrono = "0.4.19"
 env_logger = "0.8.2"
 log = "0.4.14"
 uuid = { version = "0.8.2", features = ["serde", "v4"] }
-wascc-codec = "0.9.0"
+wasmcloud-provider-core = "0.1.1"
 payments-interface = { path = "../payments-interface" }
-wasmcloud-actor-core = { git = "https://github.com/wasmcloud/actor-interfaces", branch = "main" }
+wasmcloud-actor-core = "0.2.2"
 ```
 
 There are a couple of things we've put in here because we know we're going to need them soon and, by convention, we like to build capability providers that can either be loaded by virtue of [provider archive](/reference/host-runtime/provider-archive) files or as a direct dependency in a Rust crate.
@@ -46,7 +46,7 @@ Now we'll provide an implementation of the `CapabilityProvider` interface (a tra
 
 ```rust
 #[macro_use]
-extern crate wascc_codec as codec;
+extern crate wasmcloud-provider-core as codec;
 #[macro_use]
 extern crate log;
 

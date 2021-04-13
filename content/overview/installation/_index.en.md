@@ -37,7 +37,12 @@ You can find our packagecloud.io page [here](https://packagecloud.io/wasmcloud/c
     brew tap wasmcloud/wasmcloud
     brew install wasmcloud wash
    {{% /tab %}}
+   {{% tab "All" %}}
+    cargo install wasmcloud wash-cli
+   {{% /tab %}}
 {{% /tabs %}}
+
+⚠️ **Windows Users** - Windows is currently only supported when loading capability providers as static plugins. We highly recommend using the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for the best wasmcloud experience.
 
 ### (All) Install from Source
 The [wasmcloud](https://github.com/wasmcloud/wasmcloud) and [wash](https://github.com/wasmcloud/wash) repositories are open sourced on GitHub. Both of these repositories can be cloned and build locally directly via [cargo](https://doc.rust-lang.org/cargo/), provided you have `Rust` installed.

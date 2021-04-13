@@ -18,7 +18,7 @@ It should also be very easy to simply declare a dependency on the actor interfac
 As an example, here's what it looks like to add a dependency on the `wasmcloud:graphdb` actor interface in your `Cargo.toml`:
 
 ```rust
-wasmcloud-actor-graphdb = "0.1.0"
+wasmcloud-actor-graphdb = "0.1.2"
 ```
 
 And then you can import the graph database actor interface code in your `src/lib.rs` file as shown:
