@@ -5,6 +5,26 @@ layout: "changelog"
 draft: false
 ---
 
+### Release 0.18.0
+{{< changelog "added" >}}
+* Actor and Provider name and revision are now included with the control interface `HostInventory` query ([PR #154](https://github.com/wasmCloud/wasmCloud/pull/154)). Names and revisions are not displayed yet with `wash`'s `ctl get inventory` command.
+* Released `wash` `v0.4.0`, the integrated REPL environment no longer requires NATS to run which dramatically simplifies the onboarding experience ([`wash` PR #107](https://github.com/wasmCloud/wash/pull/107))
+* `get_actor_identity` and `get_provider_identity` functions on the Host API for retrieving the name, image reference, and revision number of an actor or provider respectively ([PR #163](https://github.com/wasmCloud/wasmCloud/pull/163))
+* `--nsprefix` option on the `wasmcloud` binary which allows you to set a namespace other than "default" with the stock `wasmcloud` binary ([PR #161](https://github.com/wasmCloud/wasmCloud/pull/161))
+* Configured a Gitpod environment for a complete pre-configured in-browser development environment for `wasmcloud`. ([PR #162](https://github.com/wasmCloud/wasmCloud/pull/162))
+{{</ changelog >}}
+
+{{< changelog "changed" >}}
+* Control interface and lattice WIDL files are now stored in the `wasmcloud` repository instead of `capability-providers` ([PR #154](https://github.com/wasmCloud/wasmCloud/pull/154))
+* Host API `providers()` function now returns a Vec of 3-tuples (public_key, contract_id, link_name) - was previously just public key
+{{</ changelog >}}
+
+{{< changelog "Fixed" >}}
+* Fixed a bug where the control interface and host API could incorrectly report the OCI image reference of an actor or provider. ([PR #159](https://github.com/wasmCloud/wasmCloud/pull/159) and [PR #163](https://github.com/wasmCloud/wasmCloud/pull/163))
+* Fixed a bug where live updating an actor would not update the stored OCI image references ([PR #160](https://github.com/wasmCloud/wasmCloud/pull/160))
+{{</ changelog >}}
+
+
 ### Release 0.17.0
 {{< changelog "added" >}}
 * Added additional logging and error messages to common operations ([PR #143](https://github.com/wasmCloud/wasmCloud/pull/143) and [PR #148](https://github.com/wasmCloud/wasmCloud/pull/148))
@@ -60,6 +80,7 @@ The **0.15.0** release is the single biggest release we've had since the project
 {{</ changelog >}}
 
 <hr/>
+<!-- Below are all of the changelog markdown formats that we use -->
 <!-- {{< changelog "added" >}}
 {{</ changelog >}} -->
 
