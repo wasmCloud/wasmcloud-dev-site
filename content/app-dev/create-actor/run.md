@@ -5,24 +5,20 @@ weight: 5
 draft: false
 ---
 
-### Pre-Requisites
-
 In this guide we're going to start the actor "the long way" so that you can get a feel for all of the moving parts of the process. Our tooling documentation should help you get actors started easier once you've been through this guide.
 
-### Start NATS
-Refer to the [Starting NATS](../../../overview/getting-started#starting-nats) section of the getting started guide for instructions on how to start NATS. NATS will be required to start your actor in the following steps.
+### Pre-Requisites
+To run this part of the guide, you'll need a local OCI (Open Container Initiative)-compliant registry. The easiest way to get an OCI registry running locally is with `docker` and it's `registry` image.
 
 ### Deploy a Local Docker Registry
 
-The `wash` tooling and the embedded REPL launch actors and capability providers from OCI (Open Container Initiative)-compliant registries. One such registry is the docker registry. You can run this locally with the following command:
+The `wash` tooling and the embedded REPL launch actors and capability providers from OCI-compliant registries. One such registry is the docker registry. You can run this locally with the following command:
 
 ```
 docker run -d -p 5000:5000 --restart=always --name registry registry:2
 ```
 
 For more information on running the registry, you can read [Docker's documentation](https://docs.docker.com/registry/deploying/).
-
-Note: if you used the `docker-compose` script as described in the [Starting NATS](../../../overview/getting-started#starting-nats) section, you do not need to start the registry manually.
 
 ### Push Your Actor
 

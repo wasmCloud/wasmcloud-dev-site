@@ -8,45 +8,7 @@ draft: false
 We'll be taking a tour through some of the most common activities in the wasmcloud ecosystem, like starting and configuring [actors](../../reference/host-runtime/actors/) and [capability providers](../../reference/host-runtime/capabilities/).
 
 ### Prerequisites
-In order to follow this guide, you'll need a few things:
-- `wash` (installation covered on [the previous page](../installation))
-- [nats-server](https://docs.nats.io/nats-server/installation) **OR** [docker](https://docs.docker.com/engine/install/), recommended with [docker-compose](https://docs.docker.com/compose/install/)
-
-### Starting NATS
-[NATS](https://nats.io/) is a message broker used by wasmcloud's self-managing [lattice](../../reference/lattice/) network.
-
-In a terminal window, use one of the following options to launch `nats-server` locally. We recommend using `docker-compose` as it will also launch services that are used in other places in this documentation.
-
-{{% tabs %}}
-   {{% tab "docker-compose" %}}
-    # This file is located in the wash repository under tools/
-    cat <<EOF > docker-compose.yml
-    version: "3"
-    services:
-      registry:
-        image: registry:2
-        ports:
-        - "5000:5000"
-      nats:
-        image: nats:2.1.9
-        ports:
-        - "6222:6222"
-        - "4222:4222"
-        - "8222:8222"
-      redis:
-        image: redis:6.0.9
-        ports:
-        - "6379:6379"   
-    EOF
-    docker-compose up
-   {{% /tab %}}
-   {{% tab "docker" %}}
-    docker run -p 4222:4222 -ti nats:latest
-   {{% /tab %}}
-   {{% tab "nats-server binary" %}}
-    nats-server -a 0.0.0.0 -p 4222
-   {{% /tab %}}
- {{% /tabs %}}
+In order to follow this guide, you'll need `wash` (installation covered on [the previous page](../installation)).
 
 ### Running your first wasmcloud host
 In a separate terminal window, run the following command to launch an interactive wasmcloud REPL environment, including a preconfigured wasmcloud host:
