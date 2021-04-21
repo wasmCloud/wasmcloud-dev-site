@@ -79,7 +79,8 @@ You can use the following command to `link` your actor and provider.
 ```shell
 ctl link MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5 VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M wasmcloud:httpserver PORT=8080
 ```
-**Note:** If you're running MacOS you might receive a message asking if you want `wash` to receive incoming network connections. You should click "Allow", this is just setting up the provider's local HTTP server to listen on port 8080. This creates a temporary firewall rule to allow us to locally make HTTP requests to this HTTP server.
+**Note:** If you're running MacOS you might receive a message asking if you want `wash` to receive incoming network connections. Selecting either `Deny` or `Allow` will work for this tutorial where you are making a request to your own local machine. If you want to make this request from an environment that's not on your local machine, you may need to click `Allow` which will create a temporary firewall rule for that port.
+
 Once you see that the link has been advertised, you are ready to send a request to your actor.
 
 #### Interacting with your actor

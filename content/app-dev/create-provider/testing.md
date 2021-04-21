@@ -11,7 +11,7 @@ The easiest way to test your new capability provider is as follows:
 
 1. Upload the newly-created _provider archive_ to the local OCI registry (You can use `wash reg push`)
 
-1. Upload an actor that utilizes this provider to the local OCI registry (`wash reg push`)
+1. Upload an actor that utilizes this provider to the local OCI registry (`wash reg push`), or simply load a signed actor file. An example of doing this can be found in the [run the actor](../../create-actor/run/#launch-the-actor) section.
 
 1. Use `ctl link` inside the `wash up` REPL to establish a link (no values necessary) between the actor and the provider. Note that even if you don't supply configuration values, an actor must be linked to a provider (and have sufficient claims) before it can communicate with it.
 
