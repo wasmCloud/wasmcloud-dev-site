@@ -10,8 +10,8 @@ Our new actor already has one handler, the health check. Let's add a new handler
 First, we'll need to add a reference to the HTTP server actor interface and JSON serialization to our `Cargo.toml` file:
 
 ```toml
-serde_json = "1.0.59"
-wasmcloud-actor-http-server = { version = "0.2.2", features = ["guest"]}
+serde_json = "1.0.64"
+wasmcloud-actor-http-server = { version = "0.1.2", features = ["guest"]}
 ```
 
 In this case we're using a git reference for the actor interface,
