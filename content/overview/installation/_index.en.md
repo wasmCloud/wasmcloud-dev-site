@@ -42,6 +42,11 @@ You can find our packagecloud.io page [here](https://packagecloud.io/wasmcloud/c
    {{% /tab %}}
 {{% /tabs %}}
 
+⚠️ **M1 Mac Users** - The default engine for wasmCloud, `wasm3`, does not currently support M1 Macs. You can still use `wasmcloud` and `wash` by installing with the `wasmtime` feature flag, shown by the following command:
+```
+cargo install wasmcloud wash-cli --no-default-features --features wasmtime
+```
+
 ⚠️ **Windows Users** - Windows is currently only supported when loading capability providers as static plugins. We highly recommend using the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for the best wasmcloud experience.
 
 ### (All) Install from Source
