@@ -15,7 +15,7 @@ The following is a list of the operations supported by the control interface.
 
 All of the control interface messages published on NATS topics use a standard prefix. This prefix is `wasmbus.ctl.{namespace}` where `namespace` is a string used to differentiate one lattice from another. Note that this namespace must correspond to the namespace prefix of the lattice you intend to control.
 
-⚠️ You need to ensure that your namespace prefix does not contain any characters that cannot appear in a NATS subject.
+⚠️ You must ensure that your namespace prefix is alphanumeric and does not the contain `/` or `.` or `>` characters, as those have special meaning to the NATS message broker.
 
 All control interface messages are serialized as _message pack_ payloads that conform to the schema found in the [wasmcloud-control-interface](https://github.com/wasmCloud/wasmCloud/blob/main/crates/wasmcloud-control-interface/src/generated/ctliface.rs) repository.
 
