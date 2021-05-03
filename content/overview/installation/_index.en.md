@@ -42,7 +42,7 @@ You can find our packagecloud.io page [here](https://packagecloud.io/wasmcloud/c
    {{% /tab %}}
 {{% /tabs %}}
 
-⚠️ **M1 Mac Users** - The default engine for wasmCloud, `wasm3`, does not currently support M1 Macs. You can still use `wasmcloud` and `wash` by installing with the `wasmtime` feature flag, shown by the following command:
+⚠️ **M1 Mac Users** - The default WebAssembly engine for wasmCloud, `wasm3`, does not currently support M1 Macs. You can still use `wasmcloud` and `wash` by installing with the `wasmtime` feature flag, shown by the following command:
 ```
 cargo install wasmcloud wash-cli --no-default-features --features wasmtime
 ```
