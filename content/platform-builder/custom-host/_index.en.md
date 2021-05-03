@@ -12,7 +12,7 @@ wasmcloud releases all include a default set of binaries, including a `wasmcloud
 Declaring a dependency on wasmcloud is just a matter of adding a reference to it in your `Cargo.toml` file:
 
 ```toml
-wasmcloud-host = "0.15.0"
+wasmcloud-host = "0.18.0"
 ```
 
 ### Choosing a Low-Level WebAssembly Engine
@@ -22,13 +22,13 @@ By default, the wasmcloud crate will choose its default underlying WebAssembly e
 Choose **wasm3**:
 
 ```toml
-wasmcloud-host = { version = "0.15.0", features = ["wasm3"] }
+wasmcloud-host = { version = "0.18.0", features = ["wasm3"], default-features = false }
 ```
 
 Choose **[wasmtime](https://wasmtime.dev/)** (part of the [bytecode alliance](https://bytecodealliance.org/)):
 
 ```toml
-wasmcloud-host = { version = "0.15.0", features = ["wasmtime"] }
+wasmcloud-host = { version = "0.18.0", features = ["wasmtime"], default-features = false }
 ```
 
 ### Manipulating the Custom Host

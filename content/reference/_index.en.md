@@ -7,6 +7,4 @@ description: "Full, in-depth reference material on all aspects of wasmcloud."
 type : "docs"
 ---
 
-![image](getting-started.jpg?width=500px)
-
-Most of the documentation site are looks identical. Thats why we take an initiative to make something different and bring some new concept with minimal design. Meet Godocs , a documentation and knowledge based website template. It can be used for software, API, frameworks, plugins and templates online documentation website building.
+Here you'll find detailed reference materials on all aspects of wasmCloud. 
