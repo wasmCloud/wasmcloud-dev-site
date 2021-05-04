@@ -111,6 +111,11 @@ page = "search/"
 # main menu
 [[Languages.en.menu.main]]
 name = "Home"
+url = "https://wasmcloud.com"
+weight = 1
+
+[[Languages.en.menu.main]]
+name = "Docs Home"
 url = "/"
 weight = 1
 
@@ -118,7 +123,6 @@ weight = 1
 name = "Github"
 url = "https://github.com/wasmcloud"
 weight = 2
-
 
 # footer menu
 [[Languages.en.menu.footer]]
@@ -142,6 +146,11 @@ weight = 3
 # main menu
 [[Languages.fr.menu.main]]
 name = "Home"
+url = "https://wasmcloud.com"
+weight = 1
+
+[[Languages.fr.menu.main]]
+name = "Docs Home"
 url = "/"
 weight = 1
 
