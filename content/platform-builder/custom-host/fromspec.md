@@ -21,7 +21,7 @@ Internally, the host must perform the following activities:
 * Handle _local_ dispatch between actors and providers if the host supports internal providers
 * Handle _local_ dispatch between actors and actors
 * Expose some form of API that can be used to start and stop actors
-  * Actors must communicate with the host using the waPC specification. Custom hosts do not have to re-use existing waPC Rust crates, they only have to ensure that the host exposes the same waPC functions as the first-party wasmCloud host.
+  * Actors must communicate with the host using the [waPC](/reference/wapc) specification. Custom hosts do not have to re-use existing waPC Rust crates, they only have to ensure that the host exposes the same waPC functions as the first-party wasmCloud host.
   * The host does not need to use `widl` or any other waPC code generation facilities, so long as the host is able to use _messagepack_ for the serialization format for messages link establishing a link definition (`BindActor`) and health checks.
 * _Optionally_ expose an API that is used to start and stop providers. Custom wasmCloud hosts do not need to support internal capability providers.
 * Defer to lattice-based RPC during dispatch if no local targets for invocations are discovered.
