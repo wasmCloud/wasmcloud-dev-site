@@ -116,7 +116,7 @@ type PaymentMethodList {
 }
 ```
 
-At the moment, the code generation for **waPC** doesn't isolate the guest and host portions of the shared code the way we would like. Therefore, until the automated generation requires no hand-manipulation of the files, you can use existing actor interfaces as an example for how to apply minor tweaks. You can see the entire [payments-interface](https://github.com/wasmcloud/examples/tree/main/payments/payments-interface) Rust project to see what the code should look like.
+At the moment, the code generation for **waPC** doesn't isolate the guest and host portions of the shared code the way we would like. Therefore, until the automated generation requires no hand-manipulation of the files, you can use existing actor interfaces as an example for how to apply minor tweaks. You can see the entire [payments-interface](https://github.com/wasmCloud/examples/tree/main/ecommerce/payments-interface) Rust project to see what the code should look like.
 
 Before proceeding to the next step, you should create your own `payments-interface` project by copying the one from the github repository. This project contains the schema that we've just created, a `Makefile` that generates code into a `src/generated.rs` file, and the appropriate dependencies in `Cargo.toml`.
 
