@@ -28,6 +28,22 @@ use wasmcloud_actor_graphdb as graph;
 use graph::*;
 ```
 
+### Sign actor with the capabilities you use
+
+Once you have the wasm module that depends on any capability provider, it needs to be signed to be allowed to use that provider. This is done by adding the appropriate flag to the `wash claims sign` command. The command `wash claims sign --help` will list the standard options and the flags needed for the standard capabilities. Change the corresponding lines in the `Makefile` to reflect the providers you are using (note: there are two places to change). Here is an excerpt where we added the httpserver (`-q`) and keyvalue (`-k`) providers:
+
+```
+build:
+        @$(CARGO) build
+        wash claims sign -q -k $(DEBUG)/<actor>.wasm --name "<actor>" --ver $(VERSION) --rev $$(( $(REVISION) + 1 ))
+        wash claims inspect $(DEBUG)/<actor>_s.wasm
+...
+release:
+        @$(CARGO) build --release
+        wash claims sign -q -k $(RELEASE)/<actor>.wasm --name "<actor>" --ver $(VERSION) --rev 0
+        wash claims inspect $(RELEASE)/<actor>_s.wasm
+```
+
 ### Start and Link your Actors
 
 We've covered starting and linking actors in a few places throughout the documentation. Refer to the [Run the Actor](/app-dev/create-actor/run) section of the application development guide for more information.
