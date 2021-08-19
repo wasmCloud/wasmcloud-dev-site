@@ -60,12 +60,12 @@ Currently on this host, we have a few labels that show the environment this host
 
 The terminal output you've seen so far is also reflected in the GUI. Throughout our guides and tutorials we may alternate between the wasmCloud dashboard UI and terminal-based CLI to reinforce that everything you can do in one view, you can do in the other.
 
-#### Running an actor
+#### Running an Actor
 We can start scheduling actors and providers right away on this host using the `wash ctl start` command, but we'll use the dashboard UI for now. Using the web UI, click the **Start Actor** button and choose the _From Registry_ option. When prompted for an [OCI](https://opencontainers.org/posts/announcements/2021-05-04-oci-dist-spec-v1/) reference URL, enter `wasmcloud.azurecr.io/echo:0.2.1` and for now just choose **1** for the number of replicas. After just a few moments, you should now have a running actor in your environment. As the system conducts a periodic health check, the actor's status should change from `Awaiting` to `Healthy`.
 
 ![dashboard2](./washboard2.png)
 
-#### Running a capability provider
+#### Running a Capability Provider
 In order for this actor to receive HTTP requests, we're going to need to start the `HTTP Server` capability provider. Actors are signed WebAssembly modules, and as such they have embedded claims declaring their ability to communicate with capability providers like the `HTTP Server`. Actors cannot communicate with any capability provider for which they have not been signed.
 
 To start this provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the following OCI URL `wasmcloud.azurecr.io/httpserver:0.13.1` and leave the _link name_ set to `default`. You should now see this capability provider running (don't worry that our screenshot shows it as `unhealthy`, yours should switch to `healthy` as soon as an internal heartbeat takes place).
@@ -88,7 +88,7 @@ Let's take a look at our host's inventory now. You can now re-run the `wash ctl 
   VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.13.1
 ```
 
-#### Linking actors and capability providers
+#### Linking Actors and Capability Providers
 Now your `Echo` actor and `HTTP Server` providers are running, but they aren't connected. Since the HTTP server provider hasn't been _linked_ to any actor yet, it isn't yet running a web server. In order to allow the actor and provider to communicate, we need to `link` them together, which we do using their respective Public Keys (shown in the Inventory as `Actor ID` and `Provider ID`).
 
 Go back to the web UI and click **Define Link**. The web UI remembered the public keys of the actors and providers running, so you just need to pick them out of a dropdown as shown:
@@ -97,7 +97,7 @@ Go back to the web UI and click **Define Link**. The web UI remembered the publi
 
 Once you see that the link has been added to the dashboard UI (you can also use `wash` to query this from the lattice), you are ready to send a request to your actor.
 
-#### Interacting with your actor
+#### Interacting with your Actor
 In another terminal window, run the following command:
 ```shell
 curl localhost:8080/echo
