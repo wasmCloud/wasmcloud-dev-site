@@ -1,5 +1,5 @@
 ---
-title: "waPC"
+title: "wasmbus"
 date: 2018-12-29T11:02:05+06:00
 weight: 4
 draft: false
@@ -13,4 +13,4 @@ However, what if the runtime host you’re building might be loading and unloadi
 
 If we can’t predict the allocation behavior of the module’s memory, and we can’t afford long-lived pointers because we could unload a module with active, stateful references, how then do we create a reliable protocol for bi-directional communication between guests and hosts?
 
-This is the problem that _[WebAssembly Procedure Calls](https://wapc.io)_ (waPC for short) was designed to address. Once people reach the point in their WebAssembly journey where they realize that merely passing numbers back and forth is not sufficient, invariably they decide that they need a robust, bi-directional protocol for crossing the guest-host boundary.
+This is the problem that **wasmbus** is designed to address. Once people reach the point in their WebAssembly journey where they realize that merely passing numbers back and forth is not sufficient, invariably they decide that they need a robust, bi-directional protocol for crossing the guest-host boundary.
