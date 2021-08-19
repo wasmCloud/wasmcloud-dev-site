@@ -2,19 +2,19 @@
 title: "Overview"
 date: 2020-01-22T11:02:05+06:00
 icon: "ti-map" # themify icon pack : https://themify.me/themify-icons
-description: "New to wasmcloud? Start here."
+description: "New to wasmCloud? Start here."
 # type dont remove or customize
 type : "docs"
 ---
 
-wasmcloud is a platform designed to help developers rapidly code secure-by-default business logic with a rapid feedback loop that is free from the burden of boilerplate, integrated dependencies, and tight coupling to non-functional requirements.
+wasmCloud is a platform designed to help developers quickly and easily code secure-by-default business logic with a rapid feedback loop that is free from the burden of boilerplate, integrated (e.g. spaghetti) dependencies, and tight coupling to non-functional requirements.
 
 The creators of this open source project believe that we can not only change the way developers build software for the better, but make it easier to secure, deploy, maintain, observe, and upgrade that software as well--all while reducing the amount of boilerplate we have to copy and paste.
 
-wasmcloud is designed around the following core tenets:
+wasmCloud is designed around the following core tenets:
 
-* Productivity - Developer and Operations
-* Enterprise-grade Security
+* Productivity - _Developers and Operations_
+* Enterprise-Grade Security
 * Cost Savings
 * Portability
 * Performance
