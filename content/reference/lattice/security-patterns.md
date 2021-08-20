@@ -5,13 +5,13 @@ weight: 6
 draft: false
 ---
 
-There is a virtually limitless number of ways in which you can deploy and configure the NATS substrate that supports your lattice. The following are just a few of the common _security_ patterns that we recommend for deploying NATS for your wasmcloud applications.
+There is a virtually limitless number of ways in which you can deploy and configure the NATS substrate that supports your lattice. The following are just a few of the common _security_ patterns that we recommend for deploying NATS for your wasmCloud applications.
 
 ### The Sidecar Leaf Node
 
-In this pattern, each **wasmcloud** process is deployed on a host (virtual, container, etc) either alongside a NATS server process or connected to the same _local_ network as that host (e.g. docker compose shared network interface, Kubernetes pod network, etc).
+In this pattern, each wasmCloud host runtime process is deployed on a host (virtual, container, etc) either alongside a NATS server process or connected to the same _local_ network as that host (e.g. docker compose shared network interface, Kubernetes pod network, etc).
 
-This NATS server is configured as a leaf node. The leaf node authenticates _securely_ over TLS, ideally using de-centralized credentials (JWT+seed), to some other NATS server. This NATS leaf node server is configured to _only_ listen on `localhost` on a fixed port for client connections, and this listener allows anonymous connections.
+This NATS server is configured as a leaf node. The leaf node authenticates _securely_ over TLS, ideally using de-centralized credentials (JWT+seed) to some other NATS server. This NATS leaf node server is configured to _only_ listen on `localhost` on a fixed port for client connections.
 
 Because NATS is only allowing `localhost` connections, only those processes that share the same network interface can communicate with it. This type of "anonymous localhost" connection is commonly used in the [sidecar](https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar) pattern, which is why we've labelled this this "sidecar leaf node" pattern.
 
@@ -23,8 +23,8 @@ This pattern makes for an incredibly simple developer experience because on a de
 
 If your infrastructure needs don't support the sidecar pattern, then you can simply securely connect to a remote NATS server or NATS server cluster (or [gateway](https://docs.nats.io/nats-server/configuration/gateways)... there are plenty of options). We strongly recommend the use of the de-centralized JWT+seed (credentials file) authentication mechanism because of its enhanced security properties and ease of use.
 
-You should never connect anonymously or without TLS to a remote NATS installation for production uses. Anonymous/insecure connections are only secure in the sidecar scenario.
+You should never connect anonymously or without TLS to a remote NATS installation for production uses. Anonymous/insecure connections are only secure in the sidecar/localhost scenario.
 
 ### User/Password Not Supported?
 
-You may have noticed that while NATS supports clear text username and password authentication, we do not support this for wasmcloud lattice authentication. This is currently a security opinion and we have chosen to support either anonymous connections or de-centralized authentication connections. If you feel that there is suitable justification to support username and password lattice authentication, please [file an issue](https://github.com/wasmcloud/wasmcloud/issues) with the team.
+You may have noticed that while NATS supports clear text username and password authentication, we do not support this for wasmCloud lattice authentication. This is currently a security opinion and we have chosen to support either anonymous connections or de-centralized authentication connections. If you feel that there is suitable justification to support username and password lattice authentication, please [file an issue](https://github.com/wasmCloud/wasmcloud-otp/issues) with the team.

@@ -14,3 +14,7 @@ on your development machine in isolation, but when you're running in a productio
 an explicit namespace for the lattice to avoid any chance of accidental overlap.
 
 The main thing to be wary of is running multiple lattices without specifying a prefix, as they will all adopt the `default` prefix and merge into one unified lattice.
+
+#### ⚠️ Caution
+
+Because the namespace prefix is used to sub-divide topic spaces, the namespace prefix must also contain only the valid characters for a NATS topic. By convention, we usually use single-word, lowercase prefixes.
