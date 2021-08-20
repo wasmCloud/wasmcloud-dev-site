@@ -33,6 +33,8 @@ Defining the business logic for your actor's message handlers is as simple as im
 
 ### Something's Missing
 
-Before we get into modifying the scaffolding to create the rest of this actor, take a look what what's _not_ included in this code. This code returns an abstraction of an HTTP request, it is _not_ tightly coupled to any particular HTTP server. Further, you don't see the port number or server configuration options anywhere in the code. 
+Before we get into modifying the scaffolding to create the rest of this actor, take a look what what's _not_ included in this code. This code returns an abstraction of an HTTP response, it is _not_ tightly coupled to any particular HTTP server. Further, you don't see the port number or server configuration options anywhere in the code. 
 
-_This is the way development was meant to be_. Pure business logic, with all of your non-functional requirements handled through loosely coupled abstractions by runtime-configurable hosts. No boilerplate, no fuss.
+_This is the way development was meant to be_.
+
+Pure business logic, with all of your non-functional requirements handled through loosely coupled abstractions by runtime-configurable hosts. _No boilerplate, no fuss_.

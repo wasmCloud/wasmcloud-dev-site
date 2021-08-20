@@ -5,7 +5,7 @@ weight: 9
 draft: false
 ---
 
-It's a fairly easy matter of just declaring a dependency on the `payments-interface` crate from a new actor proejct. However, the difficult question isn't _how_ can an actor utilize this new payments provider, but _why_ and _when_?
+It's a fairly easy matter of just declaring a dependency on the `payments-interface` crate from a new actor project. However, the difficult question isn't _how_ can an actor utilize this new payments provider, but _why_ and _when_?
 
 There are a couple of different approaches here, with their own pros and cons.
 
@@ -27,7 +27,7 @@ That's _exactly_ what we think should happen. It can be **very** tempting to cre
 
 ### Using The Provider in the Right Business Context
 
-Let's assume that we're working within this ecommerce application. We now have a `payments` capability provider, and we have decided _not_ to create a corresponding `payments` actor.
+Let's assume that we're working within our sample ecommerce application. We now have a `payments` capability provider, and we have decided _not_ to create a corresponding `payments` actor.
 
 One possible design with a better[^1] abstraction might be defining the business logic in the `shoppingcart` actor to invoke the payments capability provider in response to some stimulus requesting a "check out" operation.
 
@@ -36,34 +36,12 @@ We could design this actor to respond to an RPC-style operation called `Checkout
 For the sake of example, let's take a look at what it might look like to respond directly to a checkout operation via actor-to-actor RPC (this is non-compiling psuedocode):
 
 ```rust
-use wasmcloud_actor_core as actor;
-#[actor::init]
-pub fn init() {
-    commerce::Handlers::register_checkout(checkout);
-
-    // .. more handlers
-}
-
-fn checkout(msg: commerce::CheckoutRequest) -> 
-  HandlerResult<commerce::CheckoutResponse> {
-    let mut resp = CheckoutResponse::default(); // unsuccessful
-    let req: AuthorizePaymentRequest = 
-      build_auth_req(msg.payment_entity, msg.payment_token);
-    // make use of the payments API
-    let pay_auth = payments::default().authorize_payment(req)?;
-    if pay_auth.success {
-        let complete_req: CompletePaymentRequest = 
-          build_complete_req(&req, &pay_auth);
-        resp.success = 
-          payments::default().complete_payment(complete_req)?.success;
-    }
-
-    Ok(resp)
-}
+TODO
 ```
 
 In the preceding sample, any (authorized) actor could simply perform an actor-to-actor invocation using the shared actor interface in the `commerce` crate to trigger a shopping cart checkout, which in turn makes use of the payment capability provider, all without any actor developer ever having to know how payments are processed in production and, even better, allowing actor developers to simulate arbitrary payment environments for unit tests, acceptance tests, and feedback loop/REPL experimentation on their workstation.
 
-⚠️  **NOTE** - Make sure you use `wash` to _sign_ your actor with the `examples:payments` custom capability contract ID, or your actor(s) will not be authorized to link with or communicate with the provider we wrote.
+#### ⚠️  Note
+Make sure you use `wash` to _sign_ your actor with the `examples:payments` custom capability contract ID, or your actor(s) will not be authorized to link with or communicate with the provider we wrote.
 
 [^1]: _better_ is of course, subjective. Your needs and mileage may vary.

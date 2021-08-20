@@ -5,7 +5,11 @@ weight: 5
 draft: false
 ---
 
-Creating a capability provider is one of the more involved tasks when working within the wasmcloud ecosystem. First, you need to decide if you're creating a new provider for an existing contract or if you're creating an entirely new contract. If you don't need to create a new contract, then you can skip to the second step in this guide.
+When you decide to create a new capability provider, you have two options:
+* Create a provider for a brand new interface contract
+* Create a provider for a previously existing interface contract.
+
+In this guide, we're going to cover all of the tasks of creating a capability provider, including creating a new interface. If you're not interested in defining interfaces and working with code generation, then you can skip to the second step in this guide.
 
 ### The Sample Use Case
 
@@ -15,7 +19,7 @@ To solve this problem, we're going to hide the implementation details of accepti
 
 Creating a new capability provider involves:
 
-1. [Contract-Driven Design](./cdd)
-1. [Creating a Rust Capability Provider](./rust)
+1. [Creating a New Interface](./new-interface)
+1. [Creating a Capability Provider](./rust)
 1. [Create a Provider Archive](./create-par)
 1. [Using the New Capability Provider in an Actor](./consuming)

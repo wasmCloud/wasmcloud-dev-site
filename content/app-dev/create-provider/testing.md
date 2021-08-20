@@ -13,9 +13,9 @@ The easiest way to test your new capability provider is as follows:
 
 1. Upload an actor that utilizes this provider to the local OCI registry (`wash reg push`), or simply load a signed actor file. An example of doing this can be found in the [run the actor](../../create-actor/run/#launch-the-actor) section.
 
-1. Use `ctl link` inside the `wash up` REPL to establish a link (no values necessary) between the actor and the provider. Note that even if you don't supply configuration values, an actor must be linked to a provider (and have sufficient claims) before it can communicate with it.
+1. Use `wash ctl link` from the CLI or use the dashboard web UI to establish a link (no values necessary) between the actor and the provider. Note that even if you don't supply configuration values, an actor must be linked to a provider (and have sufficient claims) before it can communicate with it.
 
-1. Use `ctl call` to fabricate a JSON payload that matches whatever inbound request your actor uses to trigger the payment provider. In the previous section we used `CheckoutRequest` that might have a JSON body as follows:
+1. Use `wash call` or the dashboard UI to fabricate a JSON payload that matches whatever inbound request your actor uses to trigger the payment provider. In the previous section we used `CheckoutRequest` that might have a JSON body as follows:
 
     ```json
     {
@@ -24,4 +24,4 @@ The easiest way to test your new capability provider is as follows:
     }
     ```
 
-1. Since the response will be serialized in _message pack_ format, the data may look a little ugly in the REPL log, but you'll be able to see your actor using your new provider in the output.
+1. Since the response will be serialized in _message pack_ format, the data may look a little awkward in the terminal output, but you'll be able to see your actor using your new provider in the output.
