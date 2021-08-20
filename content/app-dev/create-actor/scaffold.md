@@ -5,48 +5,34 @@ weight: 3
 draft: false
 ---
 
-Creating the scaffold for a new actor in Rust is very easy. First, you'll need to make sure you have the [generate](https://crates.io/crates/cargo-generate) cargo plugin:
+Creating the scaffold for a new actor in Rust is very easy. To create a new actor project, simply issue the following `wash` command:
 
 ```
-cargo install cargo-generate
+wash new actor
 ```
 
-Once you've installed `cargo-generate`, then we can create a new actor using wasmcloud's [new actor template](https://github.com/wasmcloud/new-actor-template):
+This will prompt you for the information needed to create a new project. Assuming you indicated that your new project was named `echo`, then you could now change into the `echo` directory and you will have a ready-to-build Rust project. 
 
-```
-cargo generate --git https://github.com/wasmcloud/new-actor-template --branch main
-```
+The new actor created by the scaffolding is a "hello world" actor that responds to an HTTP request with 
 
-You should see output similar to the following:
-
-```shell
-cargo generate --git https://github.com/wasmcloud/new-actor-template
- Project Name: example
- Creating project called `example`...
- Done! New project created /home/test/wasmcloud/rust/example
-```
-
-This creates an empty actor with the only function being the initialisation of the actor and a default, mandatory health checker.
 Let's take a look at the created `src/lib.rs` file:
 
 ```rust
-extern crate wapc_guest as guest;
-use wasmcloud_actor_core as actor;
-
-use guest::prelude::*;
-
-#[actor::init]
-fn init() {
-    // Register your message handlers here
-}
+TODO
 ```
 
-There are two external dependences here: `wapc_guest` and `wasmcloud_actor_core`.
-`wapc_guest` provides the ability to receive function calls according to the [waPC](https://wapc.io/) specification. 
-`wasmcloud_actor_core` contains the data types required by all actors, namely the health check request and health check response, and CapabilityConfiguration, a struct used by capability providers to receive link data for an actor.
+Note the two lines at the top of the source code file:
 
-The attribute `actor::init` will create a default health check message handler.  All actors
-must respond to health checks whenever the host runtime requests them. This is how the host runtime 
-can tell if an actor that may appear to be running is truly healthy.
-Let's move on to defining some new message handlers.
+```rust
+use wasmbus_rpc::actor::prelude::*;
+use wasmcloud_interface_httpserver::{HttpRequest, HttpResponse, HttpServer, HttpServerReceiver};
+```
+This shows us that we're using a core wasmCloud crate called `wasmbus_rpc` and we've also declared a dependency on the `wasmcloud_interface_httpserver` crate. By convention, all first-party wasmCloud interfaces begin with `wasmcloud_interface`.
 
+Defining the business logic for your actor's message handlers is as simple as implementing the `HttpServer` trait on your actor. If you use an IDE that comes with hover tooltips and lookups, then you'll be able to get easy, strongly-typed guidance throughout the process.
+
+### Something's Missing
+
+Before we get into modifying the scaffolding to create the rest of this actor, take a look what what's _not_ included in this code. This code returns an abstraction of an HTTP request, it is _not_ tightly coupled to any particular HTTP server. Further, you don't see the port number or server configuration options anywhere in the code. 
+
+_This is the way development was meant to be_. Pure business logic, with all of your non-functional requirements handled through loosely coupled abstractions by runtime-configurable hosts. No boilerplate, no fuss.

@@ -20,7 +20,7 @@ Additionally, the following capability providers are _built-in_, and while they 
 * `wasmcloud:builtin:numbergen`
 * `wasmcloud:builtin:logging`
 
-In our case, all of the contracts created by the wasmCloud team are prefixed with the `wasmcloud` prefix. This does not mean that other organizations cannot provide an implementation of a wasmcloud contract. On the contrary, we have multiple implementations of wasmCloud contracts for things like an S3 blob store, multiple key-value providers, etc.
+In our case, all of the contracts created by the wasmCloud team are prefixed with the `wasmcloud` prefix. This does not mean that other organizations cannot provide an implementation of a wasmCloud contract. On the contrary, we have multiple implementations of wasmCloud contracts for things like an S3 blob store, multiple key-value providers, etc.
 
 ### Building a Provider
 
