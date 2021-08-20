@@ -19,6 +19,5 @@ For the curious, here is the exact list of the wasmbus protocol’s functions. T
 | `__guest_request` | Host | Called by the guest to tell the host the pointer addresses of where to store the request’s operation (string) and request payload (blob) values. |
 | `__guest_call` | Guest | Invoked by the host to tell the guest to begin processing a function call. The guest will then retrieve the parameters and set response values via host calls. |
 | `__wasmbus_rpc_version` | Guest | Invoked by the host to query the actor module to determine which version of the wasmbus protocol it was built against. Current actors should return the value **1** |
-| `wasmbus_init` | Guest | Invoked by the host to allow an actor to perform initialization code, e.g. setting up event handlers |
 
 The wasmbus FFI functions are already taken care of for you in the existing libraries that are code generated from our smithy schemas. Built on top of our code generation foundation, we have the wasmCloud [interfaces](https://github.com/wasmcloud/interfaces).

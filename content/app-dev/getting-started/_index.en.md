@@ -5,8 +5,17 @@ weight: 1
 draft: false
 ---
 
-Getting started with application development on wasmcloud is pretty simple. The first thing you'll need is to perform the [installation](/overview/installation) steps outlined by this reference guide.
+Getting started with application development on wasmCloud is pretty simple. The first thing you'll need is to perform the [installation](/overview/installation) steps outlined by this guide.
 
-Next, make sure you have the language of your choice installed and ready to go. Today, we support **Rust**, **Tiny Go**, and **AssemblyScript**. Make sure that whatever your target language, it is installed and configured and capable of producing WebAssembly (`.wasm`) modules.
+Next, make sure you have the language of your choice installed and ready to go. Today, we support **Rust** but support for other languages will be coming soon. 
+
+Before you can build actors with Rust, you'll need to have the `wasm32-unknown-unknown` target added to 
+your environment. You can set this up by executing the following command:
+
+```shell
+rustup target add wasm32-unknown-unknown
+```
+
+While not yet utilized for wasmCloud development, if you're curious about building WASI modules, then you can also add the `wasm32-wasi` target.
 
 Let's get started by creating an [actor](/reference/host-runtime/actors).

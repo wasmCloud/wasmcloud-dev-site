@@ -5,16 +5,12 @@ weight: 2
 draft: false
 ---
 
-Creating an actor with **wasmcloud** involves a few steps. First, you'll need to choose the programming language for your actor. As of the current release, we support the following programming languages for actors:
+Creating an actor with **wasmCloud** is simple and easy. Today, we support actors created in **Rust** but we will soon have support for other languages as those languages develop better tooling and support for WebAssembly.
 
-* Rust
-* TinyGo
-* AssemblyScript
-
-Next, you'll need to use the appropriate tooling to create a new actor in your language of choice. Currently the **wash** CLI does not **yet** support code generation or the production of scaffolding. As such, if you want scaffolding for Rust, you should use `cargo generate`, which is what this guide assumes. Check the [actor interfaces](https://github.com/wasmcloud/actor-interfaces) GitHub repository for information on scaffolding for other languages.
+To perform the steps in this guide, you'll need to have the wasmCloud host runtime installed as well as the `wash` CLI, and have a Rust installation with the `wasm32-unknown-unknown` target available.
 
 This guide will walk you through the following steps to creating an actor:
 
-* [Generate the scaffold](./scaffold)
-* [Define message handlers](./handlers)
-* [Run the actor](./run)
+* [Generate the Scaffold](./scaffold)
+* [Define Message Handlers](./handlers)
+* [Run the Actor](./run)

@@ -15,7 +15,8 @@ Make sure that you have NATS running. wasmCloud host requires that you run NATS 
 
 NATS will greet you with some fairly obvious ASCII artwork in the console log when you start it with JetStream enabled.
 
-### Running your first wasmCloud host
+### Running your First wasmCloud host
+
 If you haven't already launched an instance of the wasmCloud host, you can do so now either by launching it as a server (daemon) or as a foreground process, or using the docker image.
 
 ```shell
@@ -61,11 +62,13 @@ Currently on this host, we have a few labels that show the environment this host
 The terminal output you've seen so far is also reflected in the GUI. Throughout our guides and tutorials we may alternate between the wasmCloud dashboard UI and terminal-based CLI to reinforce that everything you can do in one view, you can do in the other.
 
 #### Running an Actor
+
 We can start scheduling actors and providers right away on this host using the `wash ctl start` command, but we'll use the dashboard UI for now. Using the web UI, click the **Start Actor** button and choose the _From Registry_ option. When prompted for an [OCI](https://opencontainers.org/posts/announcements/2021-05-04-oci-dist-spec-v1/) reference URL, enter `wasmcloud.azurecr.io/echo:0.2.1` and for now just choose **1** for the number of replicas. After just a few moments, you should now have a running actor in your environment. As the system conducts a periodic health check, the actor's status should change from `Awaiting` to `Healthy`.
 
 ![dashboard2](./washboard2.png)
 
 #### Running a Capability Provider
+
 In order for this actor to receive HTTP requests, we're going to need to start the `HTTP Server` capability provider. Actors are signed WebAssembly modules, and as such they have embedded claims declaring their ability to communicate with capability providers like the `HTTP Server`. Actors cannot communicate with any capability provider for which they have not been signed.
 
 To start this provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the following OCI URL `wasmcloud.azurecr.io/httpserver:0.13.1` and leave the _link name_ set to `default`. You should now see this capability provider running (don't worry that our screenshot shows it as `unhealthy`, yours should switch to `healthy` as soon as an internal heartbeat takes place).
