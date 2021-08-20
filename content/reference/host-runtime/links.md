@@ -30,6 +30,10 @@ Link definitions are declared, first-class citizens of a lattice network. This m
 
 This has a few interesting implications. The first is that it makes for an incredibly low-friction developer experience. Order of operations does not matter - you can add actors and providers to a host, and their corresponding link definitions to the lattice in any order and it "just works". The second is that all capability providers must treat the "bind actor" message as idempotent, and return a positive result and ignore duplicate bind messages.
 
-This brings up an important, yet subtle point: ⚠️ **_link definition values cannot be changed at runtime_**. If you have a link definition for an HTTP server link for an actor, and that definition contains a `PORT` value of `8080`, then there is nothing that can be done to change that value at runtime. This is a security measure first and foremost, and a reliability/consistency measure secondarily. If you could change the configuration at runtime, then you could very easily have divergence between the actual and declared configuration. Further, the consequences of changing configuration values at runtime are unknowable by the platform... sometimes even the application developers may not know the consequences.
+#### ⚠️ Immutable Links
 
-As a result, if you truly must change configuration at runtime, you must _remove_ a link definition (causing the actors and providers involved to "un bind" and release all related resources, HTTP ports, etc) and then add back a new one with the new values.
+Our discussion leads us to an important, yet subtle point:  **_link definition values cannot be changed at runtime_**. If you have previously declared that a given link between an actor and, say, an HTTP server provider, utilizes port `8080`, then there is _nothing_ that can be done at runtime to _change_ that port number. This is a security measure first and foremost, and a reliability/consistency measure secondarily. 
+
+If you could change the configuration at runtime, then you could very easily have divergence between the actual and declared configuration. Further, the consequences of changing configuration values at runtime are unknowable by the platform... sometimes even the application developers may not know the consequences.
+
+As a result, if you truly must change configuration at runtime, you must **remove** a link definition (causing the actors and providers involved to "un bind" and release all related resources, HTTP ports, sockets, DB connections, etc) and then add back a new one with the new values.

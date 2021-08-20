@@ -45,6 +45,6 @@ capabilities:
 
 Remember that the providers won't actually be "active" until you've supplied the appropriate link definitions. You can supply them either before or after you apply the manifest.
 
-### Caveats
+### ⚠️ Caveats
 
 As mentioned above, manifest files are _imperative_. They are basically shortcuts for `wash ctl` instructions. You need to be aware that applications could fail when attempting to apply the same manifest twice (e.g. the same provider+link name cannot be running on a single host more than once).

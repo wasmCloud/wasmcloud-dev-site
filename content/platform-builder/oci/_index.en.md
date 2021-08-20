@@ -12,3 +12,5 @@ When we refer to **OCI** throughout our documentation, we are likely talking abo
 The use of an OCI registry as a source for signed actors and capability provider archives means that your running _lattice_ deployment in production can either access a public registry, or it can access one that you have securely deployed within your organization.
 
 OCI registries, especially those deployed privately within an organization, can be made part of a deployment pipeline such that built, signed, and ready-to-use artifacts can be pushed to the registry and then retrieved from that registry at runtime in response to control interface requests or invocations of various `Host` functions in custom Rust runtime code.
+
+The `wash` CLI has command options for pushing to, pulling from, and inspecting actors and providers in an OCI registry. 
