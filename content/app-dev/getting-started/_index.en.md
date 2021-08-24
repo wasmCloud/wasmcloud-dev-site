@@ -16,6 +16,6 @@ your environment. You can set this up by executing the following command:
 rustup target add wasm32-unknown-unknown
 ```
 
-While not yet utilized for wasmCloud development, if you're curious about building WASI modules, then you can also add the `wasm32-wasi` target.
+While not yet utilized for wasmCloud development, if you're curious about building WASI modules, you can also add the `wasm32-wasi` target.
 
 Let's get started by creating an [actor](/reference/host-runtime/actors).

@@ -5,31 +5,35 @@ weight: 2
 draft: false
 ---
 
-In this guide, we'll be taking a tour through some of the most common activities in the wasmCloud ecosystem, like starting and configuring [actors](../../reference/host-runtime/actors/) and [capability providers](../../reference/host-runtime/capabilities/). We will save the guides for actually writing code for actors and providers for later, after you're familiar with the tooling and runtime.
+In this guide, we'll be taking a tour through some of the most common activities in the wasmCloud ecosystem, like starting and configuring [actors](../../reference/host-runtime/actors/) and [capability providers](../../reference/host-runtime/capabilities/). We will save the guides for actually writing code for actors and providers for later, after you're familiar with the tooling and starting/stopping the runtime.
 
 ### Prerequisites
 In order to follow this guide, you'll need `wash` and the wasmCloud OTP host runtime (installation covered on [the previous page](../installation)).
 
 ### Start NATS
-Make sure that you have NATS running. wasmCloud host requires that you run NATS with [JetStream](https://docs.nats.io/jetstream/jetstream) enabled, so you'll need to modify the start command to include either `-js` or `--jetstream` when you start the server.
+Make sure that you have NATS running. The wasmCloud host requires that you run NATS with [JetStream](https://docs.nats.io/jetstream/jetstream) enabled, so you'll need to modify the start command to include either `-js` or `--jetstream` when you start the server:
 
-NATS will greet you with some fairly obvious ASCII artwork in the console log when you start it with JetStream enabled.
+```shell
+nats-server -js
+```
+
+NATS will greet you with some fairly obvious ASCII artwork in the console log when you start it with JetStream enabled. At the time this documentation was written, we used **v2.3.4** of the NATS server. Yours should be _at least_ that version.
 
 ### Running your First wasmCloud host
 
-If you haven't already launched an instance of the wasmCloud host, you can do so now either by launching it as a server (daemon) or as a foreground process, or using the docker image.
+If you haven't already launched an instance of the wasmCloud host, you can do so now either by launching it as a server (daemon) or as a foreground process, or using the docker image. The following starts the host as a server/daemon:
 
 ```shell
 ./bin/wasmcloud_host start
 ```
 
-You'll know that your wasmCloud host is running by opening a browser tab to the URL [http://localhost:4000](http://localhost:4000). This is the _wasmCloud dashboard_, a GUI that you will use quite often as you learn to build distributed applications in this ecosystem.
+_No news is good news_. If everything went right, you should see nothing. You'll know that your wasmCloud host is running by opening a browser tab to the URL [http://localhost:4000](http://localhost:4000). This is the _wasmCloud dashboard_, a GUI that you will use quite often as you learn to build distributed applications in this ecosystem.
 
 ![dashboard1](./washboard1.png)
 
 Make sure that you've got the port **4000** available or you likely won't see the wasmCloud dashboard. If you need to change the port number, you can set the environment variable `PORT` to the new number and re-start the host with that environment variable in scope.
 
-To see a list of running hosts, issue the following command in a terminal window:
+To see a list of running hosts, issue the following command in a terminal window (`wash` should be in your path):
 ```shell
 wash ctl get hosts
 ⢈⠩  Retrieving Hosts ...
@@ -57,7 +61,7 @@ You'll see output similar to the following (your host key will be different):
   No providers found  
 ```
 
-Currently on this host, we have a few labels that show the environment this host is running on, and no capability providers.
+Currently on this host, we have a few labels that show the environment this host is running on, and no capability providers. All wasmCloud hosts set the `hostcore.*` labels, which are available in auctions (discussed in the reference guide).
 
 The terminal output you've seen so far is also reflected in the GUI. Throughout our guides and tutorials we may alternate between the wasmCloud dashboard UI and terminal-based CLI to reinforce that everything you can do in one view, you can do in the other.
 
@@ -71,18 +75,36 @@ We can start scheduling actors and providers right away on this host using the `
 
 In order for this actor to receive HTTP requests, we're going to need to start the `HTTP Server` capability provider. Actors are signed WebAssembly modules, and as such they have embedded claims declaring their ability to communicate with capability providers like the `HTTP Server`. Actors cannot communicate with any capability provider for which they have not been signed.
 
-To start this provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the following OCI URL `wasmcloud.azurecr.io/httpserver:0.13.1` and leave the _link name_ set to `default`. You should now see this capability provider running (don't worry that our screenshot shows it as `unhealthy`, yours should switch to `healthy` as soon as an internal heartbeat takes place).
+Let's use the `wash` CLI to inspect the set of capabilities this actor has:
+
+```shell
+wash claims inspect wasmcloud.azurecr.io/echo:0.2.1
+                                                                          
+                               Echo - Module                              
+  Account       ACOJJN6WUP4ODD75XEBKKTCCUJJCY5ZKQ56XVKYK4BEJWGVAOOQHZMCW  
+  Module        MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5  
+  Expires                                                          never  
+  Can Be Used                                                immediately  
+  Version                                                      0.2.1 (2)  
+  Call Alias                                                   (Not set)  
+                               Capabilities                               
+  HTTP Server                                                             
+                                   Tags                                   
+  None
+```
+
+To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.13.1` and leave the _link name_ set to `default`. You should now see this capability provider running (don't worry that our screenshot shows it as `unhealthy`, yours should switch to `healthy` as soon as an internal heartbeat takes place).
 
 ![dashboard3](./washboard3.png)
 
 Let's take a look at our host's inventory now. You can now re-run the `wash ctl get inventory` command and you should see something like the following (again, your host ID will differ):
 
 ```shell
-                                  Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)                                 
+Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)                                 
                                                                                                                                             
-  hostcore.os                                                                    linux                                                      
-  hostcore.osfamily                                                              unix                                                       
-  hostcore.arch                                                                  x86_64                                                     
+  hostcore.os                  linux                                                      
+  hostcore.osfamily            unix                                                       
+  hostcore.arch                x86_64                                                     
                                                                                                                                             
   Actor ID                                                    Name               Image Reference                                            
   MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5    N/A                wasmcloud.azurecr.io/echo:0.2.1                            
@@ -113,7 +135,7 @@ In response, you should receive your request object (notice the path argument):
 
 Feel free to try out different methods of making a request to your actor, including adding headers or using a different HTTP method to see different outputs.
 
-Instead of using `curl`, you can also _directly invoke_ actors' registered functions using `wash ctl call`. The function that "echoes" this HTTP request is a part of the interface `wasmcloud:httpserver` and has the operation name `HandleRequest`. We can make this request directly to the actor if we supply the correct parameters.
+Instead of using `curl`, you can also _directly invoke_ actors' registered functions using `wash call`. The function that "echoes" this HTTP request is a part of the interface `wasmcloud:httpserver` and has the operation name `HandleRequest`. We can make this request directly to the actor if we supply the correct parameters.
 
 Here's an example of using `wash call` to mimic our previous `curl` command. Note that this is not interacting with the `HTTP Server` provider, and we don't need it to be running or linked for this operation to succeed:
 
@@ -128,9 +150,9 @@ Our output will look something like this:
 Call response (raw): ��statusCode�Ȧstatus�OK�header��body�H{"method":"GET","path":"/echo","query_string":"","headers":{},"body":[]}
 ```
 
-Because the actor isn't actually returning JSON, the return payload has some characters that the terminal doesn't know how to interpret from its bytes[^1]. However you can still see the response body which contains our exact "echoed" request. Note that there's a more "human" friendly way of invoking actors using the dashboard's web UI.
+Because the actor isn't actually returning JSON, the return payload has some characters that the terminal doesn't know how to interpret from its bytes[^1]. However, you can still see the response body which contains our exact "echoed" request. Note that there's a more "human" friendly way of invoking actors using the dashboard's web UI.
 
-Congratulations, you've made it through the first guide to wasmCloud. You should now feel comfortable exploring the ecosystem, starting and stopping the host runtime, interacting with the wasmCloud dashboard web UI, and interacting with lattices using the `wash` command line tool.
+Congratulations! You've made it through the first guide to wasmCloud. You should now feel comfortable exploring the ecosystem, starting and stopping the host runtime, interacting with the wasmCloud dashboard web UI, and interacting with lattices using the `wash` command line tool.
 
 To learn more about actors, providers, and more concepts on wasmcloud, continue on to the [App Development](../../app-dev) or [Platform Building](../../platform-builder) sections depending on your interests.
 

@@ -11,9 +11,9 @@ Creating the scaffold for a new actor in Rust is very easy. To create a new acto
 wash new actor
 ```
 
-This will prompt you for the information needed to create a new project. Assuming you indicated that your new project was named `echo`, then you could now change into the `echo` directory and you will have a ready-to-build Rust project. 
+This will prompt you for the information needed to create a new project. Assuming you indicated that your new project was named `hello`, then you could now change into the `hello` directory and you will have a ready-to-build Rust project. 
 
-The new actor created by the scaffolding is a "hello world" actor that responds to an HTTP request with 
+The new actor created by the scaffolding is a "hello world" actor that responds to an HTTP request with a response containing a description of the request.
 
 Let's take a look at the created `src/lib.rs` file:
 
@@ -33,7 +33,7 @@ Defining the business logic for your actor's message handlers is as simple as im
 
 ### Something's Missing
 
-Before we get into modifying the scaffolding to create the rest of this actor, take a look what what's _not_ included in this code. This code returns an abstraction of an HTTP response, it is _not_ tightly coupled to any particular HTTP server. Further, you don't see the port number or server configuration options anywhere in the code. 
+Before we get into modifying the scaffolding to create the rest of this actor, take a look what what's _not_ included in this code. This code returns an abstraction of an HTTP response, it is _not_ tightly coupled to any particular HTTP server. Further, you don't see the port number or server configuration options anywhere in the code. Finally, you can scale and compose this actor any way you see fit without ever having to recompile or redeploy it.
 
 _This is the way development was meant to be_.
 

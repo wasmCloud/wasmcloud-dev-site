@@ -33,7 +33,7 @@ TODO screenshot actor and provider
 
 ### Add a Link Definition
 
-With both the provider and the actor running, the only thing left to do is _link_ the two. This provides a set of configuration values that is unique to one actor's use of a provider. To change things up slightly, and so you develop some muscle memory, we'll use the `wash` CLI here. To link your actor, the first thing you need is the actor's public key. You can get that simply by clicking on the clipboard icon next to the actor name in the dashboard web UI (it'll be the key that starts with **M**).
+With both the provider and the actor running, the only thing left to do is _link_ the two. This provides a set of configuration values that is unique to one actor's use of a provider. To change things up slightly, and so you develop some muscle memory with the command line tooling, we'll use the `wash` CLI here. To link your actor, the first thing you need is the actor's public key. You can get that simply by clicking on the clipboard icon next to the actor name in the dashboard web UI (it'll be the key that starts with **M**).
 
 Once you've got the actor's public key, you can issue the following `wash` command where `(ACTOR_MODULE_KEY)` is the key you just put on your clipboard: 
 
