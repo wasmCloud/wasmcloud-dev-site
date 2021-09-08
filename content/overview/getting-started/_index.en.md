@@ -5,10 +5,10 @@ weight: 2
 draft: false
 ---
 
-In this guide, we'll be taking a tour through some of the most common activities in the wasmCloud ecosystem, like starting and configuring [actors](../../reference/host-runtime/actors/) and [capability providers](../../reference/host-runtime/capabilities/). We will save the guides for actually writing code for actors and providers for later, after you're familiar with the tooling and starting/stopping the runtime.
+In this guide, we'll be taking a tour through some of the most common activities in the wasmCloud ecosystem, like starting and configuring [actors](../../reference/host-runtime/actors/) and [capability providers](../../reference/host-runtime/capabilities/). We will save the guides for actually writing code for actors and providers for later, after you're familiar with the tooling and starting and stopping the runtime.
 
 ### Prerequisites
-In order to follow this guide, you'll need `wash` and the wasmCloud OTP host runtime (installation covered on [the previous page](../installation)).
+In order to follow this guide, you'll need `wash` and the wasmCloud OTP host runtime (installation is covered in [the previous page](../installation)).
 
 ### Start NATS
 Make sure that you have NATS running. The wasmCloud host requires that you run NATS with [JetStream](https://docs.nats.io/jetstream/jetstream) enabled, so you'll need to modify the start command to include either `-js` or `--jetstream` when you start the server:

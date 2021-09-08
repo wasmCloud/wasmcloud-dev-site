@@ -12,7 +12,7 @@ draft: false
 
 While other languages will be supported in the future, actor and capability development are supported _Rust-first_, so you will also want to [install Rust](https://www.rust-lang.org/tools/install) if you haven't already.
 
- You will also want to make sure that your operating system has its development tool suite installed, which typically includes things like [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and **make** (you'll need to look up the instructions for installing this in your environment as they vary). Many operating systems come with both **git** and **make** included.
+ You will also want to make sure that your operating system has its development tool suite installed, which typically includes things like [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and **make**. We recommend gnu make version 4.3, available with linux distributions, homebrew for mac, and several package managers/distibutions for several platforms. Many operating systems come with both **git** and **make** included.
  
 ### Install the Package Cloud Repository on Linux
 wasmCloud utilizes `packagecloud.io` for our **deb** and **rpm** package builds. If you want to install the `wash` CLI via `apt`, then you'll need to configure the Package Cloud source.

@@ -5,7 +5,7 @@ weight: 1
 draft: false
 ---
 
-Getting started with application development on wasmCloud is pretty simple. The first thing you'll need is to perform the [installation](/overview/installation) steps outlined by this guide.
+Getting started with application development on wasmCloud is pretty simple. The first thing you'll need to do is follow the [installation](/overview/installation) steps outlined in this guide.
 
 Next, make sure you have the language of your choice installed and ready to go. Today, we support **Rust** but support for other languages will be coming soon. 
 

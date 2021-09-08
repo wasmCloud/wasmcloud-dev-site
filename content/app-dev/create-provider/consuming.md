@@ -5,7 +5,7 @@ weight: 9
 draft: false
 ---
 
-It's a fairly easy matter of just declaring a dependency on the `payments-interface` crate from a new actor project. However, the difficult question isn't _how_ can an actor utilize this new payments provider, but _why_ and _when_?
+It's a fairly easy matter to declare a dependency on the Payments interface crate for a new actor project. However, the difficult question isn't _how_ can an actor utilize this new payments provider, but _why_ and _when_?
 
 There are a couple of different approaches here, with their own pros and cons.
 
@@ -19,7 +19,7 @@ We could create a new actor called `payments` that links to an HTTP server capab
 | `/auth` | POST | Attempt to authorize a payment |
 | `/pay` | POST | Complete a previously authorized payment |
 
-On the surface, this seems like a decent idea. What's wrong with it? The main problem is we haven't actually added any value. Instead, we've just created a proxy (or _facade_ or _pass-through_ depending on which phrase you like most) for the payments provider. This has the net effect of requiring that any consumer of this actor need to be aware of the authorize-then-pay-with-valid-token order of operations of the payments provider contract.
+On the surface, this seems like a decent idea. What's wrong with it? The main problem is we haven't actually added any value. Instead, we've just created a proxy (or _facade_ or _pass-through_ depending on which phrase you like most) for the payments provider. This has the net effect of requiring that any consumer of this actor needs to be aware of the authorize-then-pay-with-valid-token order of operations of the payments provider contract.
 
 Put another way, any actor using this "facade" actor would use the exact same abstraction as the payments contract, so why shouldn't more business-appropriate actors just use the provider directly?
 
@@ -29,7 +29,7 @@ That's _exactly_ what we think should happen. It can be **very** tempting to cre
 
 Let's assume that we're working within our sample ecommerce application. We now have a `payments` capability provider, and we have decided _not_ to create a corresponding `payments` actor.
 
-One possible design with a better[^1] abstraction might be defining the business logic in the `shoppingcart` actor to invoke the payments capability provider in response to some stimulus requesting a "check out" operation.
+One possible design with a better[^1] abstraction might be defining the business logic in a `shoppingcart` actor to invoke the payments capability provider in response to some stimulus requesting a "check out" operation.
 
 We could design this actor to respond to an RPC-style operation called `Checkout` that could be invoked directly by another actor in the lattice, or we could expose an HTTP server operation that handles a `POST` to the `/cart/{cartId}/checkout` URL, or we could use a `wasmcloud:messaging` capability provider to deliver a message from a subscription that triggers the checkout operation.
 

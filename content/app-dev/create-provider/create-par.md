@@ -5,32 +5,14 @@ weight: 8
 draft: false
 ---
 
-A [provider archive](/reference/host-runtime/provider-archive) is a bundle containing a number of platform-specific (OS and CPU) executable files (preferably freestanding with no dynamically linked dependencies) and an embedded, cryptographically signed JSON Web Token (JWT) that contains a set of claims attestations for the capability provider.
+A [provider archive](/reference/host-runtime/provider-archive) (also called a _par file_) is an archive file (in unix 'tar' format) containing platform-specific executable files for a variety of CPU and OS combinations. A typical provider archive file contains executables for 64-bit linux, x86_64 macos, aarch64 macos, and other supported platforms. The par file includes a cryptographically signed JSON Web Token (JWT) that contains a set of claims attestations for the capability provider.
 
-This provider archive is then something that can be uploaded to or downloaded from OCI registries, and even uploaded directly to a host via the web dashboard UI.
+A provider archive can be uploaded to, or downloaded from, OCI registries, and may be uploaded to a host via the web dashboard UI.
 
-To build a capability provider, the first thing we'll need to do is make a release build. In this sample, we're building it on `Linux` (Ubuntu). From the root directory of the `fakepay-provider`, run:
+Capability providers are always compiled in "release" mode. The `Makefile` created for your new project already has rules to compile the source code and issue the applicable `wash` commands to assemble the par file with the signed JWT. All you need to do is type `make`. The par file is generated in `build/your-project.par.gz`.
 
-```shell
-cargo build --release
-```
+To see the full set of commands used to build the par file, delete the generated par file (`rm build/*`) and type `make -n`. To see documentation on each of the wash command arguments, type `wash par create --help`.
 
-Once you've created a release build of the library, you can create a PAR (provider archive). This is done with the `wash par` command. You can find a robust example of this in the [Makefiles](https://github.com/wasmcloud/capability-providers/blob/main/http-server/Makefile) of our default scaffolding and example capability providers.
-
-To show you how to do this without a Makefile, run the following command (Linux). You will need a slightly different command depending on your CPU architecture and operating system:
-
-```sh
-wash par create \
-  --name "Fake Payments" \
-  --arch x86_64-linux \
-  --binary target/release/fakepay-provider \
-  --capid examples:payments \
-  --vendor wasmcloud \
-  --version 0.1.0 \
-  --revision 1 \
-  --destination fakepay.par.gz \
-  --compress
-```
 If this is the first time you've run this command, some keys will be generated for you and so you should see some output that looks like the following:
 
 ```sh
@@ -47,12 +29,12 @@ Successfully created archive fakepay.par.gz
 
 #### ⚠️ Note
 
-The `wash` command created a private issuer _seed key_ because I didn't have one. Additionally, it generated a _seed key_ for the provider archive itself and stored it in a file called `fakepay_provider_service.nk`. The `wash` CLI will continue to re-use these keys for future signing, but when you move your provider to production you will want to pass explicit paths to the signing keys so that you can control the `issuer` and `subject` fields of the embedded token.
+The `wash` command creates a private issuer _seed key_ if there isn't one already. Additionally, it generates a _seed key_ for the provider archive itself, and stores it in a file called `fakepay_provider_service.nk`. The `wash` CLI will continue to re-use these keys for signing future versions of this provider archive, but when you move your provider to production you will want to pass explicit paths to the signing keys so that you can control the `issuer` and `subject` fields of the embedded token.
 
 We can use `wash` to inspect a provider archive as well (primary key has been truncated to fit documentation):
 
 ```sh
-wash par inspect fakepay.par.gz 
+wash par inspect build/fakepay.par.gz 
 ╔══════════════════════════════════════════════════════════════════════╗
 ║                        Fake Payments - Provider Archive              ║
 ╠═══════════════════════╦══════════════════════════════════════════════╣
@@ -72,6 +54,6 @@ wash par inspect fakepay.par.gz
 ╚══════════════════════════════════════════════════════════════════════╝
 ```
 
-At this point we've decided on a logical contract for actors and capability providers to use for the _payments_ service. We created a (mostly) code-generated crate that can be declared as a dependency by both provider and actor, and we created a dummy implementation of the payments provider.
+At this point we've decided on a logical contract for actors and capability providers to use for the Payments service. We created a (mostly) code-generated crate that can be declared as a dependency by both provider and actor, and we created a dummy implementation of the payments provider.
 
 Next we'll write an actor that communicates with any payment provider, regardless of whether it's our fake implementation or not.

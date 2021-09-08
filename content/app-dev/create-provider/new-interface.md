@@ -7,7 +7,7 @@ draft: false
 
 The first thing we're going to need for our _payments service_ sample capability provider is an **interface**. An interface describes the data types that actors and providers exchange, as well as the supported operations that can be invoked, and the relative directions of those operations.
 
-[Contract-driven](https://en.wikipedia.org/wiki/Design_by_contract) design and development has been a long-favored technique for developers building microservices and other types of composable systems. CDD not only makes our initial design experience easier, but it continues to pay dividends throughout the life cycle of our application.
+[Contract-driven](https://en.wikipedia.org/wiki/Design_by_contract) design and development (CDD) has been a long-favored technique for developers building microservices and other types of composable systems. Not only does CDD make our initial design experience easier, but it continues to pay dividends throughout the life cycle of our application.
 
 ### Creating a Smithy Interface
 
@@ -17,7 +17,7 @@ When designing our interface for the payments capability, we need to clearly def
 * `CompletePayment` - Completes a previously authorized payment. This operation requires the "authorization code" from a successful authorization operation.
 * `GetPaymentMethods` - Retrieves an _opaque_ list of payment methods, which is a list of customer-facing method names and the _[tokens](https://en.wikipedia.org/wiki/Tokenization_(data_security))_ belonging to that payment method. You could think of this list as a previously saved list of payment methods stored in a "wallet". A payment method _token_ is required to authorize and subsequently complete a payment transaction. A customer could have previously supplied their credit card and user-friendly labels for those methods like "personal" and "work", etc.
 
-Now let's take a look at the payloads that might be used. Again, keep in mind that this is a use case example and a real implementation is likely to have far more detail.
+Now let's take a look at the payloads that might be used. Again, keep in mind that this is an example use case: a real implementation is likely to have far more detail.
 
 #### AuthorizePaymentRequest
 
@@ -50,7 +50,7 @@ In response to a successful authorization, a payment can be confirmed (real mone
 | Field | Description |
 | :--- | :--- |
 | `authCode` | Authorization code from previous response |
-| `request` | Original authorization request for validation |
+| `description` | A description field to be added to the payment summary (e.g., memo field of a credit card statement) |
 
 #### CompletePaymentResponse
 
@@ -70,22 +70,176 @@ In response to the empty query, a payments capability provider will return the f
 | :--- | :--- |
 | `methods` | A map of `string->string` w/ tokens and descriptions |
 
-### Generating the Actor Interfaces
+
+### Generating the interfaces
 
 Now that we have logically defined the contract to be shared by the payments-consuming actors and the payment capability provider, let's use some of the available wasmCloud tools to generate the actor interface code.
 
-Let's take a look at some [smithy](https://awslabs.github.io/smithy/) IDL to represent our contract:
-
-```text
-TODO
-```
-
-With this interface definition in hand, let's create a new interface project:
 
 ```shell
-wash new interface payments-interface ./path/to/interface.smithy
+wash new interface payments
 ```
 
-This creates a new Rust project called `payments-interface` and generates code based on the `.smithy` file you specify as a parameter. Since our scaffolding comes ready to build, you can simply type `make` at the root of the project and you've now got a library that can be reused by both actors and capability providers for seamless communication.
+This command creates a new interface project in the subdirectory 'payments'. 
+Wasmcloud interfaces are defined in the [smithy](https://awslabs.github.io/smithy/) IDL. 
+When changes are made to the `.smithy` file, a code generator generates code for the selected target languages - currently only Rust is supported, and more languages will be supported in the future. The `make` command runs the code generator to generate the rust library, and compiles it. The generated library defines function signatures and data structures that will be shared by the Payments capability provider and the actor that calls the provider.
 
-Now that we have a Rust crate that we can use from both our actor and our capability provider, let's move on to the next step: _Creating a Capability Provider in Rust_.
+The sample `payments.smithy` file that we just created doesn't know about payments yet so delete `payments.smithy` and replace it with this:
+(also available in [github](https://github.com/wasmCloud/examples/blob/main/interface/payments/payments.smithy) )
+
+```smithy
+// payments.smithy
+//
+// Sample api for a simple payments provider
+//
+
+// Tell the code generator how to reference symbols defined in this namespace
+metadata package = [
+    {
+        namespace: "org.wasmcloud.examples.payments",
+        crate: "wasmcloud_example_payments"
+     }
+]
+
+namespace org.wasmcloud.examples.payments
+
+use org.wasmcloud.model#wasmbus
+use org.wasmcloud.model#U32
+use org.wasmcloud.model#U64
+
+@wasmbus(
+    contractId: "wasmcloud:example:payments",
+    providerReceive: true )
+service Payments {
+  version: "0.1",
+  operations: [ AuthorizePayment, CompletePayment, GetPaymentMethods ]
+}
+
+/// AuthorizePayment - Validates that a potential payment transaction
+/// can go through. If this succeeds then we should assume it is safe
+/// to complete a payment. Payments _cannot_ be completed without getting
+/// a validation code (in other words, all payments have to be pre-authorized).
+operation AuthorizePayment {
+    input: AuthorizePaymentRequest,
+    output: AuthorizePaymentResponse,
+}
+
+/// Completes a previously authorized payment.
+/// This operation requires the "authorization code" from a successful
+/// authorization operation.
+operation CompletePayment {
+    input: CompletePaymentRequest,
+    output: CompletePaymentResponse,
+}
+
+
+/// `GetPaymentMethods` - Retrieves an _opaque_ list of payment methods,
+/// which is a list of customer-facing method names and the
+/// _[tokens](https://en.wikipedia.org/wiki/Tokenization_(data_security))_
+/// belonging to that payment method. You could think of this list as
+/// a previously saved list of payment methods stored in a "wallet".
+/// A payment method _token_ is required to authorize and subsequently
+/// complete a payment transaction. A customer could have previously
+/// supplied their credit card and user-friendly labels for those methods
+/// like "personal" and "work", etc.
+@readonly
+operation GetPaymentMethods {
+    output: PaymentMethods
+}
+
+/// Parameters sent for AuthorizePayment
+structure AuthorizePaymentRequest {
+    /// Amount of transaction, in cents.
+    @required
+    amount: U32,
+
+    /// Amount of tax applied to this transaction, in cents
+    @required
+    tax: U32,
+
+    /// Token of the payment method to be used
+    @required
+    paymentMethod: String,
+
+    /// The entity (customer) requesting this payment
+    @required
+    paymentEntity: String,
+
+    /// Opaque Reference ID (e.g. order number)
+    @required
+    referenceId: String,
+}
+
+
+/// Response to AuthorizePayment
+structure AuthorizePaymentResponse {
+    /// Indicates a successful authorization
+    @required
+    success: Boolean,
+
+    /// Optional string containing the tx ID of auth
+    authCode: String,
+
+    /// Optional string w/rejection reason
+    failReason: String,
+}
+
+
+/// Confirm the payment (e.g., cause the transaction amount
+/// to be withdrawn from the payer's account)
+structure CompletePaymentRequest {
+
+    /// authorization code from the AuthorizePaymentResponse
+    @required
+    authCode: String,
+
+    /// An optional description field to be added to the payment summary
+    /// (e.g., memo field of a credit card statement) |
+    description: String
+}
+
+structure CompletePaymentResponse {
+
+    /// True if the payment was successful
+    @required
+    success: Boolean,
+
+
+    /// Transaction id issued by Payment provider
+    @required
+    txid: String,
+
+    /// Timestamp (milliseconds since epoch, UTC)
+    @required
+    timestamp: U64,
+}
+
+/// A PaymentMethod contains a token string and a description
+structure PaymentMethod {
+    token: String,
+    description: String,
+}
+
+/// An ordered list of payment methods.
+list PaymentMethods {
+    member: PaymentMethod
+}
+```
+
+It is beyond the scope of this guide to explain smithy IDL but there is excellent documentation at 
+[Smithy home page](https://awslabs.github.io/smithy/).
+
+If you modify the `.smithy` file, there are two useful `wash` commands to check it for errors:
+
+```text
+# check syntax of the file
+wash lint   
+# validate the smithy file
+wash validate
+```
+
+Theese check the file against a predefined set of rules. The rules will be added to an improved over time.
+
+You can type `make` to generate the code and build the Rust library.
+
+Now that we have a Rust crate that we can use from both our actor and our capability provider, let's move on to the next step: [_Creating a Capability Provider in Rust_](./rust).

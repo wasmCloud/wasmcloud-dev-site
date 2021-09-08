@@ -1,5 +1,5 @@
 ---
-title: "Creating an Actor"
+title: "Creating an actor"
 date: 2018-12-29T11:02:05+06:00
 weight: 2
 draft: false
@@ -11,6 +11,6 @@ To perform the steps in this guide, you'll need to have the wasmCloud host runti
 
 This guide will walk you through the following steps to creating an actor:
 
-* [Generate the Scaffold](./scaffold)
-* [Define Message Handlers](./handlers)
-* [Run the Actor](./run)
+* [Generating a new actor project](./generate)
+* [Running the actor](./run)
+* [Customizing the actor and performing a live update](./update)

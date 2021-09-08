@@ -33,10 +33,17 @@ Call aliases, when used appropriately, can provide consistent, developer-friendl
 
 All actors in the wasmCloud ecosystem are capable of making calls to other actors. The wasmCloud host runtime will, by default, allow any two actors to communicate with each other. If you wish to apply a security policy to actor-to-actor invocations (optionally rejecting some invocations), then you'll want to look into our [OPA]() integration.
 
-The following code snippet illustrates the classic "ping-pong" actor-model example of one actor invoking another:
+The following code snippet illustrates invoking a ping() method (in other words, sending a ping message) to an actor that implements a Ponger interface:
 
 ```rust
-TODO
+// import the interface library
+use interfaces::ping_pong::{Ponger,PongerSender};
+// obtain the public key of the other actor ("M...")
+let actor_id = get_other_actor_key();
+// obtain an interface handle for sending message to a Ponger actor
+let ponger = PongerSender::for_actor(&actor_id)?;
+// call the actor and wait for the result
+let result = ponger.ping().await?;
 ```
 
 ### Communication Contract
