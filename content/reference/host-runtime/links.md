@@ -9,7 +9,7 @@ A **_link definition_** is a declared set of configuration values between a spec
 
 From the actor's point of view, code written using an actor interface _only_ refers to the combination of a contract ID and a link name, e.g. `wasmcloud:keyvalue` and `default`. This is because actors do not know about (nor should they ever) _which_ specific capability provider is responsible for supporting the contract on which they depend. The choice of _which_ provider satisfies a given contract for an actor is a choice that is _always_ made at _runtime_.
 
-From the capability provider's point of view, it only ever dispatches messages to actors or receives messages from actors. When a link is established for a particular actor, the capability provider can remember that actor's public key and use it for subsequent dispatches. As a result, the only information a capability provider needs is the actor public key. The actor key is typically used as a key for managing resources on behalf of the actor, like database connections, open TCP sockets, etc.
+From the capability provider's point of view, it only ever dispatches messages to actors or receives messages from actors. When a link is established for a particular actor, the capability provider can remember that actor's public key and use it for subsequent dispatches. As a result, the only information a capability provider needs is the actor public key. The actor key is typically used as a key for managing resources on behalf of the actor, such as database connections, open TCP sockets, etc.
 
 From the wasmCloud host runtime's point of view, it _must_ know the following information when establishing a link between capability provider and an actor:
 
@@ -20,9 +20,9 @@ From the wasmCloud host runtime's point of view, it _must_ know the following in
 
 To help illustrate the need for link names to disambiguate providers, consider the following scenario:
 
-Assume that we have a **Redis** capability provider with the link name `default` running in the lattice. Now assume that we have an **in-memory** cache provider running with the link name `cache`. Finally, some other set of actors are also relying on a key-value provider, but this one is for **Consul** and its link name is `default`. If the link definition only contained contract ID and link name, then the host runtime would not have enough information to determine if an actor's request should be going to the **Redis** provider or the **Consul** provider. At its core, wasmCloud is basically a _router_. It needs enough information to establish routes between actors and capability providers.
+Assume that we have two capability providers in the lattice that implement the `wasmcloud:keyvalue` contract: a **Redis** capability provider with the link name `default`, and an **in-memory** cache provider running with the link name `cache`. Additionally, there is a **Consul** key-value provider with the link name `default`. If the link definition connecting an actor and provider only contained contract ID and link name, the host runtime would not have enough information to determine if an actor's request should go to the **Redis** provider or to the **Consul** provider. A core function of wasmCloud is message routing. It needs enough information to establish routes between actors and capability providers.
 
-It's for this reason that every link definition declaration must include (directly or indirectly via OCI) the provider's unique public key and the provider's link name.
+It's for this reason that every link definition declaration must include (directly, or indirectly via OCI) a provider's unique public key and the provider's link name.
 
 ### Link Definitions at Runtime
 
