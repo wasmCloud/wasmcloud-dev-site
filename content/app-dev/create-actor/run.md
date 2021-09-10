@@ -31,7 +31,7 @@ We know our new actor needs a web server, so let's start the HTTP server capabil
 
 TODO screenshot actor and provider
 
-### Add a Link Definition
+### Add a link definition
 
 With both the provider and the actor running, the next step is to _link_ the two. This provides a set of configuration values that is unique to one actor's use of a provider. To change things up slightly, and so you develop some muscle memory with the command line tooling, we'll use the `wash` CLI here. To link your actor, you'll' need the actor's public key. You can get that simply by clicking on the clipboard icon next to the actor name in the dashboard web UI (it'll be a long string that starts with **M**).
 

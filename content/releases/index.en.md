@@ -5,6 +5,21 @@ layout: "changelog"
 draft: false
 ---
 
+### Release 0.50 
+
+This is a major release for wasmCloud and includes three breaking changes:
+
+- The wasmcloud host has been ported to Elixir (OTP) to provide greater flexibility, scalability and reliability. Actor and Capability providers won't see any elixir code, but this change is expected to make it easier to develop several features on the roadmap.
+- The Interface Definition Language (IDL) has changed from WIDL to Smithy, and a new code generator generates code from smithy libraries.
+- Capability providers communicate with the wasmcloud host over a secure protocol via NATS, rather than being loaded as a library (as they were with host versions <= 0.19). This change allows us to support capability providers written in languages other than Rust, and is more flexible
+
+There are also some new user-visible features:
+
+- A new dashboard, built with Phoenix, shows the status of the lattice, and enables starting and stopping actors and capability providers.
+- A new host implementation in JavaScript that runs in the browser or on nodejs. A WebAssembly actor can be deployed without changes to any host - on linux, macos, windows, or in a browser.
+
+
+
 ### Release 0.18.0
 {{< changelog "added" >}}
 * Actor and Provider name and revision are now included with the control interface `HostInventory` query ([PR #154](https://github.com/wasmCloud/wasmCloud/pull/154)). Names and revisions are not displayed yet with `wash`'s `ctl get inventory` command.
