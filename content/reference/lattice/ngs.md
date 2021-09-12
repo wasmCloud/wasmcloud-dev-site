@@ -1,5 +1,5 @@
 ---
-title: "NGS as an Infrastructure Bridge"
+title: "NGS as an infrastructure bridge"
 date: 2018-12-29T11:02:05+06:00
 weight: 9
 draft: false

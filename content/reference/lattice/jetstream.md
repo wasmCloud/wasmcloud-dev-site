@@ -17,7 +17,7 @@ The wasmCloud lattice uses a JetStream [stream](https://docs.nats.io/jetstream/c
 
 It is _highly_ recommend that developers _never_ interact with the stream contents/topics directly, and instead use the various operations available on the lattice control interface in order to ensure reliability and stability of the stream contents. In other words, do not directly publish messages _or_ subscribe to `lc.{prefix}.>`.
 
-### Default Behavior
+### Default behavior
 
 If you start a wasmCloud host runtime against a newly started or unconfigured NATS host (with JetStream enabled), then the host will create a new stream for the lattice. The streams are named according to the lattice prefix in order to allow multi-tenancy on a single NATS topic space.
 
@@ -31,7 +31,7 @@ The following stream is created by default by the host:
 * Replicas: `1` - this means that only one replica of the stream (cache data) will be maintained regardless of the size of the JetStream cluster
 * Duplicate Window: `120000000000`
 
-### Configuring a Custom Stream
+### Configuring a custom stream
 
 If the wasmCloud host detects a previously existing stream called `LATTICECACHE_{prefix}` with the subjects `lc.prefix.>`, then it _will not_ create a new one or attempt to overwrite settings. This means that, in your environment, you can do things like define a stream that persists to disk and has 5 replicas in a large JetStream cluster and the wasmCloud host will simply utilize that stream without need for code changes or redeployment. In your custom stream, you must also take care to set **max messages per subject** to **`1`** or wasmCloud may not function properly.
 

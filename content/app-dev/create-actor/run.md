@@ -1,23 +1,21 @@
 ---
-title: "Run the Actor"
-date: 2018-12-29T11:02:05+06:00
-weight: 5
+title: "Running the actor"
+date: 2018-12-29T10:00:00+00:00
+weight: 4
 draft: false
 ---
 
-In this guide we're going to start the actor "the long way" so that you can get a feel for all of the moving parts of the process. Our tooling documentation should help you get actors started more easily, once you've been through this guide.
+In [Getting started](/overview/getting-started) you ran an actor from the dashboard UI. Now, we're going to start the actor "the long way" so that you can get a feel for all of the moving parts of the process. Our tooling documentation should help you get actors started more easily, once you've been through this guide.
 
-### Pre-Requisites
-To run this part of the guide, you'll need `wash`. If you don't have `wash`, installation steps are covered on [the installation page](../../../overview/installation)).
+We assume you've already [installed](../../../overview/installation)) wash, the wasmCloud host, and necessary prerequisites.
 
+### Build the actor
 
-### Build the Actor
-
-Building the actor is as easy as running `make` from the terminal prompt while in the project's root directory. This will compile the actor and sign it with a freshly generated seed key. The `Makefile` that came with the newly scaffolded project includes the `wasmcloud:httpserver` claim, so your actor should work right away.
+Building the actor is as easy as running `make` in the project's root directory. This will compile the actor and sign it with a freshly generated seed key. The `Makefile` that comes with the newly generated project lists claims for the actor including `wasmcloud:httpserver`, so it can work with the HTTP Server capability provider.
 
 ### Launch the Actor
 
-There are countless ways to run the actor we just created, and if you went through the [getting started](../../../overview/getting-started) section, then you'll have seen some of this before. Assuming you have your wasmCloud host runtime running and the web dashboard is on port `4000`, you can open [http://localhost:4000](http://localhost:4000) to view the dashboard.
+There are countless ways to run the actor we just created, and if you went through the [getting started](../../../overview/getting-started) section, you'll have seen some some of them already. Open your browser to view the web dashboard  [http://localhost:4000](http://localhost:4000) to view the dashboard (you may need to modify the port number`4000` if you changed it before launching the wasmCloud host).
 
 At this point, simply click **Start Actor** and then choose _from file_. Open a browser to your current project directory and then navigate to the `build` directory. Here you'll find a `(project)_s.wasm` file, where `(project)` is `hello`, or the name you selected for the project. The `_s` suffix indicates that this WebAssembly module has been _signed_.
 
@@ -25,24 +23,24 @@ A moment later you should see the actor in your web UI as shown in the following
 
 TODO screenshot actor started
 
-### Start the Web Server
+### Start the web server
 
-We know our new actor needs a web server, so let's start the HTTP server capability provider. To do that, click the **Start Provider** button and enter this OCI URL:  `wasmcloud.azurecr.io/httpserver:0.13.0`. Now we should have both an actor and a provider, and the dashboard should look like this:
+We know our new actor needs a web server, so let's start the HTTP server capability provider. To do that, click the **Start Provider** button and enter this OCI URL:  `wasmcloud.azurecr.io/httpserver:0.14.1`. Now we should have both an actor and a provider, and the dashboard should look like this:
 
 TODO screenshot actor and provider
 
 ### Add a link definition
 
-With both the provider and the actor running, the next step is to _link_ the two. This provides a set of configuration values that is unique to one actor's use of a provider. To change things up slightly, and so you develop some muscle memory with the command line tooling, we'll use the `wash` CLI here. To link your actor, you'll' need the actor's public key. You can get that simply by clicking on the clipboard icon next to the actor name in the dashboard web UI (it'll be a long string that starts with **M**).
+With both the provider and the actor running, the next step is to _link_ the two. This provides a set of configuration values that is unique for each actor's use of a provider. To change things up slightly, and so you develop some muscle memory with the command line tooling, we'll use the `wash` CLI here. To link your actor, you'll' need the actor's public key. You can get that by clicking on the clipboard icon next to the actor name in the dashboard web UI (it'll be a long string that starts with **M**).
 
-Once you've got the actor's public key, you can enter the following command, replacing `ACTOR_MODULE_KEY` with the key you just put on your clipboard: 
-
-```
-wash ctl link ACTOR_MODULE_KEY wasmcloud.azurecr.io/httpserver:0.13.0 wasmcloud:httpserver 'config_json={"address":"127.0.0.1:7800"}'
+Once you've got the actor's public key, you can enter the following command, replacing `ACTOR_ID` with the key you just put on your clipboard: 
 
 ```
+wash ctl link ACTOR_ID wasmcloud.azurecr.io/httpserver:0.14.1 wasmcloud:httpserver port=7000
 
-At this point your HTTP server capability provider has been notified that a link definition was created, and it started the corresponding web server on port `7000`. You can now hit that endpoint and exercise the code you just wrote:
+```
+
+At this point your HTTP server capability provider has been notified that a link definition was created, and it started the corresponding web server listening on port `7000`. You can now hit that endpoint and exercise the code you just wrote:
 
 ```
 curl localhost:7000
@@ -68,3 +66,5 @@ Hello Carol
 
 _**Congratulations!**_ You've successfully created and run your first actor. Welcome to the world of boilerplate-free, simple distributed application development in the cloud, browser, and everywhere in between.
 
+
+Let's make a slight modification to the code, so you can see what it's like to go through a development iteration to compile and update the running code. Don't worry - this will be pretty quick.

@@ -1,5 +1,5 @@
 ---
-title: "Creating a Provider Archive"
+title: "Creating a provider archive"
 date: 2018-12-29T11:02:05+06:00
 weight: 8
 draft: false
@@ -9,11 +9,11 @@ A [provider archive](/reference/host-runtime/provider-archive) (also called a _p
 
 A provider archive can be uploaded to, or downloaded from, OCI registries, and may be uploaded to a host via the web dashboard UI.
 
-Capability providers are always compiled in "release" mode. The `Makefile` created for your new project already has rules to compile the source code and issue the applicable `wash` commands to assemble the par file with the signed JWT. All you need to do is type `make`. The par file is generated in `build/your-project.par.gz`.
+Capability providers are always compiled in "release" mode. The `Makefile` created for your new project already has rules to compile the source code and issue the applicable `wash` commands to assemble the par file with a signed JWT. All you need to do is type `make`. The par file is generated in `build/your-project.par.gz`.
 
 To see the full set of commands used to build the par file, delete the generated par file (`rm build/*`) and type `make -n`. To see documentation on each of the wash command arguments, type `wash par create --help`.
 
-If this is the first time you've run this command, some keys will be generated for you and so you should see some output that looks like the following:
+If this is the first time you've run this command, some keys will be generated for you and you should see output that looks like the following:
 
 ```sh
 No keypair found in "/home/kevin/.wash/keys/kevin_account.nk".
@@ -24,17 +24,17 @@ No keypair found in "/home/kevin/.wash/keys/fakepay_provider_service.nk".
 We will generate one for you and place it there.
 If you'd like to use alternative keys, you can supply them as a flag.
 
-Successfully created archive fakepay.par.gz
+Successfully created archive build/fakepay_provider.par.gz
 ```
 
 #### ⚠️ Note
 
-The `wash` command creates a private issuer _seed key_ if there isn't one already. Additionally, it generates a _seed key_ for the provider archive itself, and stores it in a file called `fakepay_provider_service.nk`. The `wash` CLI will continue to re-use these keys for signing future versions of this provider archive, but when you move your provider to production you will want to pass explicit paths to the signing keys so that you can control the `issuer` and `subject` fields of the embedded token.
+The `wash` command creates a private issuer _seed key_ if there isn't one already. Additionally, it generates a _seed key_ for the provider archive itself, and stores it in a file called `fakepay_provider_service.nk`. The `wash` CLI will continue to re-use these keys for signing future versions of this provider archive, but when you move your provider to production you will want to pass explicit paths to the signing keys so that you can control the `issuer` and `subject` fields of the embedded token. Also, if you build the provider from a different machine, you'll need to transfer the key files to that machine for the provider to have the same public key.
 
 We can use `wash` to inspect a provider archive as well (primary key has been truncated to fit documentation):
 
 ```sh
-wash par inspect build/fakepay.par.gz 
+wash par inspect build/fakepay_provider.par.gz 
 ╔══════════════════════════════════════════════════════════════════════╗
 ║                        Fake Payments - Provider Archive              ║
 ╠═══════════════════════╦══════════════════════════════════════════════╣
@@ -54,6 +54,6 @@ wash par inspect build/fakepay.par.gz
 ╚══════════════════════════════════════════════════════════════════════╝
 ```
 
-At this point we've decided on a logical contract for actors and capability providers to use for the Payments service. We created a (mostly) code-generated crate that can be declared as a dependency by both provider and actor, and we created a dummy implementation of the payments provider.
+At this point we've decided on a logical contract for actors and capability providers to use for the Payments service. We created a (mostly) code-generated interface crate that can be declared as a dependency by both provider and actor, and we created a dummy implementation of the payments provider.
 
 Next we'll write an actor that communicates with any payment provider, regardless of whether it's our fake implementation or not.

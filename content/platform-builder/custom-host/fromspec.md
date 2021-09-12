@@ -8,24 +8,24 @@ draft: false
 In the preceding section of the documentation, we talked about how there are no restrictions in place preventing developers from building their own bespoke wasmCloud hosts that are optimized for specific environments. 
 
 In this section, we'll talk about the specification and requirements for wasmCloud
-hosts written from scratch either for internal use or community contribution (e.g. a custom host for an `ESP32` microcontroller, etc).
+hosts written from scratch, either for internal use or community contribution (e.g. a custom host for an ESP32 microcontroller, etc).
 
-If you want to make your own wasmCloud host, you're likely doing so because you want to add a device or operating system that we don't support to the ecosystem, one that will be able to co-exist with first-party wasmCloud hosts and interact with the lattice. The following requirements for hosts will give you the recipe you need to create your own host.
+If you want to make your own wasmCloud host, you're likely doing so because you want to add a new device, platform, or operating system to the ecosystem, to co-exist with first-party wasmCloud hosts and interact with the lattice. The following requirements for hosts will give you the recipe you need to create your own host.
 
-### Host Requirements
+### Host requirements
 
 The host must perform the following activities:
 
-* Use the [RPC channel](../../../reference/lattice-protocols/rpc) to perform periodic (default `30s`) health checks. Emit the appropriate events to indicate health check success or failure.
-* Use the RPC channel to send messages on `...linkdefs.put` and `...linkdefs.del` topics to alert capability providers as to when actors are bound.
+* Use the [RPC channel](../../../reference/lattice-protocols/rpc) to perform periodic (default every 30 seconds) health checks. Emit the appropriate events to indicate health check success or failure.
+* Use the RPC channel to send messages on `...linkdefs.put` and `...linkdefs.del` topics to alert capability providers as to when actors are linked.
 * Expose some form of API that can be used to start and stop actors
   * Actors must communicate with the host using the [wasmbus](/reference/wasmbus) specification. Custom hosts do not have to re-use existing Rust crates, they only have to ensure that the host exposes the same wasmbus functions as the first-party wasmCloud host.
-  * The host does not need to any other code generation facilities, so long as the host is able to use _messagepack_ for the serialization format for messages, such as link definitions, invocations, and health checks.
-* Have the ability to pull from OCI registries in order to start actors. The host will only need to pull provider archive (PAR) files from registries if the custom host supports provider starting.
+  * The host does not need to use any other code generation facilities, as long as the host is able to use _messagepack_ for the serialization format for messages, such as link definitions, rpc invocations, and health checks.
+* Have the ability to pull from OCI registries to start actors. The host will only need to pull provider archive (PAR) files from registries if the custom host supports starting providers.
 * _Optionally_ expose an API that is used to start and stop providers. Custom wasmCloud hosts do not need to support internal capability providers and can instead simply communicate with them over NATS.
 * Validate the JWT embedded in actors and in provider archives, including `not-before`, `expires`, and the actor claims (prevent actors from communicating with provider contracts not listed in the claims).
 * Generate a new `nkey` pair for the host upon startup. This is used for the public key to identify the host.
-* Generate or allow to be provided a _cluster seed_ key used for signing invocations
+* Generate a _cluster seed_, or accept an existing one, for signing invocations
 * Properly sign invocations, including hashing specific fields of the invocation.
 * Subscribe to the appropriate lattice subjects for:
   * [RPC](../../../reference/lattice-protocols/rpc) - each actor must subscribe to its appropriate lattice RPC subject

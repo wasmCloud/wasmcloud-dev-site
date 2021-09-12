@@ -14,14 +14,14 @@ Lattice RPC supports the following interaction modes:
 * Actor-to-Provider
 * Provider-to-Actor
 
-ℹ️ All RPC interactions take place on a _separate_ NATS client connection from the control interface for security reasons. All requests and replies on the RPC connection are serialized via [message pack](https://msgpack.org/index.html).
+ℹ️ All RPC interactions take place on a NATS client connection that is separate from the control interface for security reasons. All requests and replies on the RPC connection are serialized via [message pack](https://msgpack.org/index.html).
 
-### The Invocation
+### The invocation
 
-All RPC interactions within the lattice involve the sending of an `Invocation` and the receipt of an `InvocationResponse`. Even
+All RPC interactions within the lattice involve sending an `Invocation` and receiving an `InvocationResponse`. Even
 if the operation is "fire and forget", the `InvocationResponse` is required to indicate a successful acknowledgement of the invocation.
 
-Because these structs are used in multiple places by multiple languages, you can find them in different places throughout the code base. Here are a couple of locations:
+Because these structures are used in multiple places by multiple languages, you can find them in different places throughout the code base. Here are a couple of locations:
 * The Smithy [Interface](https://github.com/wasmCloud/interfaces/blob/main/core/wasmcloud-core.smithy#L143) - smithy models are considered authoritative as language-specific implementations should be generated from these IDL models.
 * The [wasmCloud OTP Host Runtime](https://github.com/wasmCloud/wasmcloud-otp/blob/main/host_core/native/hostcore_wasmcloud_native/src/inv.rs#L23) - There is a Rust implementation of the `Invocation` and `InvocationResponse` structs used by the host.
 
@@ -55,27 +55,25 @@ If you're looking to construct your own invocations manually, you'll need this h
 
 The reason we go to such lengths with the invocation is to prevent a malicious entity that has compromised enough credentials to gain access to an RPC NATS connection from actually performing any function calls. Without a valid **cluster seed** (which is injected into a host runtime at startup), an intruder cannot forge an invocation, even if they have unfettered access to NATS.
 
-Monitoring tools could be immediately alerted to the attempted use of a faked invocation.
+Monitoring tools could be configuted to detect faked invocations in real time and produce alerts.
 
 The claims data structure can be found in the [wascap](https://github.com/wasmCloud/wascap/blob/main/src/jwt.rs) crate.
 
-### Actor Subscriptions
+### Actor subscriptions
 
 All actors that are in hosts connected to a lattice will **queue** subscribe to incoming invocations on the following topic:
 
 `wasmbus.rpc.{namespace}.{actor public key}`
 
-So, as an example, the `echo` sample in wasmCloud's official OCI registry would subscribe to the following topic if no alternative
-namespace prefix were supplied:
+For example, the `echo` sample in wasmCloud's official OCI registry would subscribe to the following topic if no alternative namespace prefix were supplied:
 
 `wasmbus.rpc.default.MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5`
 
-The use of a queue subscription is important because it causes NATS to randomly choose a target from among any of the running
-instances of a subscriber, which is the key piece of networking mechanics that allows actors to scale horizontally within a lattice.
+The use of a queue subscription is important because it causes NATS to randomly choose a target from among all running instances of a subscriber. That's the key piece of networking mechanics that allows actors to scale horizontally within a lattice.
 
 If you have sufficient access and want to see _exactly_ which subjects are being used for lattice communication, you can simply launch NATS with verbose and debug options enabled.
 
-### Capability Provider Subscriptions
+### Capability provider subscriptions
 
 Capability providers also **queue** subscribe to incoming invocations from _linked_ actors on the following topic pattern:
 
@@ -86,9 +84,9 @@ a lattice with a namespace prefix of `prod`, the subscription topic for the capa
 
 `wasmbus.rpc.prod.VADNMSIML2XGO2X4TPIONTIC55R2UUQGPPDZPAVSC2QD7E76CR77SPW7.backend`
 
-The link names allow multiple instances of the same capability provider to be started with different configurations/purposes. For example, one common use of link names we've used is to use the NATS message broker with a `backend` and a `frontend` set of logical link names, which allows the same actor to be bound to the NATS provider twice with 2 logical purposes. Other times you may want to use two different link names for the same provider contract to support two logically different database purposes.
+The link names allow multiple instances of the same capability provider to be started with different configurations or purposes. For example, one common use of link names we've used is to use the NATS message broker with a `backend` and a `frontend` set of logical link names, so the same actor can be bound to the NATS provider twice with two logical purposes. Other times you may want to use two different link names for the same provider contract to support two logically different database purposes.
 
-#### Additional Topics
+#### Additional topics
 
 Capability providers must also subscribe to topics that contain messages indicating the addition and removal of link definitions. For security reasons, providers are only ever notified of link definitions that pertain to them. The following topics are mandatory subscriptions for providers to handle link definitions:
 

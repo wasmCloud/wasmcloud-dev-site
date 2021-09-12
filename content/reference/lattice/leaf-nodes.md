@@ -7,7 +7,7 @@ draft: false
 
 A lattice **_leaf node_** is nothing more than a wasmCloud host connected to a lattice via a [NATS leaf node](https://docs.nats.io/nats-server/configuration/leafnodes). Please consult the NATS documentation for detailed information on how to create, configure, manage, and deploy NATS leaf nodes.
 
-What leaf nodes enable for lattice is a way to segment or isolate traffic and/or security boundaries. An extremely common pattern involves starting a NATS leaf node alongside the wasmCloud host runtime. The leaf node allows the wasmCloud host to authenticate anonymously because it's configured to only accept `localhost` connections. Meanwhile, this same leaf node can be securely connected to a cluster elsewhere, optionally limiting the access of the connected clients.
+What leaf nodes enable for lattice is a way to segment or isolate traffic and/or security boundaries. An extremely common pattern involves starting a NATS leaf node alongside the wasmCloud host runtime. The leaf node allows the wasmCloud host to authenticate anonymously because it's configured to only accept localhost connections. Meanwhile, this same leaf node can be securely connected to a cluster elsewhere, optionally limiting the access of the connected clients.
 
 This is just the tip of the iceberg. NATS leaf nodes can be used to string together disparate infrastructures, multiple private cloud environments, and much more. Their simplicity is the key to their power and we strongly encourage you to fully absorb the documentation to inspire better lattice configuration possibilities.
 

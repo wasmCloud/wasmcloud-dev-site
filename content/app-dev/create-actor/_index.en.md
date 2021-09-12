@@ -1,15 +1,15 @@
 ---
 title: "Creating an actor"
-date: 2018-12-29T11:02:05+06:00
+date: 2018-12-29T12:00:00+00:00
 weight: 2
 draft: false
 ---
 
-Creating an actor with **wasmCloud** is simple and easy. Today, we support actors created in **Rust** but we will soon have support for other languages as those languages develop better tooling and support for WebAssembly.
+Creating an actor with wasmCloud is simple and easy. Today, we support actors created in **Rust** but we will soon have support for other languages as those languages develop better tooling and support for WebAssembly.
 
-To perform the steps in this guide, you'll need to have the wasmCloud host runtime installed as well as the `wash` CLI, and have a Rust installation with the `wasm32-unknown-unknown` target available.
+To perform the steps in this guide, you'll need to have completed [installation](/overview/installation/) of the wasmCloud host and prerequisites, and the Rust [wasm32 target](../getting-started/).
 
-This guide will walk you through the following steps to creating an actor:
+This guide will walk you through the following steps to create an actor:
 
 * [Generating a new actor project](./generate)
 * [Running the actor](./run)

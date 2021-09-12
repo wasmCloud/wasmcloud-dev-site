@@ -5,4 +5,4 @@ weight: 1
 draft: false
 ---
 
-Running wasmCloud on "bare metal" is an incredibly easy default. You'll likely be taking advantage of this as you develop solutions on your workstation before deploying to production. If you've gone through the basic [installation](../../overview/installation/) instructions, then you'll have the wasmCloud host runtime installed on your system.
+Running wasmCloud on "bare metal" is incredibly easy. You'll likely be taking advantage of this as you develop solutions on your workstation before deploying to production. If you've gone through the basic [installation](../../overview/installation/) instructions, you'll already have the wasmCloud host runtime installed on your system.

@@ -3,7 +3,6 @@ title: "Overview"
 date: 2020-01-22T11:02:05+06:00
 icon: "ti-map" # themify icon pack : https://themify.me/themify-icons
 description: "New to wasmCloud? Start here."
-# type dont remove or customize
 type : "docs"
 ---
 

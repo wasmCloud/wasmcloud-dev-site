@@ -1,17 +1,17 @@
 ---
-title: "Control Interface"
+title: "Control interface"
 date: 2018-12-29T11:02:05+06:00
 weight: 3
 draft: false
 ---
 
-The lattice control interface provides a way for clients to interact with the lattice to issue control commands and queries. This interface is a message broker protocol that supports functionality like starting and stopping actors and providers, declaring link definitions, monitoring lattice events, holding _auctions_ to determine scheduling compatibility, and much more.
+The lattice control interface provides a way for clients to interact with the lattice to issue control commands and queries. This interface is a message broker protocol that supports functionality for starting and stopping actors and providers, declaring link definitions, monitoring lattice events, holding _auctions_ to determine scheduling compatibility, and much more.
 
-The core message broker protocol can be used by any client capable of connecting to NATS. There is also a [Rust crate](https://github.com/wasmcloud/wasmcloud/tree/main/crates/control-interface) that provides a convenient API for accessing the control interface. Please see the Rust documentation for the crate on how to use the Rust API.
+The core message broker protocol can be used by any client capable of connecting to NATS. There is also a [wasmcloud-control-interface](https://docs.rs/wasmcloud-control-interface/0.3.1/wasmcloud_control_interface/) Rust crate that provides a convenient API for accessing the control interface.
 
 ℹ️ All control interface interactions take place on a _separate_ NATS client connection from the RPC connection for security reasons. All requests and replies on the control interface connection are serialized via **JSON**.
 
-### NATS Control Interface
+### NATS control interface
 
 The following is a list of the operations supported by the control interface.
 

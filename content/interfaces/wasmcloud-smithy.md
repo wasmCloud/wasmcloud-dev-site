@@ -1,4 +1,4 @@
-# wasmCloud-smithy Guide
+# wasmCloud-smithy guide
 
 wasmCloud's use of Smithy closely follows the [Smithy IDL specification](https://awslabs.github.io/smithy/1.0/spec/core/idl.html). This document is intended to be a quick reference to the major features of Smithy, and includes some conventions that wasmCloud has adopted for smithy-defined interfaces.
 
