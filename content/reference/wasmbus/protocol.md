@@ -15,7 +15,7 @@ This guarantees that a WebAssembly module can crash after a function and be relo
 The function call flow always starts with the host. wasmbus is a _reactive_ function protocol in that guests cannot initiate host calls unless the guest was itself triggered by a host.
 
 wasmbus calls involve two basic pieces of data:
-* An **operation name** - that is a string, e.g. `HandleRequest` or `PerformAddition`
+* An **operation name** - that is a string composed of a service name, a dot, and a method name , e.g. `HttpServer.HandleRequest` or `Calculator.PerformAddition`.
 * The raw binary payload containing the operation’s parameters. wasmbus does not enforce any particular serialization mechanisms - the payload and responses always remain opaque blobs.
 
 The logical flow is as follows (with a few details left out for simplicity’s sake):

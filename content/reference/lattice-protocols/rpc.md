@@ -31,7 +31,7 @@ The following is a description of the fields on an `Invocation`:
 | `id` | `String` (GUID) | Unique invocation ID. The response to this invocation will carry this value for correlation. |
 | `origin` | `WasmCloudEntity` | The sender of the invocation. |
 | `target` | `WasmCloudEntity` | The intended recipient of the invocation. |
-| `operation` | `String` | The operation string of this invocation, e.g. `HandleRequest` or `DeliverMessage` |
+| `operation` | `String` | The operation string of this invocation, e.g. `HttpServer.HandleRequest` or `Messaging.DeliverMessage` |
 | `msg` | `Bytes` | The raw bytes of the message. |
 | `encoded_claims` | String |  A signed, encoded JSON Web Token (JWT) containing the claims for this invocation. These claims include a hash of the invocation itself. |
 | `host_id` | String | The _public key_ of host from which the invocation originated. |
