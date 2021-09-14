@@ -1,5 +1,5 @@
 ---
-title: "Avoid single-member structures for operation inputs and output"
+title: "Single-member structures"
 draft: false
 ---
 

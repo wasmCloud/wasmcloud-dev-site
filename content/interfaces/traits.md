@@ -1,10 +1,9 @@
 ---
-title: "Index of annotation traits used in wasmCloud .smithy files"
+title: "Annotation traits"
 draft: false
 ---
 
 The Smithy model defines several types of trait annotations. Some of these affect code generation or documentation generation. This document lists traits used in wasmCloud interfaces and used by the code generator. Some of the traits listed here do not currently influence code generation or system behavior, but we think may be used in the near future.
-
 
 ### @codegenRust
 

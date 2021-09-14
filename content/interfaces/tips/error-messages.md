@@ -1,5 +1,5 @@
 ---
-title: "Understanding smithy model error messages"
+title: "Error messages"
 draft: false
 ---
 

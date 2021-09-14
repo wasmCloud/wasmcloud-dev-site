@@ -1,5 +1,5 @@
 ---
-title: "Use lint and validate checks on model files"
+title: "Lint and validate checks"
 draft: false
 ---
 

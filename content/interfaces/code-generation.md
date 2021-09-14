@@ -1,5 +1,5 @@
 ---
-title: "Code and documentation generation"
+title: "Code generation"
 draft: false
 ---
 

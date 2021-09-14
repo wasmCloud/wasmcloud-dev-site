@@ -1,5 +1,5 @@
 ---
-title: "Tips on writing and debugging interface definitions"
+title: "Tips"
 draft: false
 ---
 
