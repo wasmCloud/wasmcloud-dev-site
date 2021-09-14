@@ -9,18 +9,16 @@ A [provider archive](/reference/host-runtime/provider-archive) (also called a _p
 
 A provider archive can be uploaded to, or downloaded from, OCI registries, and may be uploaded to a host via the web dashboard UI.
 
-Capability providers are always compiled in "release" mode. The `Makefile` created for your new project already has rules to compile the source code and issue the applicable `wash` commands to assemble the par file with a signed JWT. All you need to do is type `make`. The par file is generated in `build/your-project.par.gz`.
-
-To see the full set of commands used to build the par file, delete the generated par file (`rm build/*`) and type `make -n`. To see documentation on each of the wash command arguments, type `wash par create --help`.
+Capability providers are always compiled in "release" mode. The `Makefile` created for your new project already has rules to compile the source code and issue the applicable `wash` commands to assemble the par file with a signed JWT. All you need to do is type `make`, and the par file is generated in `build/your-project.par.gz`.
 
 If this is the first time you've run this command, some keys will be generated for you and you should see output that looks like the following:
 
 ```sh
-No keypair found in "/home/kevin/.wash/keys/kevin_account.nk".
+No keypair found in "/home/user/.wash/keys/user_account.nk".
 We will generate one for you and place it there.
 If you'd like to use alternative keys, you can supply them as a flag.
 
-No keypair found in "/home/kevin/.wash/keys/fakepay_provider_service.nk".
+No keypair found in "/home/user/.wash/keys/fakepay_provider_service.nk".
 We will generate one for you and place it there.
 If you'd like to use alternative keys, you can supply them as a flag.
 
@@ -29,7 +27,7 @@ Successfully created archive build/fakepay_provider.par.gz
 
 #### ⚠️ Note
 
-The `wash` command creates a private issuer _seed key_ if there isn't one already. Additionally, it generates a _seed key_ for the provider archive itself, and stores it in a file called `fakepay_provider_service.nk`. The `wash` CLI will continue to re-use these keys for signing future versions of this provider archive, but when you move your provider to production you will want to pass explicit paths to the signing keys so that you can control the `issuer` and `subject` fields of the embedded token. Also, if you build the provider from a different machine, you'll need to transfer the key files to that machine for the provider to have the same public key.
+The `wash` command creates a private issuer _seed key_ if there isn't one already. Additionally, it generates a _seed key_ for the provider archive itself, and stores it in a file called `fakepay_provider_service.nk`. The `wash` CLI will continue to re-use these keys for signing future versions of this provider archive - Keep all keys secret - they are used by the lattice to know that updates were created by the same author as the original When you move your provider to production you will want to pass explicit paths to the signing keys so that you can control the `issuer` and `subject` fields of the embedded token.
 
 We can use `wash` to inspect a provider archive as well (primary key has been truncated to fit documentation):
 
@@ -40,13 +38,13 @@ wash par inspect build/fakepay_provider.par.gz
 ╠═══════════════════════╦══════════════════════════════════════════════╣
 ║ Public Key            ║ VAN5FE2JCYMZFHZZWS2KNKVEIIU5...25XKFKCHXEMDU ║
 ╠═══════════════════════╬══════════════════════════════════════════════╣
-║ Capability Contract ID║                            examples:payments ║
+║ Capability Contract ID║                  wasmcloud:examples:payments ║
 ╠═══════════════════════╬══════════════════════════════════════════════╣
-║ Vendor                ║                                    wasmcloud ║
+║ Vendor                ║                                         Acme ║
 ╠═══════════════════════╬══════════════════════════════════════════════╣
-║ Version               ║                                          1.0 ║
+║ Version               ║                                        0.1.0 ║
 ╠═══════════════════════╬══════════════════════════════════════════════╣
-║ Revision              ║                                            1 ║
+║ Revision              ║                                            0 ║
 ╠═══════════════════════╩══════════════════════════════════════════════╣
 ║                   Supported Architecture Targets                     ║
 ╠══════════════════════════════════════════════════════════════════════╣

@@ -36,12 +36,35 @@ We could design this actor to respond to an RPC-style operation called "Checkout
 For the sake of example, let's take a look at what it might look like to respond directly to a checkout operation via actor-to-actor RPC (this is non-compiling psuedocode):
 
 ```rust
-TODO
+/// perform checkout operation:
+///  - determine total amount based on current order
+///  - authorize and complete payment
+///  - if successful, return transaction id
+async fn checkout(&self, ctx: &Context, order: &Order) -> RpcResult<()> {
+    // verify that items are in stock,
+    // and apply other validation rules on order
+    self.verify_order(order);
+    // calculate the order amount and tax
+    let payment_request = self.calculate_amount(order);
+
+    // submit request to Payments provider
+    let provider = PaymentsSender::new();
+    let auth_response = provider.authorize_payment{ctx, payment_request).await?;
+    if  !auth_response.success { /* handle not authorized */ }
+    // ask Payaments provider to complete the transaction
+    let confirmation = provider.complete_payment(ctx, CompletePaymentRequest {
+            auth_code: auth_response.auth_code,
+            ..Default::default()
+        }).await?;
+    }
+    if !confirmation.success { /* handle payment failed */ }
+    Ok(confirmation.txid)
+}
 ```
 
 In the preceding sample, any (authorized) actor could simply perform an actor-to-actor invocation using the shared actor interface in the `commerce` crate to trigger a shopping cart checkout, which in turn makes use of the payment capability provider, all without any actor developer ever having to know how payments are processed in production, and, even better, allowing actor developers to simulate arbitrary payment environments for unit tests, acceptance tests, and feedback loop/REPL experimentation on their workstation.
 
 #### ⚠️  Note
-Make sure your actor is signed by adding `wasmcloud:examples:payments` to the CLAIMS declaration in the actor project's Makefile, or your actor(s) will not be authorized to link with or communicate with the provider we wrote.
+Make sure your actor is signed by adding `wasmcloud:example:payments` to the CLAIMS declaration in the actor project's Makefile, or your actor(s) will not be authorized to link with or communicate with the provider we wrote.
 
 [^1]: _better_ is of course, subjective. Your needs and mileage may vary.
