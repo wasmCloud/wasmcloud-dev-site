@@ -7,7 +7,7 @@ draft: false
 
 The lattice control interface provides a way for clients to interact with the lattice to issue control commands and queries. This interface is a message broker protocol that supports functionality for starting and stopping actors and providers, declaring link definitions, monitoring lattice events, holding _auctions_ to determine scheduling compatibility, and much more.
 
-The core message broker protocol can be used by any client capable of connecting to NATS. There is also a [wasmcloud-control-interface](https://docs.rs/wasmcloud-control-interface/0.3.1/wasmcloud_control_interface/) Rust crate that provides a convenient API for accessing the control interface.
+The core message broker protocol can be used by any client capable of connecting to NATS. There is also a [wasmcloud-control-interface](https://docs.rs/wasmcloud-control-interface/0.4.4/wasmcloud_control_interface/) Rust crate that provides a convenient API for accessing the control interface.
 
 ℹ️ All control interface interactions take place on a _separate_ NATS client connection from the RPC connection for security reasons. All requests and replies on the control interface connection are serialized via **JSON**.
 
@@ -21,22 +21,22 @@ All of the control interface messages published on NATS topics use a standard pr
 
 All control interface messages conform to the schema found in the [control interface](https://wasmcloud.github.io/interfaces/html/org_wasmcloud_interface_control.html) smithy model. Assume a `wasmbus.ctl.{prefix}` topic prefix for all of the topics listed below.
 
-| Topic | Type | Description |
-| :--- | :--- | :--- |
-| `auction.provider` | Req | Hold an auction for starting a provider |
-| `auction.actor` | Req | Hold an auction for starting an actor |
-| `cmd.{host}.la` | Req | Tell a host to start (_launch_) an actor |
-| `cmd.{host}.sa` | Req | Tell a host to stop an actor |
-| `cmd.{host}.scale}` | Req | Scale a given actor to a specific number of instances |
-| `cmd.{host}.lp` | Req | Tell host to launch provider |
-| `cmd.{host}.sp` | Req | Tell host to stop provider |
-| `cmd.{host}.upd` | Req | Tell host to live-update actor |
-| `get.links` | Req | Query link definition list |
-| `get.claims` | Req | Query claims cache |
-| `get.{host}.inv` | Req | Query host running inventory |
-| `linkdefs.put` | Req | Put a link definition into the lattice |
-| `linkdefs.del` | Req | Delete a link definition from the lattice |
-| `ping.hosts` | Coll | Collect list of all running hosts by emitting a ping and gathering responses |
+| Topic               | Type | Description                                                                  |
+| :------------------ | :--- | :--------------------------------------------------------------------------- |
+| `auction.provider`  | Req  | Hold an auction for starting a provider                                      |
+| `auction.actor`     | Req  | Hold an auction for starting an actor                                        |
+| `cmd.{host}.la`     | Req  | Tell a host to start (_launch_) an actor                                     |
+| `cmd.{host}.sa`     | Req  | Tell a host to stop an actor                                                 |
+| `cmd.{host}.scale}` | Req  | Scale a given actor to a specific number of instances                        |
+| `cmd.{host}.lp`     | Req  | Tell host to launch provider                                                 |
+| `cmd.{host}.sp`     | Req  | Tell host to stop provider                                                   |
+| `cmd.{host}.upd`    | Req  | Tell host to live-update actor                                               |
+| `get.links`         | Req  | Query link definition list                                                   |
+| `get.claims`        | Req  | Query claims cache                                                           |
+| `get.{host}.inv`    | Req  | Query host running inventory                                                 |
+| `linkdefs.put`      | Req  | Put a link definition into the lattice                                       |
+| `linkdefs.del`      | Req  | Delete a link definition from the lattice                                    |
+| `ping.hosts`        | Coll | Collect list of all running hosts by emitting a ping and gathering responses |
 
 Operations of type `Sub` are subscribe-only. A lattice control interface client may subscribe to this event stream, but _should never publish to it_. A good security scenario is to have a different set of lattice connection credentials for the wasmCloud host than you use for the control client. This allows you to prevent the control client from publishing to potentially dangerous topics.
 

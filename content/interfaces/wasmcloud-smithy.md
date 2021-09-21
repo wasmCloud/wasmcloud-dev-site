@@ -1,25 +1,28 @@
+---
+title: "wasmCloud Smithy"
+draft: false
+---
+
 # wasmCloud-smithy guide
 
 wasmCloud's use of Smithy closely follows the [Smithy IDL specification](https://awslabs.github.io/smithy/1.0/spec/core/idl.html). This document is intended to be a quick reference to the major features of Smithy, and includes some conventions that wasmCloud has adopted for smithy-defined interfaces.
 
-__Contents__
+**Contents**
 
 - [Models](#models)
 - [Data types](#data-types)
-- [Structures](#structures)  
+- [Structures](#structures)
 - [Services](#services)
 - [Operations](#operations)
 - [Documentation](#documentation)
-
 
 There is also an [index](./annotations/) of all annotations used by wasmCloud in `.smithy` files.
 
 ## Models
 
-We author models in Smithy IDL files, with a `.smithy` extension. An IDL that defines any shapes must have a namespace declaration, 
+We author models in Smithy IDL files, with a `.smithy` extension. An IDL that defines any shapes must have a namespace declaration,
 
 A [Semantic Model](https://awslabs.github.io/smithy/1.0/spec/core/model.html#the-semantic-model) is built from one or more IDL files and/or json (AST model) files, and can contain multiple namespaces. To fully lint or validate a model, or to generate code from a semantic model, you need to specify paths to all dependencies in all namespaces used by the model. These dependencies are specified in a [`codegen.toml`](./codegen-toml.md) configuration file, usually located in the project root folder.
-
 
 ## Data Types
 
@@ -28,12 +31,13 @@ In Smithy, data types are called [shapes](https://awslabs.github.io/smithy/1.0/s
 ### Supported Shapes
 
 - simple shapes
+
   - `Byte`, `Short`, `Integer`, `Long`
   - `Float`, `Double`
   - `Boolean`
   - `String`
   - `Blob`
-  - `Timestamp` (* partially supported, see below)
+  - `Timestamp` (\* partially supported, see below)
 
 - aggregate shaptes
   - `list` [List](https://awslabs.github.io/smithy/1.0/spec/core/model.html#list) (array of any other type)
@@ -42,10 +46,10 @@ In Smithy, data types are called [shapes](https://awslabs.github.io/smithy/1.0/s
   - `structure` [Structure](https://awslabs.github.io/smithy/1.0/spec/core/model.html#structure)
   - `service` [Service](https://awslabs.github.io/smithy/1.0/spec/core/model.html#service) a collection of operations
   - `operation` [Operation](https://awslabs.github.io/smithy/1.0/spec/core/model.html#operation) a function
-    
-The following Smithy shapes are __partially supported__: `set`, `Timestamp`
 
-The following Smithy shapes are __not supported__ (yet): `BigInteger`, `BigDecimal`, `union`, `document`. `resource`
+The following Smithy shapes are **partially supported**: `set`, `Timestamp`
+
+The following Smithy shapes are **not supported** (yet): `BigInteger`, `BigDecimal`, `union`, `document`. `resource`
 
 ### Integer types
 
@@ -55,7 +59,6 @@ and, for consistency, aliases (`I8`,`I16`,`I32`,`I64`) for the signed primitive 
 The unsigned types have the trait `@unsignedInt`, which has the trait `@limit(min:0)`.
 
 The `@unsignedInt` trait causes the code generator to generate unsigned data types in languages that support them.
-
 
 ### Timestamp
 
@@ -74,7 +77,6 @@ SDK Client libraries in supported languages will include functions for convertin
 
 Due to the way we use msgpack, map key types are limited to String.
 
-
 ## Structures
 
 Structures are just like the structures in your favorite programming languages.
@@ -87,7 +89,6 @@ structure Point {
 }
 ```
 
-
 ### Optional and Required fields
 
 Most structure members are optional by default.
@@ -98,13 +99,11 @@ The types boolean, byte, short, integer, long, float, and double types are not b
 
 The `@required` trait may be used on structure members to indicate that it must be present.
 
-
 ## Services
 
 A Service defines a set of operations. wasmCloud has defined a set of required and optional annotations for services and their operations.
 
 The `@wasmbus` annotation is required. `wasmbus` is the name wasmCloud uses for its messaging [protocol](/reference/wasmbus/protocol/).
-
 
 ```
 @wasmbus(
@@ -117,11 +116,9 @@ service HttpClient {
 
 ```
 
-This declaration states that the HttpClient service has the [capability contract id](/reference/host-runtime/capabilities/) `wasmcloud:httpclient`. The contractId declaration is __required__ for all service providers. The boolean value `providerReceive` indicates that the direction of messages for this service is from actor to provider. In other words, the capability provider must implement a handler for the Request method. A service may declare `actorReceive: true` if the direction of messages is _to_ an actor (either provider to actor or actor to actor). Some services can declare both `actorReceive` and `providerReceive`. (The default value for both of these fields is `false`, so it is only necessary to include them if their value is `true`.)
+This declaration states that the HttpClient service has the [capability contract id](/reference/host-runtime/capabilities/) `wasmcloud:httpclient`. The contractId declaration is **required** for all service providers. The boolean value `providerReceive` indicates that the direction of messages for this service is from actor to provider. In other words, the capability provider must implement a handler for the Request method. A service may declare `actorReceive: true` if the direction of messages is _to_ an actor (either provider to actor or actor to actor). Some services can declare both `actorReceive` and `providerReceive`. (The default value for both of these fields is `false`, so it is only necessary to include them if their value is `true`.)
 
 These attributes control code generation, so if you can't find the generated method to send a message to your service, doublecheck that the appropriate `actorReceive` and `providerReceive` flags are enabled.
-
-
 
 ## Operations
 
@@ -140,6 +137,7 @@ Operation input and output types can be any supported [data type](#data_types),
 other than optional types.
 An operation with no input declaration means the operation takes no parameters,
 for example,
+
 ```text
 operation GetTimeOfDay {
     output: Timestamp
@@ -148,6 +146,7 @@ operation GetTimeOfDay {
 
 An operation without output means the operation has no return value
 (e.g., returns 'void'), for example,
+
 ```text
 operation SetCounter {
     input: U64,
@@ -159,7 +158,6 @@ such as `fn lookup(key: String) -> Option<String>` or
 `func resetCounter( value: number | null )` , you'll need to use a structure
 with an optional field.
 
-
 ## Multiple parameters
 
 We would like to model functions that take multiple parameters. We can do that with Smithy by creating a wrapper structure for the multiple args.
@@ -167,7 +165,7 @@ We would like to model functions that take multiple parameters. We can do that w
 For example, a key value store might have a "set" operation:
 
 ```text
-Set(key: string, value: string, expires: i32): SetResponse 
+Set(key: string, value: string, expires: i32): SetResponse
 ```
 
 Since Smithy operations can only be declared with a single input type, the Smithy declaration might look like
@@ -192,9 +190,6 @@ structure SetResponse {
 
 This is somewhat more verbose than we'd like it to be. In the future we would like to add an annotation to the structure to tell the code generator to "flatten" the structure into multiple input parameters when generating the function signature. This would not change the format of the data on-the-wire, so such a change would not impact binary compatibility, but it would
 
-
 ## Documentation
 
-Documentation for shapes is indicated by preceding the shape declaration with one or more lines of comments beginning with three slashes (`/// Comment`). All comments of this type are emitted by code and documentation generators, (The same effect can be achieved by using the `@documentation` annotation trait). In Smithy, documentation on consecutive lines is combined into a single block, and interpreted as __CommonMark markdown__. At the moment, html generated by the documentation generator does not perform markdown-to-html conversion, so documentation appears as it does in the source file. If the generated file is Rust source code, the Rust doc generator _does_ convert markdown in comments, so for Rust code, markdown in the smithy comments can result in formatted comments in Rust docs.
-
-
+Documentation for shapes is indicated by preceding the shape declaration with one or more lines of comments beginning with three slashes (`/// Comment`). All comments of this type are emitted by code and documentation generators, (The same effect can be achieved by using the `@documentation` annotation trait). In Smithy, documentation on consecutive lines is combined into a single block, and interpreted as **CommonMark markdown**. At the moment, html generated by the documentation generator does not perform markdown-to-html conversion, so documentation appears as it does in the source file. If the generated file is Rust source code, the Rust doc generator _does_ convert markdown in comments, so for Rust code, markdown in the smithy comments can result in formatted comments in Rust docs.

@@ -9,9 +9,8 @@ In this guide, we'll be taking a tour through some of the most common activities
 
 You should have already [installed wash and started](../installation/) nats and the wasmCloud host runtime.
 
-> __A note on log files__
+> **A note on log files**
 > If you do encounter any problems, the host log files may contain useful error messages, and it's good to know how to find them. If you installed the host from a downloaded release, look in `var/log/erlang.log.1` relative to the folder where you extracted the release tar file. If you started the host with docker, try `docker logs host`.
- 
 
 ### Viewing the wasmCloud dashboard
 
@@ -22,12 +21,13 @@ Open a browser tab to the URL [http://localhost:4000](http://localhost:4000). Th
 Make sure that you've got port **4000** available or you likely won't see the wasmCloud dashboard. If you need to change the port number, you can set the environment variable `PORT` to the new number and re-start the host with that environment variable in scope.
 
 To see a list of running hosts, issue the following command in a terminal window (`wash` should be in your path):
+
 ```shell
 wash ctl get hosts
 ⢈⠩  Retrieving Hosts ...
 
-  Host ID                                                    Uptime (seconds)  
-  NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI   711    
+  Host ID                                                    Uptime (seconds)
+  NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI   711
 ```
 
 You should see one host running, and you can view its inventory by running the following command with the **Host ID** found in the Output window (make sure you use _your_ host and not the one in this guide):
@@ -35,18 +35,19 @@ You should see one host running, and you can view its inventory by running the f
 ```shell
 wash ctl get inventory NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI
 ```
+
 You'll see output similar to the following (your host key will be different):
 
 ```shell
- Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)  
-                                                                              
-  hostcore.os                           linux                                 
-  hostcore.osfamily                     unix                                  
-  hostcore.arch                         x86_64                                
-                                                                              
-  No actors found                                                             
-                                                                              
-  No providers found  
+ Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
+
+  hostcore.os                           linux
+  hostcore.osfamily                     unix
+  hostcore.arch                         x86_64
+
+  No actors found
+
+  No providers found
 ```
 
 Currently on this host, we have a few labels that show the environment this host is running on, and no capability providers. All wasmCloud hosts set the `hostcore.*` labels, which are available in auctions (discussed in the reference guide TODO: not defined in reference guide).
@@ -55,7 +56,7 @@ The terminal output you've seen so far is also reflected in the GUI. Throughout 
 
 #### Running an actor
 
-We could start scheduling actors and providers right away on this host using the `wash ctl start` command, but we'll use the dashboard UI for now. Using the web UI, click the **Start Actor** button and choose the _From Registry_ option. When prompted for an OCI reference URL, enter `wasmcloud.azurecr.io/echo:0.2.1` and for now just choose **1** for the number of replicas. After just a few moments, you should have a running actor in your environment. As soon as the system conducts its next periodic health check, the actor's status should change from Awaiting to Healthy.
+We could start scheduling actors and providers right away on this host using the `wash ctl start` command, but we'll use the dashboard UI for now. Using the web UI, click the **Start Actor** button and choose the _From Registry_ option. When prompted for an OCI reference URL, enter `wasmcloud.azurecr.io/echo:0.3.2` and for now just choose **1** for the number of replicas. After just a few moments, you should have a running actor in your environment. As soon as the system conducts its next periodic health check, the actor's status should change from Awaiting to Healthy.
 
 ![dashboard2](./washboard2.png)
 
@@ -66,39 +67,39 @@ For this actor to receive HTTP requests, we need to start the HTTP Server capabi
 Let's use the `wash` CLI to inspect the set of capabilities this actor has:
 
 ```shell
-wash claims inspect wasmcloud.azurecr.io/echo:0.2.1
-                                                                          
-                               Echo - Module                              
-  Account       ACOJJN6WUP4ODD75XEBKKTCCUJJCY5ZKQ56XVKYK4BEJWGVAOOQHZMCW  
-  Module        MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5  
-  Expires                                                          never  
-  Can Be Used                                                immediately  
-  Version                                                      0.2.1 (2)  
-  Call Alias                                                   (Not set)  
-                               Capabilities                               
-  HTTP Server                                                             
-                                   Tags                                   
+wash claims inspect wasmcloud.azurecr.io/echo:0.3.2
+
+                               Echo - Module
+  Account       ACOJJN6WUP4ODD75XEBKKTCCUJJCY5ZKQ56XVKYK4BEJWGVAOOQHZMCW
+  Module        MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5
+  Expires                                                          never
+  Can Be Used                                                immediately
+  Version                                                      0.3.2 (4)
+  Call Alias                                                   (Not set)
+                               Capabilities
+  HTTP Server
+                                   Tags
   None
 ```
 
-To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.14.1` and leave the _link name_ set to `default`. You should now see this capability provider running (don't worry that our screenshot shows it as _Unhealthy_, yours should switch to _Healthy_ as soon as an internal heartbeat takes place).
+To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.14.4` and leave the _link name_ set to `default`. You should now see this capability provider running.
 
 ![dashboard3](./washboard3.png)
 
 Let's take a look at our host's inventory now. If you re-run the inventory command `wash ctl get inventory`, you should see something like the following (again, your Host ID and Actor ID will differ):
 
 ```shell
-Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)                                 
-                                                                                                                                            
-  hostcore.os                  linux                                                      
-  hostcore.osfamily            unix                                                       
-  hostcore.arch                x86_64                                                     
-                                                                                                                                            
-  Actor ID                                                    Name               Image Reference                                            
-  MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5    N/A                wasmcloud.azurecr.io/echo:0.2.1                            
-                                                                                                                                            
-  Provider ID                                                 Name               Link Name          Image Reference                         
-  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.14.1
+Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
+
+  hostcore.os                  linux
+  hostcore.osfamily            unix
+  hostcore.arch                x86_64
+
+  Actor ID                                                    Name               Image Reference
+  MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5    N/A                wasmcloud.azurecr.io/echo:0.3.2
+
+  Provider ID                                                 Name               Link Name          Image Reference
+  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.14.4
 ```
 
 #### Linking actors and capability providers
@@ -112,14 +113,17 @@ Go back to the web UI and click **Define Link**. The web UI remembered the publi
 Once you see that the link has been added to the dashboard UI (you can also use `wash` to query this from the lattice), you are ready to send a request to your actor.
 
 #### Interacting with your actor
+
 In another terminal window, run the following command:
+
 ```
 curl localhost:8080/echo
 ```
+
 In response, you should receive your request object (notice the path argument):
 
 ```shell
-{"method":"GET","path":"/echo","query_string":"","headers":{},"body":[]}
+{"body":[],"method":"GET","path":"/echo","query_string":""}
 ```
 
 Feel free to try out different methods of making a request to your actor, including adding headers or using a different HTTP method to see different outputs.
@@ -131,6 +135,7 @@ Here's an example of using `wash call` to mimic the previous `curl` command. Not
 ```shell
 wash call MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5 HandleRequest '{"method": "GET", "path": "/echo", "body": "", "queryString":"","header":{}}'
 ```
+
 ⚠️ `call` only works here because the parameters in the JSON payload are _exactly_ the same in terms of fields, shape, and data types as the payload that the actor is expecting. If a field is missing, or a data type is incorrect, the actor will reject the call.
 
 Our output looks like this:

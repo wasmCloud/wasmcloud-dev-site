@@ -6,10 +6,11 @@ draft: false
 ---
 
 Creating a capability provider involves creating a native executable. All capability provider executables have the same basic requirements:
-* Accept a [Host Data](https://wasmcloud.github.io/interfaces/html/org_wasmcloud_core.html#host_data) structure from `stdin` immediately upon starting the executable. The host data is a base64 encoded JSON object with a trailing newline making it easy to pull from the `stdin` pipe.
-* Accept linkdef messages according to the [RPC protocol](../../../reference/lattice-protocols/rpc)
-* Communicate with actors via rpc messages defined by a capability contract,
-* Respond to periodic health checks
+
+- Accept a [Host Data](https://wasmcloud.github.io/interfaces/html/org_wasmcloud_core.html#host_data) structure from `stdin` immediately upon starting the executable. The host data is a base64 encoded JSON object with a trailing newline making it easy to pull from the `stdin` pipe.
+- Accept linkdef messages according to the [RPC protocol](../../../reference/lattice-protocols/rpc)
+- Communicate with actors via rpc messages defined by a capability contract
+- Respond to periodic health checks
 
 Thankfully, our scaffolding and reusable Rust crates take care of the basic plumbing for satisfying these requirements, letting you focus on messages exchanged with the actor, as defined by your capability contract.
 
@@ -22,7 +23,6 @@ wash new provider fakepay-provider
 ```
 
 The command above creates a new capability provider project called `fakepay-provider`. Lets change to the newly created directory and start writing some code. The implementation below has all the methods a provider would need to implement to satisfy the capability contract `wasmcloud:example:payments`. You could paste this code into src/main.rs (replace the existing contents of that file). The functions themselves haven't been filled out - that's where your business logic goes. You can see that there is almost no boilerplate here, letting you stay focussed on your business logic.
-
 
 ```rust
 //! Fakepay - stub payments capability provider
@@ -115,7 +115,7 @@ thiserror = "1.0"
 tokio = { version = "1", features = ["full"] }
 toml = "0.5"
 wasmcloud-examples-payments = { path="../../interface/payments/rust" }
-wasmbus-rpc = "0.3.11"
+wasmbus-rpc = "0.4"
 
 [[bin]]
 name = "fakepay"
@@ -127,5 +127,5 @@ Also, we need to make one edit to the project Makefile: change the last part of 
 ```Makefile
 CAPABILITY_ID = "wasmcloud:example:payments"
 ```
- 
+
 Let's [create the provider archive](./create-par/)

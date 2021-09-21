@@ -24,16 +24,16 @@ Actors are [reactive](https://en.wikipedia.org/wiki/Reactive_programming). An ac
 ```rust
 #[async_trait]
 impl BankServer for BankActor {
-    async fn handle_inquiry(&self, 
-        ctx: &Context, 
+    async fn handle_inquiry(&self,
+        ctx: &Context,
         query: &BalanceInquiry) -> RpcResult<Balance> {
-    
-    // queried using another cap provider
-    let balance = get_balance()?; 
+
+    // queried using another capability provider
+    let balance = get_balance()?;
     Ok(Balance{
         account: query.account,
         balance
-    })    
+    })
   }
 }
 ```

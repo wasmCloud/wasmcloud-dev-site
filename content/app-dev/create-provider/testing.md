@@ -16,16 +16,16 @@ A second method for testing a provider is to run it in a realistic environment, 
 2. Upload the newly-created _provider archive_ to the local OCI registry (You can use `wash reg push ...`, or if you have one of the provider project Makefiles, `make push`) `make start` to start it.
 
 3. Upload an actor that utilizes the provider to the local OCI registry (`make` and `make push` from the actor source folder to compile it, sign it, and push it to the registry), An example of doing this can be found in [Running the actor](../../create-actor/run/#launch-the-actor). `make start` to start it.
-. 
-4. Link the actor with `wash ctl link` [on the command line](/app-dev/create-actor/run/#add_a_link_definition) or via the dashboard web UI. For the fakepay provider, no extra configuration parameters values are required for the link command. Note that even if you don't supply configuration values, an actor must be linked to a provider, and be signed with sufficient claims, before it can communicate with the provider.
+   .
+4. Link the actor with `wash ctl link` [on the command line](/app-dev/create-actor/run/#add-a-link-definition) or via the dashboard web UI. For the fakepay provider, no extra configuration parameters values are required for the link command. Note that even if you don't supply configuration values, an actor must be linked to a provider, and be signed with sufficient claims, before it can communicate with the provider.
 
-5. Invoke the actor by sending a JSON payload, either on the command line with  `wash call actor -o json --data input.json` or the dashboard UI. The method name invoked, and the parameters in input.json must exactly match the interface implemented by your actor. In the previous section we used `CheckoutRequest` that might have a JSON body as follows:
+5. Invoke the actor by sending a JSON payload, either on the command line with `wash call actor -o json --data input.json` or the dashboard UI. The method name invoked, and the parameters in input.json must exactly match the interface implemented by your actor. In the previous section we used `CheckoutRequest` that might have a JSON body as follows:
 
-     ```json
-     {
-         "payment_entity": "ab3428cj2q34kdas23j0123_123",
-         "payment_token": "token1"
-     }
-     ```
+   ```json
+   {
+     "payment_entity": "ab3428cj2q34kdas23j0123_123",
+     "payment_token": "token1"
+   }
+   ```
 
 6. Since the response will be serialized in _message pack_ format, the data may look a little awkward in the terminal output, but you'll be able to see your actor using your new provider in the output.
