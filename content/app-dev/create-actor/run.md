@@ -21,13 +21,13 @@ At this point, simply click **Start Actor** and then choose _from file_. Open a 
 
 A moment later you should see the actor in your web UI as shown in the following screenshot:
 
-TODO screenshot actor started
+![actor started](../actor.png)
 
 ### Start the web server
 
 We know our new actor needs a web server, so let's start the HTTP server capability provider. To do that, click the **Start Provider** button and enter this OCI URL: `wasmcloud.azurecr.io/httpserver:0.14.4`. Now we should have both an actor and a provider, and the dashboard should look like this:
 
-TODO screenshot actor and provider
+![actor and provider](../actorandprovider.png)
 
 ### Add a link definition
 
