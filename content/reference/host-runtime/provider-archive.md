@@ -14,9 +14,9 @@ Each provider archive contains the JSON Web Token and it also contains a binary 
 For example, a typical archive might contain the following files:
 
 * `token.jwt` - The embedded token. The exact filename is not important for this documentation.
-* `x86_64-linux` - The binary shared object (`.so`) for x86/64 linux
-* `x86_64-macos` - The shared object `.dylib` for x86/64 macOS
-* `aarch64-linux` - Shared object `.so` for the general purpose 64-bit ARM using Linux
-* `armv7-linux` - Shared object `.so` for armv7 (e.g. RasPi) linux
+* `x86_64-linux` - The executable file for x86/64 linux
+* `x86_64-macos` - The executable file for macOS
+* `aarch64-linux` - Executable file for the general purpose 64-bit ARM using Linux
+* `armv7-linux` - Executable file for armv7 (e.g. RasPi) linux
 
-Both provider archives and actors can be stored in suitable OCI registries, and as such wasmcloud supports the declarative startup/shutdown of actors and capability providers using their respective OCI reference URIs. For example, you can start the example `kvcounter` actor in any wasmcloud host connected to the internet by starting `https://wasmcloud.azurecr.io/kvcounter:0.2.0`. For a complete list of the official images in our public OCI registry, check out the [Official OCI Image](../../official-oci) list.
+Both provider archives and actors can be stored in suitable OCI registries, and as such wasmCloud supports the declarative startup/shutdown of actors and capability providers using their respective OCI reference URIs. For example, you can start the example `kvcounter` actor in any wasmCloud host connected to the internet by starting `https://wasmcloud.azurecr.io/kvcounter:0.2.0`. For a complete list of the official images in our public OCI registry, check out the [Official OCI Image](../../official-oci) list.

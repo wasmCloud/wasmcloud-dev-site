@@ -1,27 +1,31 @@
 ---
-title: "Testing the New Provider"
+title: "Testing the new provider"
 date: 2018-12-29T11:02:05+06:00
 weight: 10
 draft: false
 ---
 
-The easiest way to test your new capability provider is as follows:
+There are two ways to test a capability provider.
 
-1. Start up a new local OCI registry (we have an example of these `docker-compose` files in multiple sample repositories)
+The first method loads the provider into a test harness, and issues rpc calls to it to verify responses. This type of testing can be useful for "unit" tests - evaluating the provider in an isolated, controlled context. For examples of providers that use this kind of testing, look in the `tests` folder of [kvredis](https://github.com/wasmCloud/capability-providers/tree/main/kvredis) and [httpserver](https://github.com/wasmCloud/capability-providers/tree/main/httpserver-rs). These two capability providers exhibit different directions for rpc: kvredis, an example of a [`providerReceive`](/interfaces/traits/#wasmbus) service, receives commands from actors, and httpserver, an example of an [`actorReceive`](/interfaces/traits/#wasmbus) service, sends messages to actors.
 
-1. Upload the newly-created _provider archive_ to the local OCI registry (You can use `wash reg push`)
+A second method for testing a provider is to run it in a realistic environment, interacting with a real host and real actors. To set up the environment,
 
-1. Upload an actor that utilizes this provider to the local OCI registry (`wash reg push`), or simply load a signed actor file. An example of doing this can be found in the [run the actor](../../create-actor/run/#launch-the-actor) section.
+1. Start a new local OCI registry. You can download [docker-compose.yml](https://github.com/wasmCloud/examples/blob/main/docker/docker-compose.yml) and run `docker-compose up -d registry`
 
-1. Use `ctl link` inside the `wash up` REPL to establish a link (no values necessary) between the actor and the provider. Note that even if you don't supply configuration values, an actor must be linked to a provider (and have sufficient claims) before it can communicate with it.
+2. Upload the newly-created _provider archive_ to the local OCI registry (You can use `wash reg push ...`, or if you have one of the provider project Makefiles, `make push`) `make start` to start it.
 
-1. Use `ctl call` to fabricate a JSON payload that matches whatever inbound request your actor uses to trigger the payment provider. In the previous section we used `CheckoutRequest` that might have a JSON body as follows:
+3. Upload an actor that utilizes the provider to the local OCI registry (`make` and `make push` from the actor source folder to compile it, sign it, and push it to the registry), An example of doing this can be found in [Running the actor](../../create-actor/run/#launch-the-actor). `make start` to start it.
+   .
+4. Link the actor with `wash ctl link` [on the command line](/app-dev/create-actor/run/#add-a-link-definition) or via the dashboard web UI. For the fakepay provider, no extra configuration parameters values are required for the link command. Note that even if you don't supply configuration values, an actor must be linked to a provider, and be signed with sufficient claims, before it can communicate with the provider.
 
-    ```json
-    {
-        "payment_entity": "ab3428cj2q34kdas23j0123_123",
-        "payment_token": "token1"
-    }
-    ```
+5. Invoke the actor by sending a JSON payload, either on the command line with `wash call actor -o json --data input.json` or the dashboard UI. The method name invoked, and the parameters in input.json must exactly match the interface implemented by your actor. In the previous section we used `CheckoutRequest` that might have a JSON body as follows:
 
-1. Since the response will be serialized in _message pack_ format, the data may look a little ugly in the REPL log, but you'll be able to see your actor using your new provider in the output.
+   ```json
+   {
+     "payment_entity": "ab3428cj2q34kdas23j0123_123",
+     "payment_token": "token1"
+   }
+   ```
+
+6. Since the response will be serialized in _message pack_ format, the data may look a little awkward in the terminal output, but you'll be able to see your actor using your new provider in the output.

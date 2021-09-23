@@ -5,25 +5,22 @@ weight: 9
 draft: false
 ---
 
-A _host manifest_ is a representation of a _desired_ set of contents for a running `wasmcloud` host instance, including actors, capability providers, host labels, and link definitions. The host manifest can either be a `json` file or a `yaml` file, provided they have the following sections:
+A _host manifest_ contains a list of actors and providers that you would like to start on a given host. The manifest file is an _imperative_ set of instructions, and so should not be considered either safe or idempotent to run multiple times. Think of the manifest file as a shortcut for invoking `wash ctl` over and over again.
 
-* `labels` - A set of arbitrary key-value pairs that are associated with the host. Host labels can be queried as part of lattice interrogations and used by the _auction_ process of the wasmCloud control interface to determine scheduling suitability for actors and providers. This section is optional.
-* `actors` - This section contains a list (yaml or json `array`) of actor _references_. An actor reference in a host manifest can be either the actor's public key _or_ the OCI image reference URL of the actor as stored in an OCI registry _or_ a path to a `.wasm` file. This section is mandatory, so if you do not wish to start any actors, supply the format equivalent of an empty list/array.
-* `capabilities` - This section contains a list of capability _descriptions_. A capability description is a structure that provides the minimal amount of information required for the wasmCloud host to load and start a capability provider. Capability descriptions contain the following fields:
+The following describes the contents of a host manifest:
+
+* `actors` - This section contains a list (yaml or json `array`) of actor _references_. An actor reference in a host manifest _must_ be the OCI image reference URL of the actor as stored in an OCI registry. This section is mandatory, so if you do not wish to start any actors, supply the format equivalent of an empty list/array. Since the target host could be anywhere, the only way for that remote host to reliably locate your actor is through an OCI reference.
+* `capabilities` - This section contains a list of capability provider _descriptions_. A capability provider description is a structure that provides the minimal amount of information required for the wasmCloud host to load and start a capability provider. Capability descriptions contain the following fields:
   * `image_ref` - This is a required field that contains the OCI image reference of a capability provider. If you want to launch a local capability provider via manifest, then you'll have to ensure that it's stored in a local registry and you provide the local registry URL.
-  * `link_name` - This field is optional and contains the name of the provider as a target for links. If you leave this value out of the manifest, wasmCloud will use the default link name of `default`.  This field is only necessary to distinguish between two configurations of the same provider.  One may, for example, need to run two configurations of a `keyvalue` provider.
-    In this case there may be two entries in the `capabilities` array with the same `image_ref`, but different values for `link_name`.  When there is only one configuration of any given provider in the manifest, this field should be omitted.
-* `links` - This required field contains a list of "link definitions". If you do not have any link definitions, you will have to supply the format equivalent of an empty list or array (e.g. `[]`). A link definition contains the following fields:
-  * `actor` - The public key of the actor in this link. Note that even if you start an actor via an OCI reference, you must _only_ ever use the actor's public key in a link definition.
-  * `contract_id` - The contract ID of the link. This corresponds to the contract ID supported by the specific capability provider being linked, e.g. `wasmcloud:httpserver` or `wasmcloud:keyvalue`, etc.
-  * `link_name` - Optional field, specify this value if you are referring to a provider that used an alternate link name when being started.
-  * `values` - An optional map containing key-value pairs to be supplied as the per-actor configuration sent to the capability provider at link time.
+  * `link_name` - This field is optional and contains the name of the provider as a target for links. If you leave this value out of the manifest, wasmCloud will use the default link name of `default`.  This field is only necessary to distinguish between two configurations of the same provider. 
 
-A host manifest file can be supplied as a path to the `wasmcloud` binary at startup, or you can apply manifests in your own host-embedded application by using the `apply_manifest` wasmcloud-host API function call.
+### Applying a Host Manifest
 
-## Environment Variable Substitution
+A host manifest file can be applied to a specific target host by running the `wash ctl apply` command. For more information on this command, run `wash ctl apply --help`. Wash will attempt to use the _control interface_ to communicate with the specified remote host and issue the appropriate _start_ commands for the manifest's actors and providers.
 
-Within the YAML manifest files, you can use environment variable substitution syntax that lets you supply a default value that will be overridden when a named environment variable has been provided. That syntax looks as follows:
+#### Environment Variable Substitution
+
+Within the YAML manifest files, you can optionally use environment variable substitution syntax that lets you supply a default value that will be overridden when a named environment variable has been provided. That syntax looks as follows:
 
 ```shell
 ${BROKERCHANNEL_ACTOR:MAP7EXS72YJ5Z6U5AJ6IMYIRVMRJRZJBLVTC6H4E552K7SJDRYBPA3YF}
@@ -31,58 +28,23 @@ ${BROKERCHANNEL_ACTOR:MAP7EXS72YJ5Z6U5AJ6IMYIRVMRJRZJBLVTC6H4E552K7SJDRYBPA3YF}
 
 Here the environment variable `BROKERCHANNEL_ACTOR` will be used, otherwise the public key `MAP....F` will be used.
 
-## Example Manifest (YAML)
+### Example Manifest (YAML)
 
 The following is an example manifest that describes a subset of functionality contained in the "wasmCloud chat" reference/demo application.
 
 ```yaml
 ---
-labels:
-    sample: "wasmCloud Chat"
 actors:
-    - ../actors/messages/target/wasm32-unknown-unknown/debug/messages_s.wasm
-    - ../actors/broker-channel/target/wasm32-unknown-unknown/debug/broker_channel_s.wasm
+    - wasmcloud.azurecr.io/echo:0.2.1    
 capabilities:
-    - image_ref: wasmcloud.azurecr.io/nats:0.10.3
+    - image_ref: wasmcloud.azurecr.io/nats:0.11.0
       link_name: frontend
-    - image_ref: wasmcloud.azurecr.io/nats:0.10.3
-      link_name: backend
-    - image_ref: wasmcloud.azurecr.io/logging:0.9.3
-    - image_ref: wasmcloud.azurecr.io/redisstreams:0.5.1
-links:
-  # configure the broker channel actor - messaging, logging, extras
-  - actor: ${BROKERCHANNEL_ACTOR:MAP7EXS72YJ5Z6U5AJ6IMYIRVMRJRZJBLVTC6H4E552K7SJDRYBPA3YF}
-    contract_id: "wasmcloud:messaging"
-    provider_id: "VADNMSIML2XGO2X4TPIONTIC55R2UUQGPPDZPAVSC2QD7E76CR77SPW7"
-    link_name: frontend
-    values:
-      SUBSCRIPTION: wcc.frontend.requests,wcc.backend.events.>
-  - actor: ${BROKERCHANNEL_ACTOR:MAP7EXS72YJ5Z6U5AJ6IMYIRVMRJRZJBLVTC6H4E552K7SJDRYBPA3YF}
-    contract_id: "wasmcloud:logging"
-    provider_id: "VCCANMDC7KONJK435W6T7JFEEL7S3ZG6GUZMZ3FHTBZ32OZHJQR5MJWZ"
-  - actor: ${BROKERCHANNEL_ACTOR:MAP7EXS72YJ5Z6U5AJ6IMYIRVMRJRZJBLVTC6H4E552K7SJDRYBPA3YF}
-    contract_id: "wasmcloud:extras"
-    provider_id: "VDHPKGFKDI34Y4RN4PWWZHRYZ6373HYRSNNEM4UTDLLOGO5B37TSVREP"
-  
-  # the messages actor needs: eventstreams, messaging, logging
-  - actor: ${MESSAGES_ACTOR:MD6EZIZRZ5VCN6FSJZXHE2NBGGWSIIKP2GDDTODFHOTGNIVIDF2MPHIK}
-    contract_id: "wasmcloud:messaging"
-    provider_id: "VADNMSIML2XGO2X4TPIONTIC55R2UUQGPPDZPAVSC2QD7E76CR77SPW7"
-    link_name: backend
-    values: {}  # no subscriptions on the backend for this actor, only publishes
-  - actor: ${MESSAGES_ACTOR:MD6EZIZRZ5VCN6FSJZXHE2NBGGWSIIKP2GDDTODFHOTGNIVIDF2MPHIK}
-    contract_id: "wasmcloud:logging"
-    provider_id: "VCCANMDC7KONJK435W6T7JFEEL7S3ZG6GUZMZ3FHTBZ32OZHJQR5MJWZ"
-  - actor: ${MESSAGES_ACTOR:MD6EZIZRZ5VCN6FSJZXHE2NBGGWSIIKP2GDDTODFHOTGNIVIDF2MPHIK}
-    contract_id: "wasmcloud:eventstreams"
-    provider_id: "VC5EWH6XQOSV7RHTD7HOHBNZURBIRW7GK5DH3PJNV2OCAUOGXDTC4UCN"    
-    values:
-      URL: redis://0.0.0.0:6379/ 
+    - image_ref: wasmcloud.azurecr.io/nats:0.11.0
+      link_name: backend 
 ```
 
-## Caveats
+Remember that the providers won't actually be "active" until you've supplied the appropriate link definitions. You can supply them either before or after you apply the manifest.
 
-There are a few things to keep in mind while using manifest files:
+### ⚠️ Caveats
 
-* Whenever using relative paths, keep in mind that the path is relative to the `wasmcloud` binary at execution time, and _not_ relative to the location of the YAML file.
-* When you specify link definitions, those definitions exist _lattice-wide_, and could therefore affect actors and capability providers not even defined within your local manifest file. You'll need to be dilligent about scope awareness when applying manifests to a fully networked lattice.
+As mentioned above, manifest files are _imperative_. They are basically shortcuts for `wash ctl` instructions. You need to be aware that applications could fail when attempting to apply the same manifest twice (e.g. the same provider+link name cannot be running on a single host more than once).

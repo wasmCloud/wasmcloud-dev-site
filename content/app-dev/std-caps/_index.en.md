@@ -1,49 +1,43 @@
 ---
-title: "Using Standard Capabilities"
+title: "Using standard capabilities"
 date: 2018-12-29T11:02:05+06:00
 weight: 3
 draft: false
 ---
 
-Using existing capabilities from within an actor is quick and easy. If an actor interface exists for the type of capability _contract_ you're looking to use, then it's just a matter of declaring a reference to it from inside your code.
+Using existing capabilities from within an actor is quick and easy. If an actor interface exists for the type of capability _contract_ you're looking to use, then it's just a matter of declaring a reference to it from inside your code. Remember that your actors depend only on the _interface_. The _implementation_ of a contract is entirely up to the provider. For instance, once your actor is designed to work against the `wasmcloud:keyvalue` contract, it automatically works with _any_ provider that implements that contract.
 
-### Find an Actor Interface
+### Find an interface
 
-If you're looking to see which types of supported, first-party capability provider contracts are available, you'll want to take a look at the [actor interfaces](https://github.com/wasmcloud/actor-interfaces) repository. Here you will find links to documentation as well as a list of which language-specific providers are available and links to multiple implementations of the same contract (_file system_ and _S3_ are both available implementations of `wasmcloud:blobstore`, for example).
+If you're looking to see which types of supported, first-party capability provider contracts are available, you'll want to take a look at the [interfaces](https://github.com/wasmCloud/interfaces/) repository. Here you will find links to documentation as well as a list of which language-specific interfaces are available, and links to multiple implementations of the same contract (e.g. _file system_ and _S3_ are two different implementations of `wasmcloud:blobstore`).
 
-### Add the Actor Interface as a Dependency
+### Add the interface as a dependency
 
-It should also be very easy to simply declare a dependency on the actor interface from within your actor project. Remember that you're taking a dependency on the _abstract contract_, and not the concrete implementation. You might be declaring a dependency on the `wasmcloud:keyvalue` contract, and not on Redis or Cassandra.
+It should also be very easy to simply declare a dependency on the interface from within your actor project. Remember that you're taking a dependency on the _abstract contract_, and not the concrete implementation. You might be declaring a dependency on the `wasmcloud:keyvalue` contract, and not on Redis or Cassandra.
 
-As an example, here's what it looks like to add a dependency on the `wasmcloud:graphdb` actor interface in your `Cargo.toml`:
+By convention, all of our first-party actor interface crates start with the prefix `wasmcloud-interface` and should be easy to find on [crates.io](https://crates.io/search?page=1&per_page=10&q=wasmcloud-interface).
+
+As an example, here's what it looks like to add a dependency on the **key-value** actor interface. In `Cargo.toml`, there needs to be an entry under `[dependencies]`:
+
+```toml
+wasmcloud-interface-keyvalue = "0.2.5"
+```
+
+And in the Rust source (`src/lib.rs`), it needs to be imported:
 
 ```rust
-wasmcloud-actor-graphdb = "0.1.2"
+use wasmcloud_interface_keyvalue::*;
 ```
 
-And then you can import the graph database actor interface code in your `src/lib.rs` file as shown:
+### Sign the actor
 
-```rust
-use wasmcloud_actor_graphdb as graph;
-use graph::*;
+Before an actor can use a capability provider, it needs to be signed with the capability id. The signing process takes a WebAssembly file (with `.wasm` extension), generates a JWT containing the list of capability claims, signs the JWT with your private signing key, and generates a file ending in `_s.wasm` containing the original WebAssembly plus the JWT.
+
+Using the wasmCloud Makefiles (which you can get from a project in the [examples](https://github.com/wasmCloud/examples) repository, or a from project generated with `wash new actor`), the signing is done automatically for you, using the claims declared in the Makefile
+
+```make
+CLAIMS = wasmcloud:httpserver
 ```
+Whenever you type `make`, the Makefile's rules execute the commnad `wash claims sign ...` to sign the actor module.
 
-### Sign actor with the capabilities you use
-
-Once you have the wasm module that depends on any capability provider, it needs to be signed to be allowed to use that provider. This is done by adding the appropriate flag to the `wash claims sign` command. The command `wash claims sign --help` will list the standard options and the flags needed for the standard capabilities. Change the corresponding lines in the `Makefile` to reflect the providers you are using (note: there are two places to change). Here is an excerpt where we added the httpserver (`-q`) and keyvalue (`-k`) providers:
-
-```
-build:
-        @$(CARGO) build
-        wash claims sign -q -k $(DEBUG)/<actor>.wasm --name "<actor>" --ver $(VERSION) --rev $$(( $(REVISION) + 1 ))
-        wash claims inspect $(DEBUG)/<actor>_s.wasm
-...
-release:
-        @$(CARGO) build --release
-        wash claims sign -q -k $(RELEASE)/<actor>.wasm --name "<actor>" --ver $(VERSION) --rev 0
-        wash claims inspect $(RELEASE)/<actor>_s.wasm
-```
-
-### Start and Link your Actors
-
-We've covered starting and linking actors in a few places throughout the documentation. Refer to the [Run the Actor](/app-dev/create-actor/run) section of the application development guide for more information.
+You can use the command `wash claims inspect` to show the capability claims of a signed actor.
