@@ -128,12 +128,45 @@ In response, you should receive your request object (notice the path argument):
 
 Feel free to try out different methods of making a request to your actor, including adding headers or using a different HTTP method to see different outputs.
 
-Instead of using `curl`, you can also _directly invoke_ actors' registered functions using `wash call`. The function that "echoes" this HTTP request is a part of the interface `wasmcloud:httpserver` and has the operation name `HandleRequest`. We can make this request directly to the actor if we supply the correct parameters.
+Instead of using `curl`, you can also _directly invoke_ actors' registered functions using `wash call`. The function that "echoes" this HTTP request is a part of the interface `wasmcloud:httpserver` and has the operation name `HandleRequest`. We can make this request directly to the actor if we supply the correct parameters. Because this is mimicking the invocation made by a real host, you'll also need to use a cluster seed that's a valid issuer of invocations. For our purposes, we can use the one used to launch the host, but keep in mind this is a secret key and should not be shared.
 
-Here's an example of using `wash call` to mimic the previous `curl` command. Note that this is not interacting with the `HTTP Server` provider, and we don't need it to be running or linked for this operation to succeed:
+To find your cluster seed, take a look at the logs and look for a 56 character ID that starts with **SC**. You can find the logs either in your terminal where you ran the wasmCloud host, or relative to where you unpacked the application tarball in the file `var/log/erlang.log.1`
+
+Look for something like:
 
 ```shell
-wash call MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5 HandleRequest '{"method": "GET", "path": "/echo", "body": "", "queryString":"","header":{}}'
+08:36:10.814 [info] Host NBIF7UHMVSLGXHVCD7KL6NS4RC5PH7CERDL4MF7UR3D4QNJ524UUWN4F started.
+08:36:10.814 [info] Valid cluster signers CDLND22ZY7ZID5XEIXMLRWLUXL5NOI6DGECSAXAHT4GONMXWRARTR6M7
+08:36:10.814 [warn] ** WARNING. You are using an ad hoc generated cluster seed.
+08:36:10.814 [warn]    For any other host or CLI tool to communicate with this host, you MUST copy the following seed key and
+08:36:10.814 [warn]    use it as the value of the WASMCLOUD_CLUSTER_SEED environment variable:
+08:36:10.814 [warn]    SCAJIRZPJGI2ODWHALXJ5U7ZRC7MR27JMJOPLIKMDJ3QNQGA3TCPDFENDI
+```
+
+Once you locate the value, go ahead and export it as an environment variable:
+
+
+{{% tabs %}}
+{{% tab "Unix" %}}
+
+```
+export WASMCLOUD_CLUSTER_SEED=SCAJIRZPJGI2ODWHALXJ5U7ZRC7MR27JMJOPLIKMDJ3QNQGA3TCPDFENDI
+```
+
+{{% /tab %}}
+{{% tab "Windows Powershell" %}}
+
+```
+$env:WASMCLOUD_CLUSTER_SEED = SCAJIRZPJGI2ODWHALXJ5U7ZRC7MR27JMJOPLIKMDJ3QNQGA3TCPDFENDI
+```
+
+{{% /tab %}}
+{{% /tabs %}}
+
+`wash` will automatically use this cluster seed. Alternatively, you can always supply it as a command line flag `--cluster-seed` to the `call` operation. Here's an example of using `wash call` to mimic the previous `curl` command. Note that this is not interacting with the `HTTP Server` provider, and we don't need it to be running or linked for this operation to succeed:
+
+```shell
+wash call MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5 HttpServer.HandleRequest '{"method": "GET", "path": "/echo", "body": "", "queryString":"","header":{}}'
 ```
 
 ⚠️ `call` only works here because the parameters in the JSON payload are _exactly_ the same in terms of fields, shape, and data types as the payload that the actor is expecting. If a field is missing, or a data type is incorrect, the actor will reject the call.
