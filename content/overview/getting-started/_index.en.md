@@ -146,7 +146,7 @@ Look for something like:
 Once you locate the value, go ahead and export it as an environment variable:
 
 
-{{% /tab %}}
+{{% tabs %}}
 {{% tab "Unix" %}}
 
 ```
