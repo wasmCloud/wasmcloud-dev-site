@@ -106,7 +106,9 @@ Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
 
 The Echo actor and HTTP Server providers are running, but they aren't connected. Since the HTTP server provider hasn't been _linked_ to any actor yet, it hasn't yet open a port to listen to web requests to forward to the actor. To allow the actor and provider to communicate, they need to be linked. We could link them with wash cli (`wash ctl link put ...`), using the ActorID and the ProviderID from the inventory, but this time we'll link them in the web UI.
 
-Go back to the web UI and click **Define Link**. The web UI remembered the public keys of the actors and providers running, so you just need to pick them out of a dropdown selector at the top of the form, as shown below. For the 'Values' field, you can select a port number for the HTTP Server listener, and enter `port=8080` if you want to use port 8080 on localhost. (there should be no spaces before or after the equals sign). If you want the HTTP listener to use a different ip address, use "address" instead of port, and provide both IP address and the port, as in `address=10.1.1.1:9000`.
+Go back to the web UI and click **Define Link**. The web UI remembered the public keys of the actors and providers running, so you just need to pick them out of a dropdown selector at the top of the form, as shown below. For the 'Values' field, you can select a port number for the HTTP Server listener, and enter `port=8080` if you want to use port 8080 on localhost. (there should be no spaces before or after the equals sign). If you want the HTTP listener to use a different ip address, use "address" instead of port, and provide both IP address and the port, as in `address=10.1.1.1:8080`.
+
+⚠️ `Docker` If you're running this example using the docker image, you'll need to use `address=0.0.0.0:8080` instead of the `port` value. This is required due to the way containers expose ports to host networking environments.
 
 ![dashboard4](./washboard4.png)
 

@@ -8,76 +8,20 @@ draft: false
 Let's install NATS and the wasmCloud host runtime with docker. You should have already installed [prerequisites and wash](/overview/installation/).
 
 
-Download the [sample docker-compose file](https://raw.githubusercontent.com/wasmCloud/examples/main/docker/docker-compose.yml) and put it into your work directory. This compose file will install and run nats, a local OCI registry, and a redis container.
-
-With the `docker-compose.yml` file in the current directory, start the background processes with
-```
-docker-compose up -d
-```
+Download the [sample docker-compose file](https://raw.githubusercontent.com/wasmCloud/examples/main/docker/docker-compose.yml) and put it into your work directory. This compose file will run nats, a local OCI registry, a redis container, and the `wasmcloud_host` container. In this format it's easy to run all the necessary services for a wasmCloud host with only a docker installation.
 
 #### Starting the wasmCloud host with docker
 
-To download the wasmCloud host and run it in the current terminal:
-
-{{% tabs %}}
-{{% tab "Linux" %}}
-
+With the `docker-compose.yml` file in the current directory, start the processes with
 ```
-docker run --network host \
-  --env WASMCLOUD_RPC_HOST=0.0.0.0 \
-  --env WASMCLOUD_CTL_HOST=0.0.0.0 \
-  --name wasmcloud \
-  wasmcloud/wasmcloud_host:latest
+docker-compose up
 ```
 
-{{% /tab %}}
-{{% tab "Mac" %}}
+The host will run until you type ctrl-c or close the terminal window. To start the docker-compose process in the background, add a `-d` flag:
 
 ```
-???
+docker-compose up -d
 ```
-
-{{% /tab %}}
-{{% tab "Windows" %}}
-
-```
-???
-```
-
-{{% /tab %}}
-{{% /tabs %}}
-
-The host will run until you type ctrl-c or close the terminal window. To start the host in the background, add a `-d` flag:
-
-{{% tabs %}}
-{{% tab "Linux" %}}
-
-```
-docker run --network host -d \
-  --env WASMCLOUD_RPC_HOST=0.0.0.0 \
-  --env WASMCLOUD_CTL_HOST=0.0.0.0 \
-  --name wasmcloud \
-  wasmcloud/wasmcloud_host:latest
-```
-
-{{% /tab %}}
-{{% tab "Mac" %}}
-
-```
-???
-```
-
-{{% /tab %}}
-{{% tab "Windows" %}}
-
-```
-???
-```
-
-{{% /tab %}}
-{{% /tabs %}}
-
-
 
 If the wasmCloud host is running in docker in the background, you can view its logs (live) with 
 

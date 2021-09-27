@@ -24,7 +24,7 @@ First, let's make sure we have the necessary prerequisites for developing with w
 
   - We recommend gnu make version 4.3 or later. (for Mac users: you'll need to add the homebrew-installed make to your path _before_ the one in `/usr/bin`).
 
-- [**docker**](https://docs.docker.com/get-docker/) and [**docker-compose**](https://docs.docker.com/compose/install/) (recommended but not required) Docker provides an easy way to start all the services you need for a development environment: nats, a local oci registry.
+- [**docker**](https://docs.docker.com/get-docker/) and [**docker-compose**](https://docs.docker.com/compose/install/) Docker provides an easy way to start all the services you need for a development environment: nats, a local oci registry.
 
 ### Install wash
 
