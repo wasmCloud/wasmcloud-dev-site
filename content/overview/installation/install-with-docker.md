@@ -20,13 +20,21 @@ docker-compose up -d
 To download the wasmCloud host and run it in the current terminal:
 
 ```
-docker run --name wasmcloud wasmcloud/wasmcloud_host:latest
+docker run --network host \
+  --env WASMCLOUD_RPC_HOST=0.0.0.0 \
+  --env WASMCLOUD_CTL_HOST=0.0.0.0 \
+  --name wasmcloud \
+  wasmcloud/wasmcloud_host:latest
 ```
 
 The host will run until you type ctrl-c or close the terminal window. To start the host in the background, add a `-d` flag:
 
 ```
-docker run -d --name wasmcloud wasmcloud/wasmcloud_host:latest
+docker run --network host -d \
+  --env WASMCLOUD_RPC_HOST=0.0.0.0 \
+  --env WASMCLOUD_CTL_HOST=0.0.0.0 \
+  --name wasmcloud \
+  wasmcloud/wasmcloud_host:latest
 ```
 
 If the wasmCloud host is running in docker in the background, you can view its logs (live) with 
