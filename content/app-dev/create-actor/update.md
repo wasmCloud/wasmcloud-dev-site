@@ -58,9 +58,9 @@ It is not necessary to re-issue a link command. The host replaces all running in
 Let's try out the new actor:
 
 ```
-curl 'localhost:7000/?name=Alice,msg=hello'
-curl 'localhost:7000/?name=Bob,msg=bye'
-curl 'localhost:7000/?name=Carol,msg=hey'
+curl 'localhost:8087/?name=Alice,msg=hello'
+curl 'localhost:8087/?name=Bob,msg=bye'
+curl 'localhost:8087/?name=Carol,msg=hey'
 ```
 
 You've just completed a full development cycle of test, edit, recompile, run - all while the host continued running. If an actor is handling a message when an update occurs, the host waits for the message handler to complete, then swaps in the newer WebAssembly module before the next message is processed. 
