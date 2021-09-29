@@ -35,32 +35,32 @@ With both the provider and the actor running, the next step is to _link_ the two
 
 Once you've got the actor's public key, you can enter the following command, replacing `ACTOR_ID` with the key you just put on your clipboard:
 
-```
-wash ctl link ACTOR_ID VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M wasmcloud:httpserver address=0.0.0.0:8087
+```bash
+wash ctl link put ACTOR_ID VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M wasmcloud:httpserver address=0.0.0.0:8087
 
 ```
 
 At this point your HTTP server capability provider has been notified that a link definition was created, and it started the corresponding web server listening on port `8087`. You can now hit that endpoint and exercise the code you just wrote:
 
-```
+```bash
 curl localhost:8087
 ```
 
 and you should get the response:
 
-```
+```bash
 Hello World
 ```
 
 The actor accepts an optional parameter `name`, and uses it to change the greeting. (Notice the quotes around the url below).
 
-```
+```bash
 curl "localhost:8087?name=Carol"
 ```
 
 The response should be
 
-```
+```bash
 Hello Carol
 ```
 
