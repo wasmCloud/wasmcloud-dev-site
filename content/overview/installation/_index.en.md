@@ -135,3 +135,6 @@ Once the wasmCloud host has started, go ahead to [Getting started](/overview/get
 #### Install from source
 
 The [wasmCloud OTP host runtime](https://github.com/wasmCloud/wasmcloud-otp) and [wash](https://github.com/wasmcloud/wash) repositories are open source on GitHub. Both of these repositories can be cloned and built locally directly. Consult the README file in the respective repository for prerequisites and instructions for compiling and running.
+
+### Stopping the wasmCloud Host Runtime
+There are a number of ways you can stop the runtime, and the recommendation varies with how you started the host. For details, see the [safe shutdown](/reference/host-runtime/safeshutdown) section of the reference guide.
