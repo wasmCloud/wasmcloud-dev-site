@@ -36,7 +36,7 @@ With both the provider and the actor running, the next step is to _link_ the two
 Once you've got the actor's public key, you can enter the following command, replacing `ACTOR_ID` with the key you just put on your clipboard:
 
 ```
-wash ctl link ACTOR_ID VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M wasmcloud:httpserver address=0.0.0.0:8087
+wash ctl link put ACTOR_ID VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M wasmcloud:httpserver address=0.0.0.0:8087
 
 ```
 
