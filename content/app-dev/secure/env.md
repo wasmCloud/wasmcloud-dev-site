@@ -5,7 +5,7 @@ weight: 1
 draft: false
 ---
 
-Environment variables are the primary means by which the wasmCloud host obtains configuration. For a full list of supported environment variables, check out the [README](https://github.com/wasmCloud/wasmcloud-otp/tree/main/host_core#readme) in the **wasmcloud-otp** repository.
+Environment variables are the primary means by which the wasmCloud host obtains configuration. For a full list of supported environment variables, check out the [host configuration](../../../reference/host-runtime/host_configure) section of the documentation.
 
 When it comes to environment variables, there are, however, some security pitfalls into which it is remarkably easy to fall. In many production scripts that we've seen in the past, environment variables are set on the command line along with invoking the script, e.g.
 
