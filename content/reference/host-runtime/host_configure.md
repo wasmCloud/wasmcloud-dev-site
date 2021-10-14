@@ -27,6 +27,7 @@ The following table contains a list of all supported environment variables.
 | `WASMCLOUD_RPC_PORT`<br/>NATS server port used for the RPC connection | `4222` |
 | `WASMCLOUD_RPC_SEED`<br/>If decentalized NATS auth is used, the user seed | `""` | 
 | `WASMCLOUD_RPC_JWT`<br/>If decentalized NATS auth is used, the user JWT | `""` | 
+| `WASMCLOUD_RPC_TIMEOUT_MS`<br/>Timeout in milliseconds for RPC calls | `2000` |
 | `WASMCLOUD_PROV_RPC_HOST`<br/>NATS server host used for capability provider RPC connections | `0.0.0.0` |
 | `WASMCLOUD_PROV_RPC_PORT`<br/>NATS server port used for capability provider RPC connections | `4222` |
 | `WASMCLOUD_PROV_RPC_SEED`<br/>If decentalized NATS auth is used, the user seed for capability provider connections | `""` | 
