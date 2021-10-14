@@ -67,7 +67,7 @@ Timestamp is currently supported only in Rust, but will be added to all supporte
 ```rust
 struct Timestamp {
   sec: u64,   // seconds since unix epoch in UTC (also called unix time)
-  nano: u32,  // nanoseconds since the beginning of the last whole second
+  nsec: u32,  // nanoseconds since the beginning of the last whole second
 }
 ```
 
