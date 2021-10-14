@@ -25,18 +25,18 @@ The following table contains a list of all supported environment variables.
 | `WASMCLOUD_LATTICE_PREFIX`<br/>The prefix used to isolate multiple lattices from each other within the same NATS topic space | `default` |
 | `WASMCLOUD_RPC_HOST`<br/>NATS server host used for the RPC connection | `0.0.0.0` |
 | `WASMCLOUD_RPC_PORT`<br/>NATS server port used for the RPC connection | `4222` |
-| `WASMCLOUD_RPC_SEED`<br/>If decentalized NATS auth is used, the user seed | `""` | 
-| `WASMCLOUD_RPC_JWT`<br/>If decentalized NATS auth is used, the user JWT | `""` | 
+| `WASMCLOUD_RPC_SEED`<br/>If decentralized NATS auth is used, the user seed | `""` | 
+| `WASMCLOUD_RPC_JWT`<br/>If decentralized NATS auth is used, the user JWT | `""` | 
 | `WASMCLOUD_RPC_TIMEOUT_MS`<br/>Timeout in milliseconds for RPC calls | `2000` |
 | `WASMCLOUD_PROV_RPC_HOST`<br/>NATS server host used for capability provider RPC connections | `0.0.0.0` |
 | `WASMCLOUD_PROV_RPC_PORT`<br/>NATS server port used for capability provider RPC connections | `4222` |
-| `WASMCLOUD_PROV_RPC_SEED`<br/>If decentalized NATS auth is used, the user seed for capability provider connections | `""` | 
-| `WASMCLOUD_PROV_RPC_JWT`<br/>If decentalized NATS auth is used, the user JWT for capability provider connections | `""` | 
+| `WASMCLOUD_PROV_RPC_SEED`<br/>If decentralized NATS auth is used, the user seed for capability provider connections | `""` | 
+| `WASMCLOUD_PROV_RPC_JWT`<br/>If decentralized NATS auth is used, the user JWT for capability provider connections | `""` | 
 | `WASMCLOUD_PROV_RPC_TIMEOUT_MS`<br/>Timeout in milliseconds for capability provider RPC calls | `2000` |
 | `WASMCLOUD_CTL_HOST`<br/>NATS server host used for the _control interface_ connection | `0.0.0.0` |
 | `WASMCLOUD_CTL_PORT`<br/>NATS server port used for the _control interface_ connection | `4222` | 
-| `WASMCLOUD_CTL_SEED`<br/>If decentalized NATS auth is used, the user seed for the _control interface_ connection | `""` |
-| `WASMCLOUD_CTL_JWT`<br/>If decentalized NATS auth is used, the user JWT for the _control interface_ connection | `""` | 
+| `WASMCLOUD_CTL_SEED`<br/>If decentralized NATS auth is used, the user seed for the _control interface_ connection | `""` |
+| `WASMCLOUD_CTL_JWT`<br/>If decentralized NATS auth is used, the user JWT for the _control interface_ connection | `""` | 
 | `WASMCLOUD_CLUSTER_SEED`<br/>The seed key used by this host to sign all invocations. Note that different hosts can use different seed keys so long as their corresponding public keys are listed in the valid issuers variable. | `{generated}` |
 | `WASMCLOUD_CLUSTER_ISSUERS`<br/>A comma-delimited list of valid public keys that can be used as _issuers_ on signed invocations | `{generated}` | 
 | `WASMCLOUD_PROV_SHUTDOWN_DELAY_MS`<br/>Delay, in milliseconds, between requesting a provider shut down and forcibly terminating its OTP process | `300` |
