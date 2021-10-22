@@ -16,7 +16,7 @@ wasmCloud's use of Smithy closely follows the [Smithy IDL specification](https:/
 - [Operations](#operations)
 - [Documentation](#documentation)
 
-There is also an [index](./annotations/) of all annotations used by wasmCloud in `.smithy` files.
+There is also an [index](./traits/) of all annotations used by wasmCloud in `.smithy` files.
 
 ## Models
 
