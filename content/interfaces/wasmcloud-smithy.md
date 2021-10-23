@@ -16,13 +16,13 @@ wasmCloud's use of Smithy closely follows the [Smithy IDL specification](https:/
 - [Operations](#operations)
 - [Documentation](#documentation)
 
-There is also an [index](./traits/) of all annotations used by wasmCloud in `.smithy` files.
+There is also an [index](../traits/) of all annotations used by wasmCloud in `.smithy` files.
 
 ## Models
 
 We author models in Smithy IDL files, with a `.smithy` extension. An IDL that defines any shapes must have a namespace declaration,
 
-A [Semantic Model](https://awslabs.github.io/smithy/1.0/spec/core/model.html#the-semantic-model) is built from one or more IDL files and/or json (AST model) files, and can contain multiple namespaces. To fully lint or validate a model, or to generate code from a semantic model, you need to specify paths to all dependencies in all namespaces used by the model. These dependencies are specified in a [`codegen.toml`](./codegen-toml.md) configuration file, usually located in the project root folder.
+A [Semantic Model](https://awslabs.github.io/smithy/1.0/spec/core/model.html#the-semantic-model) is built from one or more IDL files and/or json (AST model) files, and can contain multiple namespaces. To fully lint or validate a model, or to generate code from a semantic model, you need to specify paths to all dependencies in all namespaces used by the model. These dependencies are specified in a [`codegen.toml`](../codegen-toml.md) configuration file, usually located in the project root folder.
 
 ## Data Types
 
