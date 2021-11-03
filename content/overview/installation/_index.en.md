@@ -96,7 +96,15 @@ nats-server --jetstream
 
 Before you start the wasmCloud host runtime, nats should already be running.
 
-The preferred way to install the wasmCloud host runtime is to download the latest [release](https://github.com/wasmCloud/wasmcloud-otp/releases). Download the `.tar.gz` file into a directory where you want to install the server and extract: (replace _ARCH_ with your architecture, and _OS_ with your operating system)
+The preferred way to install the wasmCloud host runtime is to download the latest [release](https://github.com/wasmCloud/wasmcloud-otp/releases). Download the `.tar.gz` file into a directory where you want to install the server.
+
+If you are on a Mac, you'll need to run one more command before extracting the release. This command makes it so Gatekeeper will not quarantine parts of the host when you run it:
+
+```
+sudo xattr -d com.apple.quarantine x86_64-macos.tar.gz
+```
+
+Once you have downloaded the release (and run the above command if on a Mac), extract the release using the following command: (replace _ARCH_ with your architecture, and _OS_ with your operating system)
 
 ```
 tar xzf ARCH-OS.tar.gz
