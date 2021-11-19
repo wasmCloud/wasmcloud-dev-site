@@ -15,7 +15,7 @@ Building the actor is as easy as running `make` in the project's root directory.
 
 ### Launch the Actor
 
-There are countless ways to run the actor we just created, and if you went through the [getting started](../../../overview/getting-started) section, you'll have seen some some of them already. Open your browser to view the web dashboard [http://localhost:4000](http://localhost:4000) to view the dashboard (you may need to modify the port number`4000` if you changed it before launching the wasmCloud host).
+There are countless ways to run the actor we just created, and if you went through the [getting started](../../../overview/getting-started) section, you'll have seen some some of them already. Open your browser to view the web dashboard [http://localhost:4000](http://localhost:4000) to view the dashboard (you may need to modify the port number `4000` if you changed it before launching the wasmCloud host).
 
 At this point, simply click **Start Actor** and then choose _from file_. Open a browser to your current project directory and then navigate to the `build` directory. Here you'll find a `(project)_s.wasm` file, where `(project)` is `hello`, or the name you selected for the project. The `_s` suffix indicates that this WebAssembly module has been _signed_.
 
@@ -37,7 +37,6 @@ Once you've got the actor's public key, you can enter the following command, rep
 
 ```bash
 wash ctl link put ACTOR_ID VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M wasmcloud:httpserver address=0.0.0.0:8087
-
 ```
 
 At this point your HTTP server capability provider has been notified that a link definition was created, and it started the corresponding web server listening on port `8087`. You can now hit that endpoint and exercise the code you just wrote:

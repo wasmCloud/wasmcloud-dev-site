@@ -16,7 +16,11 @@ The following sources of environment variables will be considered:
 
 As mentioned, any environment variable supplied at runtime will override variables supplied in any `.env` file. Best practice suggests that developers use the `.local` files to represent their local workstation environments and to not check those files into source control.
 
-The following table contains a list of all supported environment variables.
+Environment variables and `.env` files are combined to create a **host configuration** file in the same directory that you launched the host. This `host_config.json` file contains all of the values that were used to launch the most recent host and can be edited and used directly instead of specifying your configuration values each time. This also means that launching subsequent hosts on your machine will automatically connect to the same lattice as your previously launched host.
+
+### Supported configuration variables
+
+These variables can be set in your terminal environment to configure a host. After your first time launching a host, these variables are also available for modification in `host_config.json` as mentioned above, mostly under the same name without the `WASMCLOUD_` prefix.
 
 | Variable<br/>_Description_ | Default |
 | :--- | :--- | :--- |
@@ -39,6 +43,7 @@ The following table contains a list of all supported environment variables.
 | `WASMCLOUD_CTL_JWT`<br/>If decentralized NATS auth is used, the user JWT for the _control interface_ connection | `""` | 
 | `WASMCLOUD_CLUSTER_SEED`<br/>The seed key used by this host to sign all invocations. Note that different hosts can use different seed keys so long as their corresponding public keys are listed in the valid issuers variable. | `{generated}` |
 | `WASMCLOUD_CLUSTER_ISSUERS`<br/>A comma-delimited list of valid public keys that can be used as _issuers_ on signed invocations | `{generated}` | 
+| `WASMCLOUD_JS_DOMAIN`<br/>Jetstream domain name, configures a host to properly connect to a NATS supercluster | `""` |
 | `WASMCLOUD_PROV_SHUTDOWN_DELAY_MS`<br/>Delay, in milliseconds, between requesting a provider shut down and forcibly terminating its OTP process | `300` |
 | `WASMCLOUD_OCI_ALLOW_LATEST`<br/>Determines whether OCI images tagged `latest` are allowed to be pulled and started. Defaults to false because `latest` is a possible attack and instability vector | `false` |
 | `WASMCLOUD_OCI_ALLOWED_INSECURE`<br/>The list of OCI hosts to which insecure connections are allowed. By default, no insecure connections are allowed. | `""` |

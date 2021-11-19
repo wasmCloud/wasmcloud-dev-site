@@ -10,6 +10,7 @@ draft: false
 * `call` - Invoke methods in a wasmcloud actor
 * `claims` - Functions related to reading, writing, and verifying claim attestations
 * `ctl` - Interact with a live, running lattice [control interface](../lattice-protocols/control-interface).
+* `ctx` - Functions for managing [contexts](./contexts) to easily connect to wasmCloud lattices
 * `drain` - Functions for managing the contents of the local wasmcloud cache
 * `keys` - Functions for generating, listing, and working with ed25519 encryption keys used for signatures
 * `lint` - Perform lint checks on `.smithy` models.
