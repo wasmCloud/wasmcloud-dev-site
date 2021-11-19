@@ -38,6 +38,6 @@ Using the wasmCloud Makefiles (which you can get from a project in the [examples
 ```make
 CLAIMS = wasmcloud:httpserver
 ```
-Whenever you type `make`, the Makefile's rules execute the commnad `wash claims sign ...` to sign the actor module.
+Whenever you type `make`, the Makefile's rules execute the command `wash claims sign ...` to sign the actor module.
 
 You can use the command `wash claims inspect` to show the capability claims of a signed actor.
