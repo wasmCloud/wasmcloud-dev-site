@@ -43,6 +43,8 @@ In `src/lib.rs`, replace handle_request with the code above. Since we aren't rel
 
 Run `make` to build the actor and re-sign it  If there are no errors compiling the actor, you are ready to update it on the host. Earlier in this guide, we started the actor from the web ui. This time we'll update it from the command line.
 
+⚠️ We're currently tracking an [issue](https://github.com/wasmCloud/project-templates/issues/17) with `make update`. For now, you can easily use the yellow `scale` button in the dashboard to scale your actor's instances to `0`, and then start the actor from the newly built file as you've done before.
+
 There are `wash` commands to push the signed webassembly file to the local registry, and to issue a command to the host to load the actor from the registry and update it. We've written commands in the Makefile for you so you don't need to fill in all the arguments by hand. All you need to do is type these two commands:
 
 ```

@@ -132,7 +132,7 @@ Feel free to try out different methods of making a request to your actor, includ
 
 Instead of using `curl`, you can also _directly invoke_ actors' registered functions using `wash call`. The function that "echoes" this HTTP request is a part of the interface `wasmcloud:httpserver` and has the operation name `HandleRequest`. We can make this request directly to the actor if we supply the correct parameters. Because this is mimicking the invocation made by a real host, you'll also need to use a cluster seed that's a valid issuer of invocations. For our purposes, we can use the one used to launch the host, but keep in mind this is a secret key and should not be shared.
 
-**As of `wash` `v0.7.0` and wasmCloud `v0.50.2`, this cluster seed is inferred automatically with the use of [contexts](TODO:LINKHERE). You can skip ahead to [using call](#using-call)**.
+**As of `wash` `v0.7.0` and wasmCloud `v0.50.2`, this cluster seed is inferred automatically with the use of [contexts](../../reference/wash/contexts). You can skip ahead to [using call](#using-call)**.
 
 To find your cluster seed, take a look at the logs and look for a 56 character ID that starts with **SC**. You can find the logs either in your terminal where you ran the wasmCloud host, or relative to where you unpacked the application tarball in the file `var/log/erlang.log.1`
 
