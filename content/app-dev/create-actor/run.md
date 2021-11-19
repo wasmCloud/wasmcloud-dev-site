@@ -15,7 +15,7 @@ Building the actor is as easy as running `make` in the project's root directory.
 
 ### Launch the Actor
 
-There are countless ways to run the actor we just created, and if you went through the [getting started](../../../overview/getting-started) section, you'll have seen some some of them already. Open your browser to view the web dashboard [http://localhost:4000](http://localhost:4000) to view the dashboard (you may need to modify the port number `4000` if you changed it before launching the wasmCloud host).
+There are countless ways to run the actor we just created, and if you went through the [getting started](../../../overview/getting-started) section, you'll have seen some some of them already. Open your browser to view the web dashboard at [http://localhost:4000](http://localhost:4000). If you've configured your host with an alternate port number, use that here.
 
 At this point, simply click **Start Actor** and then choose _from file_. Open a browser to your current project directory and then navigate to the `build` directory. Here you'll find a `(project)_s.wasm` file, where `(project)` is `hello`, or the name you selected for the project. The `_s` suffix indicates that this WebAssembly module has been _signed_.
 
