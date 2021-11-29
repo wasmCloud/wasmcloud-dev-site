@@ -13,4 +13,4 @@ This guide will walk you through the following steps to create an actor:
 
 * [Generating a new actor project](./generate)
 * [Running the actor](./run)
-* [Customizing the actor and performing a live update](./update)
+* [Customizing the actor and using the hot-reload feature](./update)
