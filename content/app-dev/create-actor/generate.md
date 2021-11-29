@@ -7,7 +7,7 @@ draft: false
 
 Creating the scaffold for a new actor in Rust is easy. We will create an actor that accepts an HTTP request and responds with "Hello World". To create your new actor project, change to the directory where you want the project to be created, and enter the command below. The last term on the command `hello` is the project name. If you choose a different project name, the name of the subdirectory and some symbols in the generated code will be different from the example code in this guide.
 
-```
+```shell
 wash new actor hello
 ```
 
@@ -57,7 +57,7 @@ This shows us that we're using a core wasmCloud crate called `wasmbus_rpc` and w
 
 Just below that, you'll see:
 
-```
+```rust
 #[derive(Debug, Default, Actor, HealthResponder)]
 #[services(Actor, HttpServer)]
 struct HelloActor {}
