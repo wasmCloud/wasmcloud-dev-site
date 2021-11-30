@@ -7,7 +7,7 @@ draft: false
 
 ### Setting up Hot Reloading
 
-This section will introduce you to the process wasmCloud developers use to rapidly iterate on their actors. Introduced in wasmCloud `v0.50.4`, the Hot Reloading feature allows the dashboard to watch your signed actor file and automatically replace all instances of that actor upon a file change. This happens quickly (blink and you might miss it!) and tightly constrains the developer feedback loop so you can spend more time developing and less time waiting.
+This section will introduce you to the process wasmCloud developers use to rapidly iterate on their actors. Introduced in wasmCloud `v0.51.0`, the Hot Reloading feature allows the dashboard to watch your signed actor file and automatically replace all instances of that actor upon a file change. This happens quickly (blink and you might miss it!) and tightly constrains the developer feedback loop so you can spend more time developing and less time waiting.
 
 Let's start by scaling down our `hello` actor if it's still running from a previous step. Look for the yellow scale button <img src="../scalebutton.png" alt="scalebutton" width="30px"/> in the 'Actions' column, and set the replicas to `0` before hitting Submit.
 
