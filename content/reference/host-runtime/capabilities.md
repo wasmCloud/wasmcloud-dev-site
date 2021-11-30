@@ -27,7 +27,7 @@ The list of capability providers continues to grow. Please refer to these github
 - [example providers](https://github.com/wasmCloud/examples/tree/main/provider) for additional sample code.
 
 
-Capability contracts (and their associated IDs) are ope,, and any organization is free to create implementations of them. We believe a healthy wasmCloud ecosystem includes multiple implementations, from multiple vendors, of capability contracts, including those with `wasmcloud:`-prefixed IDs. In fact, wasmCloud has created multiple implementations of some of its own contracts.
+Capability contracts (and their associated IDs) are open, and any organization is free to create implementations of them. We believe a healthy wasmCloud ecosystem includes multiple implementations, from multiple vendors, of capability contracts, including those with `wasmcloud:`-prefixed IDs. In fact, wasmCloud has created multiple implementations of some of its own contracts.
 
 
 ### Building a Provider
