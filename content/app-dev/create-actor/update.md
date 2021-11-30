@@ -18,7 +18,7 @@ Now, let's start the actor again using the "Start Actor" dropdown, but this time
 make target-path-abs
 ```
 
-Copy this file location and input it in the _Start Actor_ form. You can start multiple replicas of the actor here, I've chosen to start with `15` so that I have a few replicas while I test.
+Copy the path printed by this command into the and input it in the _Start Actor_ form, input a number of replicas, and hit submit.
 
 ![starthotreload](../starthotreload.png)
 
@@ -85,4 +85,4 @@ _This is the way production software services were meant to be_.
 No-fuss version management. Secure software supply-chain.
 Zero-downtime upgrades.
 
-[^1]: Because we're running the wasmCloud dashboard in a browser, the `Upload File` form is prevented from knowing exactly where files are on disk for security reasons. However, since the actual Elixir application has access to files on disk, an absolute path (or relative path from where you started the host) is accessible for hot reloading.
+[^1]: Because we're running the wasmCloud dashboard in a browser, the `Upload File` form is prevented from knowing exactly where files are on disk for security reasons. However, since the host process, an Elixir application, has access to files on disk, an absolute path (or relative path from where you started the host) is accessible for hot reloading.

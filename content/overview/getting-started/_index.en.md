@@ -85,7 +85,7 @@ wash claims inspect wasmcloud.azurecr.io/echo:0.3.2
   None
 ```
 
-To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.14.6` and leave the _link name_ set to `default`. You should now see this capability provider running, and after a short time it should report its status as Healthy.
+To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.14.6` and leave the _link name_ set to `default`. You should now see this capability provider running, and within 30 seconds it should report its status as Healthy.
 
 ![dashboard3](./washboard3.png)
 
@@ -107,9 +107,9 @@ Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
 
 #### Linking actors and capability providers
 
-The Echo actor and HTTP Server providers are running, but they aren't connected. Since the HTTP server provider hasn't been _linked_ to any actor yet, it hasn't yet open a port to listen to web requests to forward to the actor. To allow the actor and provider to communicate, they need to be linked. We could link them with wash cli (`wash ctl link put ...`), using the Actor ID and the Provider ID from the inventory, but this time we'll link them in the web UI.
+The Echo actor and HTTP Server providers are running, but they aren't connected. Since the HTTP server provider hasn't been _linked_ to any actor yet, it hasn't yet opened a port to listen to web requests to forward to the actor. To allow the actor and provider to communicate, they need to be linked. We could link them with wash cli (`wash ctl link put ...`), using the Actor ID and the Provider ID from the inventory, but this time we'll link them in the web UI.
 
-Go back to the web UI and click **Define Link**. The web UI remembered the public keys of the actors and providers running, so you just need to pick them out of a dropdown selector at the top of the form, as shown below. For the 'Values' field, you'll either need to provide a port to listen on or an address including hostname and port. For simplicity and compatibility, input the following into your 'Values' form:
+Go back to the web UI and click **Define Link**. The web UI remembered the public keys of the actors and providers running, so you just need to pick them out of a dropdown selector at the top of the form, as shown below. For the 'Values' field, you'll need to provide either a port to listen on or an address including hostname and port. For simplicity and compatibility, enter the following into your 'Values' form:
 ```shell
 address=0.0.0.0:8080
 ```

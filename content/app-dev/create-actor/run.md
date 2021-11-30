@@ -33,13 +33,13 @@ We know our new actor needs a web server, so let's start the HTTP server capabil
 
 With both the provider and the actor running, the next step is to _link_ the two. This provides a set of configuration values that is unique for each actor's use of a provider. To change things up slightly, and so you develop some muscle memory with the command line tooling, we'll use the `wash` CLI here. To link your actor, you'll' need the actor's public key. You can get that by clicking on the dark blue clipboard icon next to the actor name in the dashboard web UI (it'll be a long string that starts with **M**).
 
-Once you've got the actor's public key, you can go ahead and export a `HELLO_ACTOR_ID` environment variable with that value and then copy-and-paste the link command:
+Once you've got the actor's public key, you can export a `HELLO_ACTOR_ID` environment variable with that value and copy-and-paste the link command:
 
 {{% tabs %}}
 {{% tab "Unix" %}}
 
 ```shell
-# Paste your actor ID after the `=` below
+# Paste your actor ID after the `=` below (with no space after the `=`)
 export HELLO_ACTOR_ID=
 ```
 ```shell
@@ -50,7 +50,8 @@ wash ctl link put ${HELLO_ACTOR_ID} VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKA
 {{% tab "Windows Powershell" %}}
 
 ```powershell
-$env:HELLO_ACTOR_ID = MBBC2NBTDA7KSFNKCFZ6H3GXSJPNEZEMFR5XG7SBWCYHNSVCOB7AFZXA
+# Paste your actor ID after the `=` below (with a space after the `=`)
+$env:HELLO_ACTOR_ID = 
 ```
 ```powershell
 wash ctl link put $env:HELLO_ACTOR_ID VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M wasmcloud:httpserver address=0.0.0.0:8087
@@ -67,7 +68,7 @@ curl localhost:8087
 
 and you should get the response:
 
-```shell
+```text
 Hello World
 ```
 
@@ -79,7 +80,7 @@ curl "localhost:8087?name=Carol"
 
 The response should be
 
-```shell
+```text
 Hello Carol
 ```
 
