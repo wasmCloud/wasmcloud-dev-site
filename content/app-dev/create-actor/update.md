@@ -18,7 +18,7 @@ Now, let's start the actor again using the "Start Actor" dropdown, but this time
 make target-path-abs
 ```
 
-Copy the path printed by this command into the and input it in the _Start Actor_ form, input a number of replicas, and hit submit.
+Copy the path printed by this command into the and enter it in the _Start Actor_ form along with any number of replicas, and hit submit.
 
 ![starthotreload](../starthotreload.png)
 
