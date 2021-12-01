@@ -24,6 +24,8 @@ To see a list of running hosts, issue the following command in a terminal window
 
 ```shell
 wash ctl get hosts
+```
+```shell
 ⢈⠩  Retrieving Hosts ...
 
   Host ID                                                    Uptime (seconds)
@@ -68,7 +70,8 @@ Let's use the `wash` CLI to inspect the set of capabilities this actor has:
 
 ```shell
 wash claims inspect wasmcloud.azurecr.io/echo:0.3.2
-
+```
+```shell
                                Echo - Module
   Account       ACOJJN6WUP4ODD75XEBKKTCCUJJCY5ZKQ56XVKYK4BEJWGVAOOQHZMCW
   Module        MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5
@@ -82,11 +85,11 @@ wash claims inspect wasmcloud.azurecr.io/echo:0.3.2
   None
 ```
 
-To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.14.4` and leave the _link name_ set to `default`. You should now see this capability provider running.
+To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.14.6` and leave the _link name_ set to `default`. You should now see this capability provider running, and within 30 seconds it should report its status as Healthy.
 
 ![dashboard3](./washboard3.png)
 
-Let's take a look at our host's inventory now. If you re-run the inventory command `wash ctl get inventory`, you should see something like the following (again, your Host ID and Actor ID will differ):
+Let's take a look at our host's inventory now. If you re-run the inventory command `wash ctl get inventory`, you should see something like the following (again, your Host ID will be different):
 
 ```shell
 Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
@@ -99,16 +102,17 @@ Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
   MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5    N/A                wasmcloud.azurecr.io/echo:0.3.2
 
   Provider ID                                                 Name               Link Name          Image Reference
-  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.14.4
+  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.14.6
 ```
 
 #### Linking actors and capability providers
 
-The Echo actor and HTTP Server providers are running, but they aren't connected. Since the HTTP server provider hasn't been _linked_ to any actor yet, it hasn't yet open a port to listen to web requests to forward to the actor. To allow the actor and provider to communicate, they need to be linked. We could link them with wash cli (`wash ctl link put ...`), using the ActorID and the ProviderID from the inventory, but this time we'll link them in the web UI.
+The Echo actor and HTTP Server providers are running, but they aren't connected. Since the HTTP server provider hasn't been _linked_ to any actor yet, it hasn't yet opened a port to listen to web requests to forward to the actor. To allow the actor and provider to communicate, they need to be linked. We could link them with wash cli (`wash ctl link put ...`), using the Actor ID and the Provider ID from the inventory, but this time we'll link them in the web UI.
 
-Go back to the web UI and click **Define Link**. The web UI remembered the public keys of the actors and providers running, so you just need to pick them out of a dropdown selector at the top of the form, as shown below. For the 'Values' field, you can select a port number for the HTTP Server listener, and enter `port=8080` if you want to use port 8080 on localhost. (there should be no spaces before or after the equals sign). If you want the HTTP listener to use a different ip address, use "address" instead of port, and provide both IP address and the port, as in `address=10.1.1.1:8080`.
-
-⚠️ `Docker` If you're running this example using the docker image, you'll need to use `address=0.0.0.0:8080` instead of the `port` value. This is required due to the way containers expose ports to host networking environments.
+Go back to the web UI and click **Define Link**. The web UI remembered the public keys of the actors and providers running, so you just need to pick them out of a dropdown selector at the top of the form, as shown below. For the 'Values' field, you'll need to provide either a port to listen on or an address including hostname and port. For simplicity and compatibility, enter the following into your 'Values' form:
+```shell
+address=0.0.0.0:8080
+```
 
 ![dashboard4](./washboard4.png)
 
@@ -118,7 +122,7 @@ Once you see that the link has been added to the dashboard UI (you can also use 
 
 In another terminal window, run the following command:
 
-```
+```shell
 curl localhost:8080/echo
 ```
 
@@ -153,14 +157,14 @@ Once you locate the value, go ahead and export it as an environment variable:
 {{% tabs %}}
 {{% tab "Unix" %}}
 
-```
+```shell
 export WASMCLOUD_CLUSTER_SEED=SCAJIRZPJGI2ODWHALXJ5U7ZRC7MR27JMJOPLIKMDJ3QNQGA3TCPDFENDI
 ```
 
 {{% /tab %}}
 {{% tab "Windows Powershell" %}}
 
-```
+```powershell
 $env:WASMCLOUD_CLUSTER_SEED = SCAJIRZPJGI2ODWHALXJ5U7ZRC7MR27JMJOPLIKMDJ3QNQGA3TCPDFENDI
 ```
 

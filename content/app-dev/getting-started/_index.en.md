@@ -11,7 +11,7 @@ Next, make sure you have the language of your choice installed and ready to go. 
 
 Before you can build [actors](/reference/host-runtime/actors) with Rust, you'll need to have the `wasm32-unknown-unknown` target added to your environment. You can set this up by executing the following command:
 
-```
+```shell
 rustup target add wasm32-unknown-unknown
 ```
 

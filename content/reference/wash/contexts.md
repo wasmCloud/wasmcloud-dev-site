@@ -37,7 +37,7 @@ cat $HOME/.wash/contexts/host_config.json | jq
 
 {{% /tab %}}
 {{% tab "Windows Powershell" %}}
-```shell
+```powershell
 Get-Content $HOME\.wash\contexts\host_config.json | ConvertFrom-Json | ConvertTo-Json
 ```
 
