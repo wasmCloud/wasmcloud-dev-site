@@ -5,6 +5,22 @@ layout: "changelog"
 draft: false
 ---
 
+### Release 0.51
+{{< changelog "added" >}}
+- Emit claims for actors and providers in their respective start events (ActorStarted, ProviderStarted)
+- Human friendly relative times for claims expiration and not-before-dates
+- Actors can now be "hot watched" in the web dashboard which will automatically reload an actor upon changes. This dramatically reduces the developer feedback loop for actor development
+- Image reference is now included on various events for further information
+- Release tarballs from `host_core`, which is a packaged version of a host without the wasmCloud dashboard and UI assets
+
+{{</ changelog >}}
+
+{{< changelog "changed" >}}
+- Updated a warning message in the dashboard logs to indicate unhandled events are ignored, rather than unsupported
+- Acknowledge actor and provider start commands in the control interface once they pass validation which avoids waiting for OCI downloads to occur before returning from the command. This comes with the caveat that when you receive the response from the control interface for these commands, it's likely that the actor and provider have not fully started yet. The preferred way to assert this is to monitor the event stream for the respective Started events
+
+{{</ changelog >}}
+
 ### Release 0.50 
 
 {{< changelog "added" >}}
