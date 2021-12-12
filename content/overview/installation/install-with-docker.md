@@ -14,13 +14,13 @@ Download the [sample docker-compose file](https://raw.githubusercontent.com/wasm
 
 With the `docker-compose.yml` file in the current directory, start the processes with
 ```
-docker-compose up
+docker compose up
 ```
 
 The host will run until you type ctrl-c or close the terminal window. To start the docker-compose process in the background, add a `-d` flag:
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 If the wasmCloud host is running in docker in the background, you can view its logs (live) with 
