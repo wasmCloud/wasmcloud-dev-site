@@ -109,7 +109,7 @@ Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
 
 The Echo actor and HTTP Server providers are running, but they aren't connected. Since the HTTP server provider hasn't been _linked_ to any actor yet, it hasn't yet opened a port to listen to web requests to forward to the actor. To allow the actor and provider to communicate, they need to be linked. We could link them with wash cli (`wash ctl link put ...`), using the Actor ID and the Provider ID from the inventory, but this time we'll link them in the web UI.
 
-Go back to the web UI and click **Define Link**. The web UI remembered the public keys of the actors and providers running, so you just need to pick them out of a dropdown selector at the top of the form, as shown below. Leave the _Link Name_ as default, and set the _Contract ID_ to `wasmcloud:httpserver`. For the 'Values' field, you'll need to provide either a port to listen on or an address including hostname and port. For simplicity and compatibility, enter the following into your 'Values' form:
+Go back to the web UI and click **Define Link**. The web UI remembered the public keys of the actors and providers running, so you just need to pick them out of a dropdown selector at the top of the form, as shown below. Leave the _Link Name_ as default, and set the _Contract ID_ to `wasmcloud:httpserver`. For the _Values_ field, you'll need to provide either a port to listen on or an address including hostname and port. For simplicity and compatibility, enter the following into your _Values_ form:
 ```shell
 address=0.0.0.0:8080
 ```
