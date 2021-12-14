@@ -118,7 +118,7 @@ wasmcloud-examples-payments = { path="../../interface/payments/rust" }
 wasmbus-rpc = "0.6"
 
 [[bin]]
-name = "fakepay"
+name = "fakepay-provider"
 path = "src/main.rs"
 ```
 
