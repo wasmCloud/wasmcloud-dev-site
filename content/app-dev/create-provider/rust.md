@@ -127,7 +127,7 @@ Change the path of the interface file to match your location.
 Also, we need to make one edit to the project Makefile: change the last part of CAPABILITY_ID to replace "fakepay_provider" with "payments", to match the capability contract we defined in the interface:
 
 ```Makefile
-CAPABILITY_ID = "wasmcloud:example:payments"
+CAPABILITY_ID = "wasmcloud:examples:payments"
 ```
 
 Let's [create the provider archive](./create-par/)
