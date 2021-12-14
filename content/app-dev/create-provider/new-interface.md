@@ -83,9 +83,9 @@ wash new interface payments
 This command creates a new interface project in the subdirectory 'payments'. 
 Wasmcloud interfaces are defined in the [smithy](https://awslabs.github.io/smithy/) IDL. When changes are made to the `.smithy` file, a code generator generates code for the selected target languages - currently only Rust is supported, and more languages will be supported in the future. 
 
-The `wash new interface` command will ask for some information in order to fill in some meta-data in the generated code. First it will ask if you want to generate a `converter-interface` or a `factorial-interface`. The former is for an interface between actors so you would want to choose `factorial-interface` which is between actor and a capability provider. Use arrow-keys to select the right one.
+The `wash new interface` command will ask for some information in order to fill in some meta-data in the generated code. First it will ask if you want to generate a `converter-interface` or a `factorial-interface`. The former is for an interface between actors so you would want to choose `factorial-interface` which is between actor and a capability provider. Use UP/DOWN arrow-keys or the j/k keys to select the right one.
 
-Next you need to give the interface a name. Use `wasmcloud-examples-payments`here. Namespec prefix should for this example be: `org.wasmcloud.examples`. The capability contract name should be `wasmcloud:examples:payments`. The final thing to do is to change the name of the package in the generated file `rustt/Cargo.toml` to `wasmcloud-examples-payment`. 
+Next you need to give the interface a name. Use `wasmcloud-examples-payments`here. Namespace prefix should for this example be: `org.wasmcloud.examples`. The capability contract name should be `wasmcloud:examples:payments`. The final thing to do is to change the name of the package in the generated file `rust/Cargo.toml` to `wasmcloud-examples-payment`. 
 
 The `make` command runs the code generator to generate the rust library, and compiles it. The generated library defines function signatures and data structures that will be shared by the Payments capability provider and the actor that calls the provider.
 
