@@ -81,8 +81,13 @@ wash new interface payments
 ```
 
 This command creates a new interface project in the subdirectory 'payments'. 
-Wasmcloud interfaces are defined in the [smithy](https://awslabs.github.io/smithy/) IDL. 
-When changes are made to the `.smithy` file, a code generator generates code for the selected target languages - currently only Rust is supported, and more languages will be supported in the future. The `make` command runs the code generator to generate the rust library, and compiles it. The generated library defines function signatures and data structures that will be shared by the Payments capability provider and the actor that calls the provider.
+Wasmcloud interfaces are defined in the [smithy](https://awslabs.github.io/smithy/) IDL. When changes are made to the `.smithy` file, a code generator generates code for the selected target languages - currently only Rust is supported, and more languages will be supported in the future. 
+
+The `wash new interface` command will ask for some information in order to fill in some meta-data in the generated code. First it will ask if you want to generate a `converter-interface` or a `factorial-interface`. The former is for an interface between actors so you would want to choose `factorial-interface` which is between actor and a capability provider. Use UP/DOWN arrow-keys or the j/k keys to select the right one.
+
+Next you need to give the interface a name. Use `wasmcloud-examples-payments`here. Namespace prefix should for this example be: `org.wasmcloud.examples`. The capability contract name should be `wasmcloud:examples:payments`. The final thing to do is to change the name of the package in the generated file `rust/Cargo.toml` to `wasmcloud-examples-payment`. 
+
+The `make` command runs the code generator to generate the rust library, and compiles it. The generated library defines function signatures and data structures that will be shared by the Payments capability provider and the actor that calls the provider.
 
 The `payments.smithy` file that we just created in the new project doesn't know about payments yet so delete `payments.smithy` and replace it with this:
 (also available in [github](https://github.com/wasmCloud/examples/blob/main/interface/payments/payments.smithy) )
@@ -97,7 +102,7 @@ The `payments.smithy` file that we just created in the new project doesn't know 
 metadata package = [
     {
         namespace: "org.wasmcloud.examples.payments",
-        crate: "wasmcloud_example_payments"
+        crate: "wasmcloud_examples_payments"
      }
 ]
 
@@ -108,7 +113,7 @@ use org.wasmcloud.model#U32
 use org.wasmcloud.model#U64
 
 @wasmbus(
-    contractId: "wasmcloud:example:payments",
+    contractId: "wasmcloud:examples:payments",
     providerReceive: true )
 service Payments {
   version: "0.1",
