@@ -115,12 +115,14 @@ thiserror = "1.0"
 tokio = { version = "1", features = ["full"] }
 toml = "0.5"
 wasmcloud-examples-payments = { path="../../interface/payments/rust" }
-wasmbus-rpc = "0.4"
+wasmbus-rpc = "0.6"
 
 [[bin]]
 name = "fakepay"
 path = "src/main.rs"
 ```
+
+Change the path of the interface file to match your location.
 
 Also, we need to make one edit to the project Makefile: change the last part of CAPABILITY_ID to replace "fakepay_provider" with "payments", to match the capability contract we defined in the interface:
 
