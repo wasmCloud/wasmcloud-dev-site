@@ -22,7 +22,9 @@ Let's create a new provider project
 wash new provider fakepay-provider
 ```
 
-The command above creates a new capability provider project called `fakepay-provider`. Lets change to the newly created directory and start writing some code. The implementation below has all the methods a provider would need to implement to satisfy the capability contract `wasmcloud:example:payments`. You could paste this code into src/main.rs (replace the existing contents of that file). The functions themselves haven't been filled out - that's where your business logic goes. You can see that there is almost no boilerplate here, letting you stay focussed on your business logic.
+The command above creates a new capability provider project called `fakepay-provider`. You can use the default vendor `Acme` here. Lets change to the newly created directory and start writing some code. The implementation below has all the methods a provider would need to implement to satisfy the capability contract `wasmcloud:examples:payments`.
+
+Paste this code into src/main.rs (replace the existing contents of that file). The functions themselves haven't been filled out - that's where your business logic goes. You can see that there is almost no boilerplate here, letting you stay focussed on your business logic.
 
 ```rust
 //! Fakepay - stub payments capability provider
@@ -95,30 +97,17 @@ Before we can build it, you'll need to update Cargo.toml file to know about your
 [package]
 name = "wasmcloud-example-provider-fakepay"
 version = "0.1.0"
-edition = "2018"
+edition = "2021"
 resolver = "2"
 
 [dependencies]
 async-trait = "0.1"
-base64 = "0.13"
-bytes = "1.0"
-chrono = "0.4"
-crossbeam="0.8"
-futures = "0.3"
 log = "0.4"
-once_cell = "1.8"
-rmp-serde = "0.15"
-serde_bytes = "0.11"
-serde_json = "1.0"
-serde = {version = "1.0", features = ["derive"] }
-thiserror = "1.0"
-tokio = { version = "1", features = ["full"] }
-toml = "0.5"
-wasmcloud-examples-payments = { path="../../interface/payments/rust" }
 wasmbus-rpc = "0.6"
+wasmcloud-examples-payments = { path="../payments/rust" }
 
 [[bin]]
-name = "fakepay-provider"
+name = "fakepay_provider"
 path = "src/main.rs"
 ```
 
