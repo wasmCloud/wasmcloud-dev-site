@@ -5,6 +5,50 @@ weight: 5
 draft: false
 ---
 
+### Prerequisites
+To use the hot reloading feature you'll need to install one more [utility](https://github.com/falood/file_system#system-support) to ensure the host can monitor your actor file for changes. The following instructions for your operating system will ensure you are ready for the next section.
+
+{{% tabs %}}
+{{% tab "Ubuntu/Debian" %}}
+
+```shell
+apt-get install inotify-tools
+```
+
+{{% /tab %}}
+{{% tab "Fedora" %}}
+
+```shell
+yum install inotify-tools
+```
+
+{{% /tab %}}
+{{% tab "Linux" %}}
+
+Refer to https://github.com/inotify-tools/inotify-tools/wiki#inotify-tools to find your package manager of choice's instructions
+
+{{% /tab %}}
+{{% tab "MacOS" %}}
+
+Ensure you've run `xcode-select --install` which installs all necessary tools. You'll get the following message if you've already run this command:
+```
+xcode-select: error: command line tools are already installed, use "Software Update" to install updates
+```
+
+{{% /tab %}}
+{{% tab "Windows" %}}
+
+Refer to https://github.com/thekid/inotify-win#inotify-win for Windows instructions.
+
+{{% /tab %}}
+{{% tab "Docker" %}}
+
+We don't currently recommend hot reloading with Docker as the container filesystem is not the same as your development machine's filesystem. Technically this could be accomplished with a filesystem mount, though this introduces a few variables and we highly recommend using a [release tarball](../../../overview/installation#install-and-start-the-wasmcloud-host-runtime) instead.
+
+{{% /tab %}}
+{{% /tabs %}}
+
+
 ### Setting up Hot Reloading
 
 This section will introduce you to the process wasmCloud developers use to rapidly iterate on their actors. Introduced in wasmCloud `v0.51.0`, the Hot Reloading feature allows the dashboard to watch your signed actor file and automatically replace all instances of that actor upon a file change. This happens quickly (blink and you might miss it!) and tightly constrains the developer feedback loop so you can spend more time developing and less time waiting.
