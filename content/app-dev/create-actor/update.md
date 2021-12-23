@@ -30,7 +30,10 @@ Refer to https://github.com/inotify-tools/inotify-tools/wiki#inotify-tools to fi
 {{% /tab %}}
 {{% tab "MacOS" %}}
 
-Ensure you've run `xcode-select --install`, which you likely already did if you're a developer.
+Ensure you've run `xcode-select --install` which installs all necessary tools. You'll get the following message if you've already run this command:
+```
+xcode-select: error: command line tools are already installed, use "Software Update" to install updates
+```
 
 {{% /tab %}}
 {{% tab "Windows" %}}
