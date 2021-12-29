@@ -5,9 +5,9 @@ weight: 2
 draft: false
 ---
 
-Bindles can be used with both `wash` and the wasmCloud Dashboard. To use a bindle instead of an OCI
-image, simply preface the bindle ID with `bindle://` and the host will attempt to download the
-provider or actor using Bindle.
+[Bindles](https://github.com/deislabs/bindle) can be used with both `wash` and the wasmCloud
+Dashboard. To use a bindle instead of an OCI image, simply preface the bindle ID with `bindle://`
+and the host will attempt to download the provider or actor using Bindle.
 
 For example:
 
