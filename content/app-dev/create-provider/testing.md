@@ -11,7 +11,7 @@ The first method loads the provider into a test harness, and issues rpc calls to
 
 A second method for testing a provider is to run it in a realistic environment, interacting with a real host and real actors. To set up the environment,
 
-1. Start a new local OCI registry. You can download [docker-compose.yml](https://github.com/wasmCloud/examples/blob/main/docker/docker-compose.yml) and run `docker-compose up -d registry`
+1. Start a new local OCI registry. You can download the [Docker Compose YAML file](https://github.com/wasmCloud/examples/blob/main/docker/docker-compose.yml) and run `docker compose up -d registry`
 
 2. Upload the newly-created _provider archive_ to the local OCI registry (You can use `wash reg push ...`, or if you have one of the provider project Makefiles, `make push`) `make start` to start it.
 
