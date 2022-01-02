@@ -249,4 +249,4 @@ Theese check the file against a predefined set of rules. The rules will be added
 
 You can type `make` to generate the code and build the Rust library.
 
-Now that we have a Rust crate that we can use from both our actor and our capability provider, let's move on to the next step: [_Creating a Capability Provider in Rust_](./rust).
+Now that we have a Rust crate that we can use from both our actor and our capability provider, let's move on to the next step: [_Creating a Capability Provider in Rust_](../rust/).

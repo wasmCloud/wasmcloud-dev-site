@@ -19,15 +19,15 @@ wasmCloud leverages Wasm as a secure and portable foundation - write your functi
 {{</ faq >}}
  
 {{< faq "What is an Actor?" >}}
-An actor is the smallest unit of deployable, portable compute within the wasmCloud ecosystem. Actors are small WebAssembly modules that can handle messages delivered to them by the host runtime and can invoke functions on [capability providers](reference/host-runtime/capabilities), provided they have been [granted the appropriate privileges](reference/host-runtime/security/).
+An actor is the smallest unit of deployable, portable compute within the wasmCloud ecosystem. Actors are small WebAssembly modules that can handle messages delivered to them by the host runtime and can invoke functions on [capability providers](/reference/host-runtime/capabilities/), provided they have been [granted the appropriate privileges](reference/host-runtime/security/).
  
-For more information please see [Actors Reference Guide](reference/host-runtime/actors/).
+For more information please see [Actors Reference Guide](/reference/host-runtime/actors/).
 {{</ faq >}}
  
 {{< faq "What is a Capability Provider?" >}}
-A capability is an abstraction or representation of a non-functional requirement; some functionality required by your [actor](reference/host-runtime/actors/) that is not considered part of the core business logic. For example, as you write an actor that exposes some data over a RESTful endpoint, the HTTP server is not part of your business logic, it is a capability used by your actor.
+A capability is an abstraction or representation of a non-functional requirement; some functionality required by your [actor](/reference/host-runtime/actors/) that is not considered part of the core business logic. For example, as you write an actor that exposes some data over a RESTful endpoint, the HTTP server is not part of your business logic, it is a capability used by your actor.
  
 In wasmCloud, capability providers are executables that implement a capability contract. A capability contract has a unique name (e.g. `wasmcloud:httpserver`) and contains a list of operations and their associated data types. By convention, these capability contract IDs are prefixed by a vendor ID (the vendor of the contract, not the specific implementation).
  
-For more information please see [Capabilities Reference Guide](reference/host-runtime/capabilities/).
+For more information please see [Capabilities Reference Guide](/reference/host-runtime/capabilities/).
 {{</ faq >}}
