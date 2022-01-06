@@ -7,7 +7,7 @@ draft: false
 
 Let's install NATS and the wasmCloud host runtime with Docker. You should have already installed [prerequisites and wash](/overview/installation/). Additionally, make sure your Docker install has [Compose v2](https://docs.docker.com/compose/cli-command/#installing-compose-v2).
 
-Download the [sample docker-compose file](https://raw.githubusercontent.com/wasmCloud/examples/main/docker/docker-compose.yml) and put it into your work directory. This compose file will run NATS, a local OCI registry, a Redis container, and the `wasmcloud_host` container. In this format it's easy to run all the necessary services for a wasmCloud host with only a docker installation.
+Download the [sample Docker Compose file](https://raw.githubusercontent.com/wasmCloud/examples/main/docker/docker-compose.yml) and put it into your work directory. This compose file will run NATS, a local OCI registry, a Redis container, and the `wasmcloud_host` container. In this format it's easy to run all the necessary services for a wasmCloud host with only a docker installation.
 
 #### Starting the wasmCloud host with docker
 
@@ -17,7 +17,7 @@ With the `docker-compose.yml` file in the current directory, start the processes
 docker compose up
 ```
 
-The host will run until you type ctrl-c or close the terminal window. To start the docker-compose process in the background, add a `-d` flag:
+The host will run until you type ctrl-c or close the terminal window. To start the docker compose process in the background, add a `-d` flag:
 
 ```bash
 docker compose up -d

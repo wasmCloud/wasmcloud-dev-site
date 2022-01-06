@@ -80,7 +80,7 @@ cargo install wash-cli
 
 ### Installing NATS and the wasmCloud host runtime
 
-You can install NATS and the wasmCloud host runtime with or without docker. If you have docker and docker-compose installed, the procedure for [installing with docker](./install-with-docker/) is slightly shorter than the procedure below.
+You can install NATS and the wasmCloud host runtime with or without docker. If you have docker installed, the procedure for [installing with docker](./install-with-docker/) is slightly shorter than the procedure below.
 
 #### Install NATS server
 
