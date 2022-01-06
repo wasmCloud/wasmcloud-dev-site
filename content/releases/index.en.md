@@ -5,6 +5,20 @@ layout: "changelog"
 draft: false
 ---
 
+### Release 0.52
+
+{{< changelog "added" >}}
+- Ability to configure the dashboard listen host address at runtime in [#317](https://github.com/wasmCloud/wasmcloud-otp/pull/317)
+- Support for human-friendly host names in [#319](https://github.com/wasmCloud/wasmcloud-otp/pull/319)
+- Events for invocation success and failure in [#320](https://github.com/wasmCloud/wasmcloud-otp/pull/320)
+- Kubernetes applier support in [#321](https://github.com/wasmCloud/wasmcloud-otp/pull/320)
+- Experimental support for Bindle as an alternative to provider archives in [#323](https://github.com/wasmCloud/wasmcloud-otp/pull/323)
+{{</ changelog >}}
+
+{{< changelog "changed" >}}
+- Now performs first host heartbeat and actor/provider health checks immediately, changed in [#328](https://github.com/wasmCloud/wasmcloud-otp/pull/327)
+{{</ changelog >}}
+
 ### Release 0.51
 {{< changelog "added" >}}
 - Emit claims for actors and providers in their respective start events (ActorStarted, ProviderStarted)
