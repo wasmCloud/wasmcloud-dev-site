@@ -59,7 +59,7 @@ While it isn't called out as a specific pre-requisite, _many_ of the steps in th
 To start a local OCI registry, download the [sample Docker Compose file](https://raw.githubusercontent.com/wasmCloud/examples/main/docker/docker-compose.yml) into the current folder and run
 
 ```bash
-docker compose up -d registry
+docker-compose up -d registry
 ```
 
 Once it's running, you can push actors and capability providers to the registry via the `wash reg` set of commands (or `make push`, if using the wasmCloud Makefiles).
