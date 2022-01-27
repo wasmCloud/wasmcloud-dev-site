@@ -5,7 +5,7 @@ weight: 1
 draft: false
 ---
 
-Host troubleshooting largely revolves around checking host logs and determining the issue from there. With wasmCloud we aim to log relevant information so that you can diagnose the source of the problem. If you already have an error message, take a look at the [Common Errors](../common) section and see if it's already mentioned.
+Host troubleshooting largely revolves around checking host logs and determining the issue from there. With wasmCloud we aim to log relevant information so that you can diagnose the source of the problem.
 
 The primary wasmCloud host runtime is the [wasmcloud-otp](https://github.com/wasmCloud/wasmcloud-otp) host, and this is what you'll be using if you're running the host from the release tarball or with the [wasmcloud_host](https://hub.docker.com/repository/docker/wasmcloud/wasmcloud_host) docker image. The Javascript host has different log messages and it's recommended to create an issue [here](https://github.com/wasmCloud/wasmcloud-js/issues/new) if you are running into errors in the browser.
 
