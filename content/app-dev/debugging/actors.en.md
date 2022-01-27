@@ -88,3 +88,8 @@ Omitting a link between the KVCounter actor and the Redis provider (even if vali
 {"error":"Host send error Invocation not authorized: missing claim for wasmcloud:keyvalue"}
 ```
 When you see this error, ensure that you've both signed your actor and linked your actor to the appropriate provider.
+
+### Misconfigured Link Definitions
+When link definitions are misconfigured, you'll find errors like the ones above for missing link definitions. The host runtime looks at a link definition as a unique binding between an actor and a capability provider on a specific link name to communicate over a specific capability contract. If the actor ID, provider ID, link name, or contract ID are misspelled or omitted then the runtime will deny the invocation as if it does not exist. This is as designed, no typo should be accepted in favor of compromising security.
+
+The command line wasmCloud shell (aka [wash](https://github.com/wasmCloud/wash)) attempts to safeguard against misspellings, though it is unable to determine if a link definition is between the intended actor and provider. If you are establishing a link definition but still see errors that indicate that it's missing, first verify that the link definition specifies the correct actor, provider, link name, and contract ID. You can query all established link definitions in your lattice using `wash ctl link query`.
