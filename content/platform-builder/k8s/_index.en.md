@@ -5,14 +5,16 @@ weight: 3
 draft: false
 ---
 
-There are a couple of options for running wasmCloud in Kubernetes, and choosing between the two involves weighing your needs and constraints within your target cluster. You can either schedule and configure a wasmcloud host runtime the same way you would any other docker-based workload, or you can populate some or all of your cluster's nodes with [krustlet](https://krustlet.dev/) hosts, which are capable of scheduling wasmCloud actors directly.
+Although we think WebAssembly is the future, we know that there are plenty of things running in
+Kubernetes, and that people often have easy access to run in a Kubernetes cluster somewhere. To make
+it easy for you to try out wasmCloud and/or integrate it with what you already have running, we have
+an [official Helm chart](https://github.com/wasmCloud/wasmcloud-otp/tree/main/wasmcloud_host/chart).
+See its documentation for specific configuration and usage examples.
 
-### Scheduling in a pod
+## Kubernetes Service Applier
 
-Scheduling a wasmCloud container in a pod involves the same activities as scheduling any other kind of container. For more information, consult the [Kubernetes reference documentation](https://kubernetes.io/docs/concepts/workloads/pods/). In short, to run the wasmCloud host in a pod, you simply use the wasmCloud docker image in a `podspec` and, through environment variables (or `.env` files), supply connection information to a JetStream-enabled NATS server.
-
-One popular way to run wasmCloud host runtimes in Kubernetes is to create a pod that has both a wasmCloud host runtime and a NATS _leaf node_ in it, with the NATS node accepting connections only on localhost (which, in this case, is the shared docker network). The leaf node can then connect to the main NATS cluster, allowing you to superimpose a lattice network on top of a Kubernetes installation or use the lattice to _bridge_ a Kubernetes cluster with some other disparate infrastructure.
-
-### Scheduling actors directly via krustlet
-
-Scheduling actors directly via [krustlet](https://krustlet.dev) means creating Kubernetes resource definitions where the "image" is actually a signed wasmCloud WebAssembly `.wasm` file. In order to be able to do this, you'll need to install and configure krustlet within your Kubernetes environment. Then, you will need to use the [krustlet wasmcloud provider](https://github.com/wasmcloud/krustlet-wasmcloud-provider) to schedule actors.
+Cosmonic has open sourced a basic connector that allows you to bridge services currently running in
+Kubernetes with services that you run in wasmCloud. The interface, provider, and actor can be found
+at https://github.com/cosmonic/kubernetes-applier. You can also check out the project's
+[docs](https://github.com/cosmonic/kubernetes-applier/tree/main/service-applier#readme) for a
+complete example architecture and instructions on how to run it.
