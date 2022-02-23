@@ -20,7 +20,7 @@ By convention, all of our first-party actor interface crates start with the pref
 As an example, here's what it looks like to add a dependency on the **key-value** actor interface. In `Cargo.toml`, there needs to be an entry under `[dependencies]`:
 
 ```toml
-wasmcloud-interface-keyvalue = "0.2.5"
+wasmcloud-interface-keyvalue = "0.5.0"
 ```
 
 And in the Rust source (`src/lib.rs`), it needs to be imported:

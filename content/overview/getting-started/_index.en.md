@@ -58,7 +58,7 @@ The terminal output you've seen so far is also reflected in the GUI. Throughout 
 
 #### Running an actor
 
-We could start scheduling actors and providers right away on this host using the `wash ctl start` command, but we'll use the dashboard UI for now. Using the web UI, click the **Start Actor** button and choose the _From Registry_ option. When prompted for an OCI reference URL, enter `wasmcloud.azurecr.io/echo:0.3.2` and for now just choose **1** for the number of replicas. After just a few moments, you should have a running actor in your environment. As soon as the system conducts its next periodic health check, the actor's status should change from Awaiting to Healthy.
+We could start scheduling actors and providers right away on this host using the `wash ctl start` command, but we'll use the dashboard UI for now. Using the web UI, click the **Start Actor** button and choose the _From Registry_ option. When prompted for an OCI reference URL, enter `wasmcloud.azurecr.io/echo:0.3.4` and for now just choose **1** for the number of replicas. After just a few moments, you should have a running actor in your environment. As soon as the system conducts its next periodic health check, the actor's status should change from Awaiting to Healthy.
 
 ![dashboard2](./washboard2.png)
 
@@ -69,7 +69,7 @@ For this actor to receive HTTP requests, we need to start the HTTP Server capabi
 Let's use the `wash` CLI to inspect the set of capabilities this actor has:
 
 ```shell
-wash claims inspect wasmcloud.azurecr.io/echo:0.3.2
+wash claims inspect wasmcloud.azurecr.io/echo:0.3.4
 ```
 ```shell
                                Echo - Module
@@ -77,7 +77,7 @@ wash claims inspect wasmcloud.azurecr.io/echo:0.3.2
   Module        MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5
   Expires                                                          never
   Can Be Used                                                immediately
-  Version                                                      0.3.2 (4)
+  Version                                                      0.3.4 (4)
   Call Alias                                                   (Not set)
                                Capabilities
   HTTP Server
@@ -85,7 +85,7 @@ wash claims inspect wasmcloud.azurecr.io/echo:0.3.2
   None
 ```
 
-To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.14.6` and leave the _link name_ set to `default`. You should now see this capability provider running, and within 30 seconds it should report its status as Healthy.
+To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.14.10` and leave the _link name_ set to `default`. You should now see this capability provider running, and within 30 seconds it should report its status as Healthy.
 
 ![dashboard3](./washboard3.png)
 
@@ -99,10 +99,10 @@ Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
   hostcore.arch                x86_64
 
   Actor ID                                                    Name               Image Reference
-  MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5    N/A                wasmcloud.azurecr.io/echo:0.3.2
+  MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5    N/A                wasmcloud.azurecr.io/echo:0.3.4
 
   Provider ID                                                 Name               Link Name          Image Reference
-  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.14.6
+  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.14.10
 ```
 
 #### Linking actors and capability providers
