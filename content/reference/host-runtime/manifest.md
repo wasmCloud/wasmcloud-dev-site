@@ -35,11 +35,11 @@ The following is an example manifest that describes a subset of functionality co
 ```yaml
 ---
 actors:
-    - wasmcloud.azurecr.io/echo:0.2.1    
+    - wasmcloud.azurecr.io/echo:0.3.4    
 capabilities:
-    - image_ref: wasmcloud.azurecr.io/nats:0.11.0
+    - image_ref: wasmcloud.azurecr.io/nats:0.11.9
       link_name: frontend
-    - image_ref: wasmcloud.azurecr.io/nats:0.11.0
+    - image_ref: wasmcloud.azurecr.io/nats:0.11.9
       link_name: backend 
 ```
 
