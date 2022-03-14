@@ -5,6 +5,20 @@ layout: "changelog"
 draft: false
 ---
 
+### Release 0.53
+
+{{< changelog "added" >}}
+- NATS message "bubble wrap" that prevents host processes from exiting when there's a temporary loss of NATS connectivity in [#363](https://github.com/wasmCloud/wasmcloud-otp/pull/363)
+- Invocation chunking support, any invocation that exceeds the NATS max size limit will be automatically chunked and delivered with actors and providers running at least wasmbus-rpc 0.8.3 [#354](https://github.com/wasmCloud/wasmcloud-otp/pull/354) 
+{{</ changelog >}}
+
+{{< changelog "changed" >}}
+- Identified and fixed a memory spike with starting capability providers, each capability provider will now require only ~10Mb free memory to start rather than ~500Mb in [#347](https://github.com/wasmCloud/wasmcloud-otp/pull/347)
+- Capability providers that exit, gracefully or due to panic, will now be properly cleaned up and removed from the host inventory in [#360](https://github.com/wasmCloud/wasmcloud-otp/pull/360)
+- Actors that exit, gracefully or due to panic, because of a Wasmex issue will now safely exit [#366](https://github.com/wasmCloud/wasmcloud-otp/pull/366)
+- RPC failures that are caused by a timeout will now indicate the cause of the issue in the host log in [#362](https://github.com/wasmCloud/wasmcloud-otp/pull/362)
+{{</ changelog >}}
+
 ### Release 0.52
 
 {{< changelog "added" >}}
