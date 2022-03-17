@@ -5,6 +5,15 @@ layout: "changelog"
 draft: false
 ---
 
+### Release 0.54
+{{< changelog "added" >}}
+- Structured logging support in [#368](https://github.com/wasmCloud/wasmcloud-otp/pull/368) which will format all host and actor logs as JSON for easily parsed logs. Human-readable text logs are still the default option.
+{{</ changelog >}}
+
+{{< changelog "changed" >}}
+- HostData struct passed to providers on stdin now includes a `structured_logging_enabled` field to notify providers of the request for structured logs in [#368](https://github.com/wasmCloud/wasmcloud-otp/pull/368)
+{{</ changelog >}}
+
 ### Release 0.53
 
 {{< changelog "added" >}}
