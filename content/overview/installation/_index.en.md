@@ -10,7 +10,7 @@ There are three primary components of a wasmCloud installation:
 
 - The wasmCloud Shell (`wash`)
 - The host runtime
-- [NATS](https://nats.io) server (v2.3.4 or later)
+- [NATS](https://nats.io) server (v2.7.2 or later)
 
 We will guide you through installation of these components and the other prerequisites.
 

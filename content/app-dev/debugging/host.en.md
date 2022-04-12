@@ -44,7 +44,7 @@ IMAGE                             NAMES
 wasmcloud/wasmcloud_host:latest   tmp-wasmcloud-1
 registry:2.7                      tmp-registry-1
 redis:6.2                         tmp-redis-1
-nats:2.3                          tmp-nats-1
+nats:2.7.2-alpine                 tmp-nats-1
 ```
 
 Then, attach your terminal to the logs of that container (in this case, `tmp-wasmcloud-1`):
