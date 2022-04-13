@@ -47,5 +47,7 @@ These variables can be set in your terminal environment to configure a host. Aft
 | `WASMCLOUD_PROV_SHUTDOWN_DELAY_MS`<br/>Delay, in milliseconds, between requesting a provider shut down and forcibly terminating its OTP process | `300` |
 | `WASMCLOUD_OCI_ALLOW_LATEST`<br/>Determines whether OCI images tagged `latest` are allowed to be pulled and started. Defaults to false because `latest` is a possible attack and instability vector | `false` |
 | `WASMCLOUD_OCI_ALLOWED_INSECURE`<br/>The list of OCI hosts to which insecure connections are allowed. By default, no insecure connections are allowed. | `""` |
+| `WASMCLOUD_STRUCTURED_LOGGING_ENABLED`<br/> Set to `true` to enable JSON structured logging from the host runtime. | `false` |
+| `WASMCLOUD_STRUCTURED_LOG_LEVEL`<br/> When structured logging is enabled, this controls the verbosity of those logs. Choose from `error`, `warn`, `info`, and `debug` | `info` |
 
 
