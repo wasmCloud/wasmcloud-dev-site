@@ -72,7 +72,7 @@ cargo install wash-cli
 {{% tab "Windows" %}}
 
 ```bash
-cargo install wash-cli
+choco install wash
 ```
 
 {{% /tab %}}
