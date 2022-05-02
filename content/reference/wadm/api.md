@@ -11,14 +11,16 @@ The normal way to interact with a `wadm` installation (which could be a single s
 ### ⚠️ Caution
 _wadm and its corresponding API are under active development_. Many components are not yet written at all. This document serves as a means to solicit feedback and collaborate on API design and will likely change multiple times.
 
-A wadm cluster will use a single connection (and therefore set of credentials) for the API server. This allows a wadm cluster to use a different security context for the API server that it does for remotely controlling lattices.
+A wadm cluster will use a single connection (and therefore set of credentials) for the API server. This allows a wadm cluster to use a different security context for the API server that is different from the context used for remotely controlling lattices.
 
 ## Topic Space
 The wadm API is exposed entirely as a NATS service on a topic space. All of the API operations will occur as _requests_ on a topic in the following format:
 
 ```
-wadm.api.{lattice-id}.{noun}.{verb}
+wadm.api.{lattice-id}.{category}.{operation}.{object}
 ```
+
+The `operation` is usually a verb, and `object` is an optional scope-limiter to the operation. In many cases, the `object` will be something like a model name.
 
 All requests and responses on this topic are encoded as JSON.
 
@@ -28,12 +30,12 @@ If a consumer wishes to monitor events in real-time (for example, you want to be
 wadm.evt.{lattice-id}
 ```
 
-The events on this topic are JSON-encoded [CloudEvents](https://cloudevents.io/).
+The events on this topic are JSON-encoded [CloudEvents](https://cloudevents.io/) (current spec version 1.0.1 as of May 1, 2022).
 
 **NOTE** that all model _names_ are treated like unique identifiers and must conform to the rules governing NATS topic segments. For example, they cannot contain spaces, commas, unprintable characters, or periods.
 
 ## Model Persistence
-The following operations pertain to storing and retrieving models. Persistence of models is explicitly and deliberately separated from deployment and deployment management.
+The following operations pertain to storing and retrieving models. Persistence of models is explicitly and deliberately separated from deployment management.
 
 
 ### Get Model List
@@ -54,8 +56,8 @@ Retrieves a list of models within the given lattice. The status of the model is 
 }
 ```
 
-### Get Model Spec
-`wadm.api.{lattice}.model.info.{name}`
+### Get a Model Spec
+`wadm.api.{lattice}.model.get.{name}`
 
 Retrieves the specification of the model stored with the given name. Caller must
 specify the version of the model to be displayed. A list of stored versions can be obtained with the `versions` verb.
@@ -76,7 +78,7 @@ JSON serialization of [OAM model/yaml](https://github.com/wasmCloud/wadm/tree/ma
 ### Store Models
 `wadm.api.{lattice}.model.put.{name}`
 
-Stores the named model. If the model and version being submitted already exist, the request will be rejected. New versions will be appended to the history according to retention policy. Note that this won't automatically deploy a model, it only affects storage. The response will tell the caller how many versions are on file and the current version number _after_ the operation completed.
+Model storage is _append-only_. New versions are added to the model's version history according to retention policy and will not replace previously existing versions. If the model and version being submitted already exist, the request will be _rejected_. Note that this won't automatically deploy a model, it only affects storage. The response will tell the caller how many versions are on file and the current version number _after_ the operation completed.
 
 **Request**: JSON serialization of OAM model
 
@@ -144,7 +146,7 @@ Deployments are discrete instances of autonomous control agents that monitor an 
 ### Deploy
 `wadm.api.{lattice}.model.deploy.{name}`
 
-Deploys the indicated model. This operation is idempotent, and will simply "succeed" if a request to deploy an already deployed model is received. The previous version, if deployed, does not need to be _undeployed_. Instead, the desired state of the new version is compared against the observed state of the lattice and the autonomous agents will compensate accordingly.
+Deploys the indicated model. This operation is idempotent, and will simply "succeed" if a request to deploy an already deployed model is received. The previous version, if deployed, does not need to be _undeployed_. Instead, the desired state of the new version is compared against the observed state of the lattice and the autonomous agents will compensate accordingly. If the request payload is empty, or the `version` field contains the keyword `latest`, the newest model spec stored will be deployed.
 
 **Request**:
 ```json
@@ -156,7 +158,7 @@ Deploys the indicated model. This operation is idempotent, and will simply "succ
 **Response**:
 ```json
 {
-    "result": "success|error",
+    "result": "acknowledged|error",
     "message": "..."
 }
 ```
@@ -238,7 +240,7 @@ Returns the history of compensating actions taken by wadm. Also includes when de
 [
     {
         "time" : "<RFC3339 Timestamp>",
-        "action": "modeldeploy|modelundeploy|compensator",
+        "action": "deploy|undeploy|compensator",
         "success": true,
         "message": "... varies ... ",
         "component": "varies",
