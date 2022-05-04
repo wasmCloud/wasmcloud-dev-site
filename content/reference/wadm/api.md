@@ -11,7 +11,7 @@ The normal way to interact with a `wadm` installation (which could be a single s
 ### ⚠️ Caution
 _wadm and its corresponding API are under active development_. Many components are not yet written at all. This document serves as a means to solicit feedback and collaborate on API design and will likely change multiple times.
 
-A wadm cluster will use a single connection (and therefore set of credentials) for the API server. This allows a wadm cluster to use a different security context for the API server that is different from the context used for remotely controlling lattices.
+A wadm cluster will use a single connection (and therefore set of credentials) for the API server. This allows a wadm cluster to use a security context for the API server that is different from the context used for remotely controlling lattices.
 
 ## Topic Space
 The wadm API is exposed entirely as a NATS service on a topic space. All of the API operations will occur as _requests_ on a topic in the following format:
@@ -60,7 +60,7 @@ Retrieves a list of models within the given lattice. The status of the model is 
 `wadm.api.{lattice}.model.get.{name}`
 
 Retrieves the specification of the model stored with the given name. Caller must
-specify the version of the model to be displayed. A list of stored versions can be obtained with the `versions` verb.
+specify the version of the model to be displayed. A list of stored versions can be obtained with the `versions` operation.
 
 **Request**:
 ```json
@@ -78,7 +78,12 @@ JSON serialization of [OAM model/yaml](https://github.com/wasmCloud/wadm/tree/ma
 ### Store Models
 `wadm.api.{lattice}.model.put.{name}`
 
-Model storage is _append-only_. New versions are added to the model's version history according to retention policy and will not replace previously existing versions. If the model and version being submitted already exist, the request will be _rejected_. Note that this won't automatically deploy a model, it only affects storage. The response will tell the caller how many versions are on file and the current version number _after_ the operation completed.
+Model storage is _append-only_. New versions are added to the model's version history according to retention policy and will not replace previously existing versions.
+
+#### ℹ️ NOTE
+_When_ a model version was added to the store is what determines the _latest_ status. Wadm will not apply semantic meaning or assume the use of [semver](https://semver.org/) or otherwise attempt to interpret the version field. We highly recommend using _semantic versioning_ for models, but that is up to the developers. Wadm _will_ strip the leading `v` off of version labels to ensure that `v1.0` and `1.0` appear as identical version labels.
+
+ If the model and version being submitted already exist, the request will be _rejected_. Note that this won't automatically deploy a model, it only affects storage. The response will tell the caller how many versions are on file and the current version number _after_ the operation completed.
 
 **Request**: JSON serialization of OAM model
 
@@ -245,6 +250,7 @@ Returns the history of compensating actions taken by wadm. Also includes when de
         "message": "... varies ... ",
         "component": "varies",
         "trait": "varies",
+        "model_version": "1.0",
         "details": {
             "key" : "value",
             "key2" : "value2"
