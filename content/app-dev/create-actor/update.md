@@ -70,7 +70,7 @@ You should now see your actor with a `hot reloading` status badge, and you're re
 
 ![hotreloading](../hotreloading.png)
 
-### Making modifications
+### Making modifications (Rust)
 
 Our new actor has come pre-equipped with a message handler that generates a text string in the body of the response. By default, the text is "Hello World", and the greeting changes if the URL contains a name parameter. We will modify the business logic of the actor to select the greeting, using a second URL paramter. In this exercise, you will go through the process of editing code, recompiling, and updating the actor in a live running system.
 

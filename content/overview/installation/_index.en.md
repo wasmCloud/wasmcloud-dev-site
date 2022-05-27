@@ -8,23 +8,22 @@ draft: false
 
 There are three primary components of a wasmCloud installation:
 
-- The wasmCloud Shell (`wash`)
-- The host runtime
+- The wasmCloud shell, `wash`
+- The wasmCloud host runtime
 - [NATS](https://nats.io) server (v2.7.2 or later)
 
 We will guide you through installation of these components and the other prerequisites.
 
 ### Prerequisites
 
-First, let's make sure we have the necessary prerequisites for developing with wasmCloud:
+First, let's make sure we have the necessary prerequisites for developing with wasmCloud..
 
-- **Rust SDK**. While other languages will be supported in the future, actor and capability development are supported _Rust-first_, so you will also want to [install Rust](https://www.rust-lang.org/tools/install) if you haven't already.
+- **Language SDKs**: wasmCloud supports [TinyGo](https://tinygo.org/getting-started/install/) and [Rust](https://www.rust-lang.org/tools/install) for actor development and [Rust](https://www.rust-lang.org/tools/install) for capability provider development. Ensure you have a toolchain installed for your preference of language, for now we recommend installing Rust regardless and 
 
-- **Unix utilities** if you are on a non-linux platform, you will want a package manager such as homebrew (mac) or chocolatey (windows) that can install common utilities. Using your favorite package manager, make sure that you have these installed: **bash**, **git**, **jq**, and **make**
-
+- **Unix utilities**: We include Makefiles with our project templates to simplify development that assume some common command line utilities. Using your favorite package manager, make sure that you have these installed: **bash**, **git**, **jq**, and **make**
   - We recommend gnu make version 4.3 or later. (for Mac users: you'll need to add the homebrew-installed make to your path _before_ the one in `/usr/bin`).
 
-- [**Docker**](https://docs.docker.com/get-docker/) provides an easy way to start all the services you need for a development environment: NATS, a local OCI registry. We recommend using the newest version of Docker available on your machine, or at least a version that supports [Docker Compose v2](https://docs.docker.com/compose/cli-command/).
+> If you prefer to use Docker and not install anything locally, you can follow our [install with Docker](./install-with-docker]) instructions instead of the ones below. You'll still want to have `wash` as mentioned above for the guides in the documentation.
 
 ### Install wash
 
@@ -50,7 +49,7 @@ sudo dnf install wash
 {{% tab "snap" %}}
 
 ```bash
- snap install wash --devmode --edge
+snap install wash --devmode --edge
 ```
 
 {{% /tab %}}
@@ -62,86 +61,106 @@ brew install wash
 ```
 
 {{% /tab %}}
-{{% tab "Rust" %}}
+{{% tab "Windows" %}}
 
 ```bash
 cargo install wash-cli
 ```
 
 {{% /tab %}}
-{{% tab "Windows" %}}
+{{% tab "Rust" %}}
 
+`wash` can be installed with `cargo` in the case that your platform isn't listed
 ```bash
-choco install wash
+cargo install wash-cli
 ```
 
 {{% /tab %}}
 {{% /tabs %}}
 
-### Installing NATS and the wasmCloud host runtime
-
-You can install NATS and the wasmCloud host runtime with or without docker. If you have docker installed, the procedure for [installing with docker](./install-with-docker/) is slightly shorter than the procedure below.
-
-#### Install NATS server
+### Install NATS server
 
 NATS is a powerful, cloud native message broker that aims to provide a universal communications substrate across all kinds of workloads. NATS is such a resilient, fast, small, flexible tool that it is part of the core infrastructure requirements of the wasmCloud host. For information on how to install and start the NATS server, please check the [NATS Documentation](https://docs.nats.io/nats-server/installation). Note that we require a version of NATS new enough to contain the embedded _JetStream_ functionality.
 
-Installing NATS is quick and easy. Once it's installed, run it with JetStream enabled:
+Installing NATS is quick and easy. Once it's installed, run it with JetStream enabled (you'll know you did it correctly when you see some sweet terminal ASCII art):
 
-```bash
+```plain
 nats-server --jetstream
+...
+... Starting JetStream
+...     _ ___ _____ ___ _____ ___ ___   _   __  __
+...  _ | | __|_   _/ __|_   _| _ \ __| /_\ |  \/  |
+... | || | _|  | | \__ \ | | |   / _| / _ \| |\/| |
+...  \__/|___| |_| |___/ |_| |_|_\___/_/ \_\_|  |_|
+...
 ```
 
-#### Install and start the wasmCloud host runtime
+### Install and start the wasmCloud host runtime
 
-Before you start the wasmCloud host runtime, NATS should already be running.
+The preferred way to install the wasmCloud host runtime is to download the latest [release](https://github.com/wasmCloud/wasmcloud-otp/releases). Follow the instructions below for your platform to download and extract wasmCloud.
 
-The preferred way to install the wasmCloud host runtime is to download the latest [release](https://github.com/wasmCloud/wasmcloud-otp/releases). Download the `.tar.gz` file into a directory where you want to install the server.
 
-If you are on a Mac, you'll need to run one more command before extracting the release. This command makes it so Gatekeeper will not quarantine parts of the host when you run it:
+{{% tabs %}}
+{{% tab "x86_64 Linux" %}}
 
 ```bash
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/x86_64-linux.tar.gz
+mkdir -p wasmcloud
+tar -xvf x86_64-linux.tar.gz -C wasmcloud
+```
+
+{{% /tab %}}
+{{% tab "arm64 Linux" %}}
+
+```bash
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/aarch64-linux.tar.gz
+mkdir -p wasmcloud
+tar -xvf aarch64-linux.tar.gz -C wasmcloud
+```
+
+{{% /tab %}}
+{{% tab "Intel Mac" %}}
+
+```bash
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/x86_64-macos.tar.gz
+mkdir -p wasmcloud
+# This command makes it so the MacOS Gatekeeper will not quarantine parts of the host when you run it:
 sudo xattr -d com.apple.quarantine x86_64-macos.tar.gz
+tar -xvf x86_64-macos.tar.gz -C wasmcloud
 ```
 
-Once you have downloaded the release (and run the above command if on a Mac), extract the release using the following command: (replace _ARCH_ with your architecture, and _OS_ with your operating system)
+{{% /tab %}}
+{{% tab "M1 Mac" %}}
 
 ```bash
-tar xzf ARCH-OS.tar.gz
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/aarch64-macos.tar.gz
+mkdir -p wasmcloud
+# This command makes it so the MacOS Gatekeeper will not quarantine parts of the host when you run it:
+sudo xattr -d com.apple.quarantine aarch64-macos.tar.gz
+tar -xvf aarch64-macos.tar.gz -C wasmcloud
 ```
 
-After extracting from the tar file, the host is fully installed, and the tar file can be deleted.
+{{% /tab %}}
+{{% tab "Windows" %}}
 
-There are a variety of ways to run the host. To view the command-line options, type `bin/wasmcloud_host`. The quickest way to start the host, so you can move on to [getting started](/overview/getting-started/), is the first option below:
+```powershell
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/x86_64-windows.tar.gz
+mkdir wasmcloud
+tar -xvf x86_64-windows.tar.gz -C wasmcloud
+```
 
-- To start the host running in the current terminal (The host continues running until you ctrl-c or close the terminal window)
+{{% /tab %}}
+{{% /tabs %}}
 
-  ```bash
-  bin/wasmcloud_host foreground
-  ```
+After extracting from the tar file, the host is fully installed, and the tar file can be deleted. If you haven't already, run NATS with Jetstream following the instructions [above](#install-nats-server).
 
-- Alternately, you can start it in the background with
-
-  ```bash
-  bin/wasmcloud_host start
-  ```
-
-  and stop it with `bin/wasmcloud_host stop`. You can view the logs with
-
-  ```bash
-  tail var/log/erlang.log.1
-  ```
-
-- If you're already familiar with Elixir and **iex**, Elixir's interactive shell, and want to dive into the host's internals, execute Elixir statements, and set breakpoints, start the host with
-
-  ```bash
-  bin/wasmcloud_host console
-  ```
-
-Once the wasmCloud host has started, go ahead to [Getting started](/overview/getting-started/).
+There are a variety of ways to run the host that are described in more detail in [Running the Host](/reference/host-runtime/running). For now, go ahead and `cd wasmcloud` to get into the correct directory and then run:
+```bash
+bin/wasmcloud_host foreground
+```
+This will start the host with attached logs and can be exited at any time by doing `ctrl-c`. Now, you're ready to proceed onto [Getting started](/overview/getting-started/).
 
 #### Install from source
-
 The [wasmCloud OTP host runtime](https://github.com/wasmCloud/wasmcloud-otp) and [wash](https://github.com/wasmcloud/wash) repositories are open source on GitHub. Both of these repositories can be cloned and built locally directly. Consult the README file in the respective repository for prerequisites and instructions for compiling and running.
 
 ### Stopping the wasmCloud Host Runtime

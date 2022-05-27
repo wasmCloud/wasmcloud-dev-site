@@ -1,7 +1,7 @@
 ---
-title: "Testing the actor"
+title: "Testing the actor (Rust)"
 date: 2018-12-29T10:00:00+00:00
-weight: 4
+weight: 8
 draft: false
 ---
 
