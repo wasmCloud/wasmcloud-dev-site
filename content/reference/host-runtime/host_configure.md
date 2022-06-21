@@ -49,5 +49,8 @@ These variables can be set in your terminal environment to configure a host. Aft
 | `WASMCLOUD_OCI_ALLOWED_INSECURE`<br/>The list of OCI hosts to which insecure connections are allowed. By default, no insecure connections are allowed. | `""` |
 | `WASMCLOUD_STRUCTURED_LOGGING_ENABLED`<br/> Set to `true` to enable JSON structured logging from the host runtime. | `false` |
 | `WASMCLOUD_STRUCTURED_LOG_LEVEL`<br/> When structured logging is enabled, this controls the verbosity of those logs. Choose from `error`, `warn`, `info`, and `debug` | `info` |
+| `OCI_REGISTRY`<br/> Specifies an OCI registry to use the following USER and PASSWORD variables to authenticate | `None` |
+| `OCI_REGISTRY_USER`<br/> Specifies a username to authenticate to the above OCI registry | `None` |
+| `OCI_REGISTRY_PASSWORD`<br/> Specifies a password to authenticate to the above OCI registry | `None` |
 
 
