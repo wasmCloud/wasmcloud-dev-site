@@ -64,7 +64,7 @@ brew install wash
 {{% tab "Windows" %}}
 
 ```bash
-cargo install wash-cli
+choco install wash
 ```
 
 {{% /tab %}}
