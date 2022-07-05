@@ -23,7 +23,7 @@ First, let's make sure we have the necessary prerequisites for developing with w
 - **Unix utilities**: We include Makefiles with our project templates to simplify development that assume some common command line utilities. Using your favorite package manager, make sure that you have these installed: **bash**, **git**, **jq**, and **make**
   - We recommend gnu make version 4.3 or later. (for Mac users: you'll need to add the homebrew-installed make to your path _before_ the one in `/usr/bin`).
 
-> If you prefer to use Docker and not install anything locally, you can follow our [install with Docker](./install-with-docker]) instructions instead of the ones below. You'll still want to have `wash` as mentioned above for the guides in the documentation.
+> If you prefer to use Docker and not install anything locally, you can follow our [install with Docker](./install-with-docker.md) instructions instead of the ones below. You'll still want to have `wash` as mentioned above for the guides in the documentation.
 
 ### Install wash
 
