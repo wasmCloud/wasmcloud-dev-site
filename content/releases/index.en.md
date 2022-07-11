@@ -5,6 +5,18 @@ layout: "changelog"
 draft: false
 ---
 
+### Release 0.55
+{{< changelog "added" >}}
+- Added OCI_REGISTRY environment variable for specifying a registry to use credentials for in [#423](https://github.com/wasmCloud/wasmcloud-otp/pull/423)
+- Add IPv6 support for NATS connections in [#408](https://github.com/wasmCloud/wasmcloud-otp/pull/408)
+- OpenTelemetry Tracing Support in [#400](https://github.com/wasmcloud-otp/pull/400), [#403](https://github.com/wasmcloud-otp/pull/403), [#406](https://github.com/wasmcloud-otp/pull/406), [#407](https://github.com/wasmcloud-otp/pull/407), [#411](https://github.com/wasmcloud-otp/pull/411)
+{{</ changelog >}}
+
+{{< changelog "changed" >}}
+- Log messages now are sent to stderr instead of stdout in [#418](https://github.com/wasmCloud/wasmcloud-otp/pull/418)
+- Actor messages are now round-robined between available actors using internal dispatch instead of a queue subscribe in [#408](https://github.com/wasmcloud-otp/pull/408), [#415](https://github.com/wasmcloud-otp/pull/415), [#420](https://github.com/wasmcloud-otp/pull/420), [#422](https://github.com/wasmcloud-otp/pull/422)
+{{</ changelog >}}
+
 ### Release 0.54
 {{< changelog "added" >}}
 - Structured logging support in [#368](https://github.com/wasmCloud/wasmcloud-otp/pull/368) which will format all host and actor logs as JSON for easily parsed logs. Human-readable text logs are still the default option.
