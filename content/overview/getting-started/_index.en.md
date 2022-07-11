@@ -85,7 +85,7 @@ wash claims inspect wasmcloud.azurecr.io/echo:0.3.4
   None
 ```
 
-To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.14.10` and leave the _link name_ set to `default`. You should now see this capability provider running, and within 30 seconds it should report its status as Healthy.
+To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.16.0` and leave the _link name_ set to `default`. You should now see this capability provider running, and within 30 seconds it should report its status as Healthy.
 
 ![dashboard3](./washboard3.png)
 
@@ -102,7 +102,7 @@ Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
   MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5    N/A                wasmcloud.azurecr.io/echo:0.3.4
 
   Provider ID                                                 Name               Link Name          Image Reference
-  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.14.10
+  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.16.0
 ```
 
 #### Linking actors and capability providers

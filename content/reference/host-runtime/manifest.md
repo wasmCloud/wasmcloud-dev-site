@@ -37,9 +37,9 @@ The following is an example manifest that describes a subset of functionality co
 actors:
     - wasmcloud.azurecr.io/echo:0.3.4    
 capabilities:
-    - image_ref: wasmcloud.azurecr.io/nats:0.11.9
+    - image_ref: wasmcloud.azurecr.io/nats:0.14.0
       link_name: frontend
-    - image_ref: wasmcloud.azurecr.io/nats:0.11.9
+    - image_ref: wasmcloud.azurecr.io/nats:0.14.0
       link_name: backend 
 ```
 
