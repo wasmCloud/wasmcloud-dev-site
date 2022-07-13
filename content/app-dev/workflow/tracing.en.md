@@ -43,7 +43,7 @@ As you can see, we retrieved the list of vets in our database in just under 40ms
 
 In order to enable tracing we'll take a look at the above example to show you what to set up. At a high level, you'll need:
 1. wasmCloud [v0.55.1](https://github.com/wasmCloud/wasmcloud-otp/releases/tag/v0.55.1) or later
-1. A tracing backend like [Grafana Tempo](https://github.com/grafana/tempo)
+1. A tracing backend, [Grafana Tempo](https://github.com/grafana/tempo) was what we chose for its simplicity for Docker compose, but [Zipkin](https://zipkin.io/) and [Jaeger](https://www.jaegertracing.io/) are open source and also visualize traces. There are also commercial / "production-grade" offerings like [DataDog](https://www.datadoghq.com/knowledge-center/distributed-tracing/#distributed-tracing-tools) and [Honeycomb](https://www.honeycomb.io/trace/) too.
 1. Capability providers using `wasmbus-rpc 0.9+` with the `otel` feature enabled
 
 #### Enabling tracing for capability providers
