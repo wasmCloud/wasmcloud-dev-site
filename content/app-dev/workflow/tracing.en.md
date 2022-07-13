@@ -47,15 +47,30 @@ In order to enable tracing we'll take a look at the above example to show you wh
 1. Capability providers using `wasmbus-rpc 0.9+` with the `otel` feature enabled
 
 #### Enabling tracing for capability providers
-Capability providers don't enable tracing by default following our principle of simplicity and security by default. To enable it in the Rust capability providers you'll simply need to enable the `otel` feature, you can see an example of this in the KV Redis provider [here](https://github.com/wasmCloud/capability-providers/blob/4be4c78c856f42055efe22bd656a53229b14b7c7/kvredis/Cargo.toml#L26). Then, you'll want to use the [tracing crate](https://crates.io/crates/tracing) to **instrument** your function calls that you want to trace. Here's an example of an instrumented function call:
+Capability providers don't enable tracing by default following our principle of simplicity and security by default. To enable it in the Rust capability providers you'll simply need to enable the `otel` feature, you can see an example of this in the HTTPClient provider [here](https://github.com/wasmCloud/capability-providers/blob/916cc95c09c27faf0cb202003ff1f39ef9059a1b/httpclient/Cargo.toml#L27). Then, you'll want to use the [tracing crate](https://crates.io/crates/tracing) to **instrument** your function calls that you want to trace. Here's an example of an instrumented function call in the HttpClient provider:
 ```rust
-/// Deletes a key, returning true if the key was deleted
-#[instrument(level = "debug", skip(self, ctx, arg), fields(actor_id = ?ctx.actor, key = %arg.to_string()))]
-async fn del<TS: ToString + ?Sized + Sync>(&self, ctx: &Context, arg: &TS) -> RpcResult<bool> {
-    let mut cmd = redis::Cmd::del(arg.to_string());
-    let val: i32 = self.exec(ctx, &mut cmd).await?;
-    Ok(val > 0)
+#[instrument(level = "debug", skip(self, _ctx, req), fields(actor_id = ?_ctx.actor, method = %req.method, url = %req.url))]
+async fn request(&self, _ctx: &Context, req: &HttpRequest) -> RpcResult<HttpResponse> {
+    let mut headers: HttpHeaderMap = HttpHeaderMap::default();
+    convert_request_headers(&req.headers, &mut headers);
+    // Elided
+    if (200..300).contains(&(status_code as usize)) {
+        tracing::debug!(
+            %status_code,
+            "http request completed",
+        );
+    } else {
+        tracing::warn!(
+            %status_code,
+            "http request completed with non-200 status"
+        );
+    }
+    Ok(HttpResponse {
+        body: body.to_vec(),
+        header: headers,
+        status_code,
+    })
 }
 ```
 
-When a delete command goes through the Redis provider, this function will be instrumented and included in the overall trace that originated from elsewhere in the wasmCloud application (either in wasmbus-rpc or in the wasmCloud host, you don't need to worry about that). We're instrumenting the above function at a `debug` level and recording the actor ID as a part of the span. You'll want to do this for each function that you're interested in tracing so that it shows up in the full trace.
+When an HTTP Request command goes through the HTTPClient provider, this function will be instrumented and included in the overall trace that originated from elsewhere in the wasmCloud application (either in wasmbus-rpc or in the wasmCloud host, you don't need to worry about that). We're instrumenting the above function at a `debug` level and recording the actor ID, the request method, and the URL as a part of the span. You can also see an example a few lines down of using the `tracing::debug!` and `tracing::warn!` macros for additional logging. You'll want to do this for each function that you're interested in tracing for a complete view of an operation.
