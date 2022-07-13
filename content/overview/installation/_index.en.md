@@ -18,7 +18,7 @@ We will guide you through installation of these components and the other prerequ
 
 First, let's make sure we have the necessary prerequisites for developing with wasmCloud..
 
-- **Language SDKs**: wasmCloud supports [TinyGo](https://tinygo.org/getting-started/install/) and [Rust](https://www.rust-lang.org/tools/install) for actor development and [Rust](https://www.rust-lang.org/tools/install) for capability provider development. Ensure you have a toolchain installed for your preference of language, for now we recommend installing Rust regardless and 
+- **Language SDKs**: wasmCloud supports [TinyGo](https://tinygo.org/getting-started/install/) and [Rust](https://www.rust-lang.org/tools/install) for actor development and [Rust](https://www.rust-lang.org/tools/install) for capability provider development. Ensure you have a toolchain installed for your preference of language.
 
 - **Unix utilities**: We include Makefiles with our project templates to simplify development that assume some common command line utilities. Using your favorite package manager, make sure that you have these installed: **bash**, **git**, **jq**, and **make**
   - We recommend gnu make version 4.3 or later. (for Mac users: you'll need to add the homebrew-installed make to your path _before_ the one in `/usr/bin`).
