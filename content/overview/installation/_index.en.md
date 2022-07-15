@@ -104,7 +104,7 @@ The preferred way to install the wasmCloud host runtime is to download the lates
 {{% tab "x86_64 Linux" %}}
 
 ```bash
-wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/x86_64-linux.tar.gz
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.55.1/x86_64-linux.tar.gz
 mkdir -p wasmcloud
 tar -xvf x86_64-linux.tar.gz -C wasmcloud
 ```
@@ -113,7 +113,7 @@ tar -xvf x86_64-linux.tar.gz -C wasmcloud
 {{% tab "arm64 Linux" %}}
 
 ```bash
-wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/aarch64-linux.tar.gz
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.55.1/aarch64-linux.tar.gz
 mkdir -p wasmcloud
 tar -xvf aarch64-linux.tar.gz -C wasmcloud
 ```
@@ -122,7 +122,7 @@ tar -xvf aarch64-linux.tar.gz -C wasmcloud
 {{% tab "Intel Mac" %}}
 
 ```bash
-wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/x86_64-macos.tar.gz
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.55.1/x86_64-macos.tar.gz
 mkdir -p wasmcloud
 # This command makes it so the MacOS Gatekeeper will not quarantine parts of the host when you run it:
 sudo xattr -d com.apple.quarantine x86_64-macos.tar.gz
@@ -133,7 +133,7 @@ tar -xvf x86_64-macos.tar.gz -C wasmcloud
 {{% tab "M1 Mac" %}}
 
 ```bash
-wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/aarch64-macos.tar.gz
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.55.1/aarch64-macos.tar.gz
 mkdir -p wasmcloud
 # This command makes it so the MacOS Gatekeeper will not quarantine parts of the host when you run it:
 sudo xattr -d com.apple.quarantine aarch64-macos.tar.gz
@@ -144,7 +144,7 @@ tar -xvf aarch64-macos.tar.gz -C wasmcloud
 {{% tab "Windows" %}}
 
 ```powershell
-wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.54.6/x86_64-windows.tar.gz
+wget https://github.com/wasmCloud/wasmcloud-otp/releases/download/v0.55.1/x86_64-windows.tar.gz
 mkdir wasmcloud
 tar -xvf x86_64-windows.tar.gz -C wasmcloud
 ```
