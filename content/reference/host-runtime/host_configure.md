@@ -1,11 +1,13 @@
 ---
 title: "Host Configuration"
-date: 2021-08-18T11:02:05+06:00
+date: 2022-07-29
 weight: 10
 draft: false
 ---
 
-Host runtime configuration is currently done through environment variables. These variables can either come from `.env` files or through real environment variables. Real variables take precedence over `.env` files. 
+The wasmcloud host is configured by environment variables, which can be set in the environment or `.env` files. 
+Real environment variables take precedence over values found in `.env` files. 
+Some of the values contain secrets and should be protected accordingly.
 
 The following sources of environment variables will be considered:
 
@@ -16,41 +18,32 @@ The following sources of environment variables will be considered:
 
 As mentioned, any environment variable supplied at runtime will override variables supplied in any `.env` file. Best practice suggests that developers use the `.local` files to represent their local workstation environments and to not check those files into source control.
 
-Environment variables and `.env` files are combined to create a **host configuration** file in the same directory that you launched the host. This `host_config.json` file contains all of the values that were used to launch the most recent host and can be edited and used directly instead of specifying your configuration values each time. This also means that launching subsequent hosts on your machine will automatically connect to the same lattice as your previously launched host.
+Environment variables and `.env` files are combined to create a **host configuration** file in the same directory that started the host. The generated `host_config.json` file contains all of the values that were used to launch the most recent host and can be edited and used directly instead of specifying your configuration values each time. This also means that launching subsequent hosts on your machine will automatically connect to the same lattice as your previously launched host.
+(To edit the file, open in a json-aware editor such as VS Code, or you can use `jq` to pretty-format it and edit with any text editor.)
 
 ### Supported configuration variables
 
-These variables can be set in your terminal environment to configure a host. After your first time launching a host, these variables are also available for modification in `host_config.json` as mentioned above, mostly under the same name without the `WASMCLOUD_` prefix.
+These variables can be set in your shell environment to configure a host. After your first time launching a host, these variables are also available for modification in `host_config.json` as mentioned above, mostly under the same name without the `WASMCLOUD_` prefix.
 
-| Variable<br/>_Description_ | Default |
-| :--- | :--- | :--- |
-| `WASMCLOUD_HOST_KEY`<br/>A 56-character public key used to identify the host| `{runtime generated}` |
-| `WASMCLOUD_HOST_SEED`<br/> A 56-character seed key corresponding to the host public key | `{runtime generated}` |
-| `WASMCLOUD_LATTICE_PREFIX`<br/>The prefix used to isolate multiple lattices from each other within the same NATS topic space | `default` |
-| `WASMCLOUD_RPC_HOST`<br/>NATS server host used for the RPC connection | `0.0.0.0` |
-| `WASMCLOUD_RPC_PORT`<br/>NATS server port used for the RPC connection | `4222` |
-| `WASMCLOUD_RPC_SEED`<br/>If decentralized NATS auth is used, the user seed | `""` | 
-| `WASMCLOUD_RPC_JWT`<br/>If decentralized NATS auth is used, the user JWT | `""` | 
-| `WASMCLOUD_RPC_TIMEOUT_MS`<br/>Timeout in milliseconds for RPC calls | `2000` |
-| `WASMCLOUD_PROV_RPC_HOST`<br/>NATS server host used for capability provider RPC connections | `0.0.0.0` |
-| `WASMCLOUD_PROV_RPC_PORT`<br/>NATS server port used for capability provider RPC connections | `4222` |
-| `WASMCLOUD_PROV_RPC_SEED`<br/>If decentralized NATS auth is used, the user seed for capability provider connections | `""` | 
-| `WASMCLOUD_PROV_RPC_JWT`<br/>If decentralized NATS auth is used, the user JWT for capability provider connections | `""` | 
-| `WASMCLOUD_PROV_RPC_TIMEOUT_MS`<br/>Timeout in milliseconds for capability provider RPC calls | `2000` |
-| `WASMCLOUD_CTL_HOST`<br/>NATS server host used for the _control interface_ connection | `0.0.0.0` |
-| `WASMCLOUD_CTL_PORT`<br/>NATS server port used for the _control interface_ connection | `4222` | 
-| `WASMCLOUD_CTL_SEED`<br/>If decentralized NATS auth is used, the user seed for the _control interface_ connection | `""` |
-| `WASMCLOUD_CTL_JWT`<br/>If decentralized NATS auth is used, the user JWT for the _control interface_ connection | `""` | 
-| `WASMCLOUD_CLUSTER_SEED`<br/>The seed key used by this host to sign all invocations. Note that different hosts can use different seed keys so long as their corresponding public keys are listed in the valid issuers variable. | `{generated}` |
-| `WASMCLOUD_CLUSTER_ISSUERS`<br/>A comma-delimited list of valid public keys that can be used as _issuers_ on signed invocations | `{generated}` | 
-| `WASMCLOUD_JS_DOMAIN`<br/>Jetstream domain name, configures a host to properly connect to a NATS supercluster | `""` |
-| `WASMCLOUD_PROV_SHUTDOWN_DELAY_MS`<br/>Delay, in milliseconds, between requesting a provider shut down and forcibly terminating its OTP process | `300` |
-| `WASMCLOUD_OCI_ALLOW_LATEST`<br/>Determines whether OCI images tagged `latest` are allowed to be pulled and started. Defaults to false because `latest` is a possible attack and instability vector | `false` |
-| `WASMCLOUD_OCI_ALLOWED_INSECURE`<br/>The list of OCI hosts to which insecure connections are allowed. By default, no insecure connections are allowed. | `""` |
-| `WASMCLOUD_STRUCTURED_LOGGING_ENABLED`<br/> Set to `true` to enable JSON structured logging from the host runtime. | `false` |
-| `WASMCLOUD_STRUCTURED_LOG_LEVEL`<br/> When structured logging is enabled, this controls the verbosity of those logs. Choose from `error`, `warn`, `info`, and `debug` | `info` |
-| `OCI_REGISTRY`<br/> Specifies an OCI registry to use the following USER and PASSWORD variables to authenticate | `None` |
-| `OCI_REGISTRY_USER`<br/> Specifies a username to authenticate to the above OCI registry | `None` |
-| `OCI_REGISTRY_PASSWORD`<br/> Specifies a password to authenticate to the above OCI registry | `None` |
+| _Environment variable name_                                                                                        | _Description_                                                                                                                                                                                                                                                                                                                                                                                |
+|:-------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `WASMCLOUD_LATTICE_PREFIX`                                                                                         | A lattice prefix is a unique identifier for a lattice, and is frequently used within NATS topics to isolate messages from different lattices. If not specified, the lattice prefix is "default". See [Character sets](../lattice-protocols/prefix/#character-sets) for the characters that may be used in lattice prefix names.                                                              |
+| `WASMCLOUD_RPC_HOST`<br/>`WASMCLOUD_RPC_PORT`<br/>`WASMCLOUD_RPC_SEED`<br/>`WASMCLOUD_RPC_JWT`                     | Configuration for the NATS client connection used for incoming RPC messages to the host. `HOST` is an ip address or dns name, with default `127.0.0.1`. `PORT` is the port number with default `4222`. `SEED` and `JWT` are used for authenticated connections and can be obtained from the `.creds` file generated with `nsc generate creds`.                                               |
+| `WASMCLOUD_RPC_TIMEOUT_MS`                                                                                         | Timeout in milliseconds for all RPC calls. The default value is 2000 ms (2 seconds). (Due to a [current limitation](https://github.com/wasmCloud/wasmcloud-otp/issues/397), the maximum value of this timeout is effectively 5000).                                                                                                                                                          |
+| `WASMCLOUD_PROV_RPC_HOST`<br/>`WASMCLOUD_PROV_RPC_PORT`<br/>`WASMCLOUD_PROV_RPC_SEED`<br/>`WASMCLOUD_PROV_RPC_JWT` | Configuration for the NATS client connection used for RPC messages between the host and capability providers started by this host. `HOST` is an ip address or dns name, with default `127.0.0.1`. `PORT` is the port number with default `4222`. `SEED` and `JWT` are used for authenticated connections and can be obtained from the `.creds` file generated with `nsc generate creds`.     |
+| `WASMCLOUD_PROV_RPC_TIMEOUT_MS`                                                                                    | Timeout in milliseconds for RPC calls to and from capabillity providers started by this host. The default value is 2000 ms (2 seconds).                                                                                                                                                                                                                                                      |
+| `WASMCLOUD_CTL_HOST`<br/>`WASMCLOUD_CTL_PORT`<br/>`WASMCLOUD_CTL_SEED`<br/>`WASMCLOUD_CTL_JWT`                     | Configuration for the NATS client connection used for lattice control messages sent by `wash` and `wadm`. `HOST` is an ip address or dns name, with default `127.0.0.1`. `PORT` is the port number with default `4222`. `SEED` and `JWT` are used for authenticated connections and can be obtained from the `.creds` file generated with `nsc generate creds`.                              |
+| `WASMCLOUD_CLUSTER_SEED`                                                                                           | The seed key (a printable 256-bit Ed25519 private key) used by this host to sign all invocations. wasmcloud RPC messages are cryptographically signed for authenticity and integrity. Note that different hosts can use different seed keys as long as their corresponding public keys are in the list of `WASMCLOUD_CLUSTER_ISSUERS`. The cluster seed is generated by the host on startup. |
+| `WASMCLOUD_CLUSTER_ISSUERS`                                                                                        | A comma-delimited list of public keys that can be used as issuers on signed invocations. If there are multiple hosts in the lattice, the cluster keys of all the other lattice hosts must be included in this list. The host's own cluster key is automatically added to this list.                                                                                                          |
+| `WASMCLOUD_JS_DOMAIN`                                                                                              | Jetstream domain name, configures a host to properly connect to a NATS supercluster.. Default is "" (empty)                                                                                                                                                                                                                                                                                  |
+| `WASMCLOUD_PROV_SHUTDOWN_DELAY_MS`                                                                                 | Delay, in milliseconds, between requesting a provider shut down and forcibly terminating its process. Default: 300.                                                                                                                                                                                                                                                                          |
+| `WASMCLOUD_OCI_ALLOW_LATEST`                                                                                       | Determines whether OCI images tagged `latest` are allowed to be pulled from OCI registries and started. For increased security, the default value is `false` because `latest` is a possible attack and instability vector.                                                                                                                                                                   |
+| `WASMCLOUD_OCI_ALLOWED_INSECURE`                                                                                   | A comma-separated list of OCI hosts to which insecure (non-TLS) connections are allowed. By default, no insecure connections are allowed (""). For local development with a docker registry, this is commonly set to `"127.0.0.1:5000"`                                                                                                                                                      |
+| `WASMCLOUD_STRUCTURED_LOGGING_ENABLED` <br/><br/> `WASMCLOUD_STRUCTURED_LOG_LEVEL`                                 | Enable JSON structured logging from the wasmcloud host. (default `false`). <br/>If enabled, the `LOG_LEVEL` controls the verbosity of these logs. Choose from `error`, `warn`, `info`, or `debug`. Defaults level is `info`.                                                                                                                                                                 |
+| `OCI_REGISTRY` <br/> `OCI_REGISTRY_USER` <br/> `OCI_REGISTRY_PASSWORD`                                             | Specifies a URL, and user/passord authentication for an OCI registry. Defaults are "" (none).                                                                                                                                                                                                                                                                                                |
 
 
+### Character sets
+
+A __lattice prefix__ is composed of one or more of the following characters: `A-Za-z_-` (upper- and lower- case ascii letters, digits, dash, and underscore). Spaces, periods, non-ascii characters, and non-printable ascii characters are specifically not allowed.
+We recommended that lattice prefix names be limited to the characters listed above for maximum compatibility with future wasmcloud protocols.
