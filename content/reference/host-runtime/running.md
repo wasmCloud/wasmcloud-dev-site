@@ -5,52 +5,37 @@ weight: 11
 draft: false
 ---
 
-The wasmCloud host runtime is an [Elixir distillery release](https://elixirschool.com/en/lessons/misc/distillery#what-is-a-release-0) that includes various scripts for running and managing an application. By running `bin/wasmcloud_host`, you'll see a variety of commands and options:
+The wasmCloud host runtime is an [Elixir mix release](https://hexdocs.pm/mix/Mix.Tasks.Release.html) that includes various scripts for running and managing an application. By running `bin/wasmcloud_host`, you'll see a variety of commands and options:
 ```plain
 ./bin/wasmcloud_host
-USAGE
-  wasmcloud_host <task> [options] [args..]
+Usage: wasmcloud_host COMMAND [ARGS]
 
-COMMANDS
+The known commands are:
 
-  start                Start wasmcloud_host as a daemon
-  start_boot <file>    Start wasmcloud_host as a daemon, but supply a custom .boot file
-  foreground           Start wasmcloud_host in the foreground
-  console              Start wasmcloud_host with a console attached
-  console_clean        Start a console with code paths set but no apps loaded/started
-  console_boot <file>  Start wasmcloud_host with a console attached, but supply a custom .boot file
-  stop                 Stop the wasmcloud_host daemon
-  restart              Restart the wasmcloud_host daemon without shutting down the VM
-  reboot               Restart the wasmcloud_host daemon
-  upgrade <version>    Upgrade wasmcloud_host to <version>
-  downgrade <version>  Downgrade wasmcloud_host to <version>
-  attach               Attach the current TTY to wasmcloud_host's console
-  remote_console       Remote shell to wasmcloud_host's console
-  reload_config        Reload the current system's configuration from disk
-  pid                  Get the pid of the running wasmcloud_host instance
-  ping                 Checks if wasmcloud_host is running, pong is returned if successful
-  pingpeer <peer>      Check if a peer node is running, pong is returned if successful
-  escript              Execute an escript
-  rpc                  Execute Elixir code on the running node
-  eval                 Execute Elixir code locally
-  describe             Print useful information about the wasmcloud_host release
-
-No custom commands found.
-
-Use wasmcloud_host help <task> to get more information about a particular task (except custom commands)
+    start          Starts the system
+    start_iex      Starts the system with IEx attached
+    daemon         Starts the system as a daemon
+    daemon_iex     Starts the system as a daemon with IEx attached
+    eval "EXPR"    Executes the given expression on a new, non-booted system
+    rpc "EXPR"     Executes the given expression remotely on the running system
+    remote         Connects to the running system via a remote shell
+    restart        Restarts the running system via a remote command
+    stop           Stops the running system via a remote command
+    pid            Prints the operating system PID of the running system via a remote command
+    version        Prints the release name and version to be booted
 ```
 There are a variety of commands and options to get used to here, we generally only focus on the commands that manage starting, stopping, and debugging a wasmCloud application.
 
-- To start the host running in the current terminal, which is recommended to easily view logs, you can use `foreground`
-
-  ```bash
-  bin/wasmcloud_host foreground
-  ```
-
-- Alternately, you can start it in the background as a daemon with `start`
+- To start the host running in the current terminal, which is recommended to easily view logs, you can use `start`
 
   ```bash
   bin/wasmcloud_host start
+  ```
+
+- Alternately, you can start it in the background as a daemon with `daemon`
+
+  ```bash
+  bin/wasmcloud_host daemon
   ```
 
   and stop it with
@@ -59,17 +44,17 @@ There are a variety of commands and options to get used to here, we generally on
   ```
   or restart it with
   ```bash
-  bin/wasmcloud_host reboot
+  bin/wasmcloud_host restart
   ```
   
-  If you choose this option, host logs will be located under `var/log` and can be viewed with:
+  If you choose this option, host logs will be located under `tmp/log` and can be viewed with:
 
   ```bash
-  tail var/log/erlang.log.1
+  tail tmp/log/erlang.log.1
   ```
 
 - If you're already familiar with Elixir and **iex**, Elixir's interactive shell, and want to dive into the host's internals, execute Elixir statements, and set breakpoints, start the host including an interactive console with:
 
   ```bash
-  bin/wasmcloud_host console
+  bin/wasmcloud_host start_iex
   ```

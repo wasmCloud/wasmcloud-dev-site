@@ -20,7 +20,7 @@ Logs with `wash up` are automatically output to your terminal, unless you ran th
 Logs from hosts running in Docker, if started with our docker compose, can be found by running `docker logs wasmcloud`
 {{% /tab %}}
 {{% tab "Manual" %}}
-If you manually installed the host from a downloaded release, look in `var/log/erlang.log.1` relative to the folder where you extracted the release tar file.
+If you manually installed the host from a downloaded release, look in `tmp/log/erlang.log.1` relative to the folder where you extracted the release tar file.
 {{% /tab %}}
 {{% /tabs %}}
 
@@ -150,7 +150,7 @@ Instead of using `curl`, you can also _directly invoke_ actors' registered funct
 
 **As of `wash` `v0.7.0` and wasmCloud `v0.50.2`, this cluster seed is inferred automatically with the use of [contexts](../../reference/wash/contexts). You can skip ahead to [using call](#using-call)**.
 
-To find your cluster seed, take a look at the logs and look for a 56 character ID that starts with **SC**. You can find the logs either in your terminal where you ran the wasmCloud host, or relative to where you unpacked the application tarball in the file `var/log/erlang.log.1`
+To find your cluster seed, take a look at the logs and look for a 56 character ID that starts with **SC**. You can find the logs either in your terminal where you ran the wasmCloud host, or relative to where you unpacked the application tarball in the file `tmp/log/erlang.log.1`
 
 Look for something like:
 

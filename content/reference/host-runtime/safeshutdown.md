@@ -11,7 +11,7 @@ In most cases, initiating a safe shutdown of the wasmCloud host runtime is quick
 If you started the wasmCloud host runtime as a background process/daemon, then you can simply use the `wasmcloud_host` binary to terminate the process by executing `wasmcloud_host stop`.
 
 ### Exiting a Console
-If you start the wasmCloud host runtime as a console, either through the use of the `iex` application or by running `wasmcloud_host console`, then you are in an interactive mode application that typically only supports termination through `ctrl-c`.
+If you start the wasmCloud host runtime as a console, either through the use of the `iex` application or by running `wasmcloud_host start_iex`, then you are in an interactive mode application that typically only supports termination through `ctrl-c`.
 
 Before you use `ctrl-c` to exit the application, you can invoke an Elixir function in the `Host` module to attempt to purge all running entities, performing a graceful shutdown (which sends the "quit" message to all running capability providers, etc).
 
