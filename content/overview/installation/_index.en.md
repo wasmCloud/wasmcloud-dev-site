@@ -8,21 +8,6 @@ draft: false
 
 We will guide you through installation of `wash`, the wasmCloud Shell, which gives you the tools to install, run, and develop with wasmCloud.
 
-### Prerequisites
-
-Other than `wash`, prerequisites generally center around the language toolchain of your choice or your preferred way to run wasmCloud.
-
-- **Language SDKs**: wasmCloud supports [TinyGo](https://tinygo.org/getting-started/install/) and [Rust](https://www.rust-lang.org/tools/install) for actor development and [Rust](https://www.rust-lang.org/tools/install) for capability provider development. Ensure you have a toolchain installed for your preference of language.
-
-- **Unix utilities**: We include Makefiles with our project templates to simplify development that assume some common command line utilities. Using your favorite package manager, make sure that you have these installed: **bash**, **git**, **jq**, and **make**
-  - We recommend gnu make version 4.3 or later. (for Mac users: you'll need to add the homebrew-installed make to your path _before_ the one in `/usr/bin`).
-
-> If you prefer to use Docker and not install anything locally, you can follow our [install with Docker](./install-with-docker/) instructions instead of the ones below. You'll still want to have `wash` as mentioned above for the guides in the documentation.
-
-### Install wash
-
-The wash CLI is the main tool you'll be using for wasmcloud development. Select your platform below to view the applicable installation commands.
-
 {{% tabs %}}
 {{% tab "Ubuntu/Debian" %}}
 
@@ -64,7 +49,7 @@ choco install wash
 {{% /tab %}}
 {{% tab "Rust" %}}
 
-`wash` can be installed with `cargo` in the case that your platform isn't listed
+If your platform isn't listed, `wash` can be installed with `cargo`
 ```bash
 cargo install wash-cli
 ```
@@ -81,5 +66,6 @@ cargo build --release
 {{% /tab %}}
 {{% /tabs %}}
 
-Once `wash` is installed, simply run `wash up` . This will start the host with attached logs and can be exited at any time by doing `ctrl-c`. Now, you're ready to proceed onto [Getting started](/overview/getting-started/).
+Once `wash` is installed, simply run `wash up`. This will download and start NATS and wasmCloud for you, printing logs to the terminal. You can exit at any time by pressing `ctrl-c`. Now, you're ready to proceed onto [Getting started](/overview/getting-started/).
 
+> For convenience we provide a Docker Compose file if you prefer to use Docker instead of `wash up` to launch NATS and wasmCloud. You can follow our [install with Docker](./install-with-docker/) instructions to do so, but it's still recommended to install `wash` even if you don't make use of the `up` feature.

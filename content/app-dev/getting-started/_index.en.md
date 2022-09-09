@@ -5,9 +5,7 @@ weight: 1
 draft: false
 ---
 
-Getting started with application development on wasmCloud is pretty simple. The first thing you'll need to do is follow the [installation](/overview/installation) steps outlined in this guide.
-
-Next, make sure you have the language of your choice installed and ready to go. Today, we support **Rust** and **TinyGo** for actors and **Rust** for capability providers, but support for other languages will be coming soon. 
+Getting started with application development with wasmCloud is simple. The first thing you'll need to do is follow the [installation](/overview/installation) steps to install `wash`. wasmCloud supports [TinyGo](https://tinygo.org/getting-started/install/) and [Rust](https://www.rust-lang.org/tools/install) for actor development. Ensure you have a toolchain installed for your preference of language, the following guides have both examples so you can follow along.
 
 Before you can build [actors](/reference/host-runtime/actors) with Rust, you'll need to have the `wasm32-unknown-unknown` target added to your environment. You can set this up by executing the following command:
 

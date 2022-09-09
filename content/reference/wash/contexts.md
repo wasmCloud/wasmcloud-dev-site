@@ -27,7 +27,7 @@ You'll get output like the following:
 host_config (default)
 ```
 
-Let's take a look at that context. You can use the built-in `wash ctx edit` command to interactively select the context and open it in your editor of choice, but to make it look a little nicer we'll read it and use a JSON formatter.
+Let's take a look at that context. You can use the built-in `wash ctx edit` command to interactively select the context and open it in your editor of choice, but to make it look a little nicer we'll read it and use a JSON formatter. You may need to install [jq](https://stedolan.github.io/jq/download/) if you're on a Unix machine.
 
 {{% tabs %}}
 {{% tab "Unix" %}}

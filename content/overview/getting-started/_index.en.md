@@ -9,8 +9,8 @@ In this guide, we'll be taking a tour through some of the most common activities
 
 You should have already followed the [installation guide](../installation/) to install `wash` and ran the applicable command to start wasmCloud.
 
-> **A note on log files**
-> If you do encounter any problems, the host log files may contain useful error messages, and it's good to know how to find them. The tabs below, organized by how you started the wasmCloud host, show you where to find logs:
+> **A note on log files**:
+> If you do encounter any problems, the host log files will contain useful error messages, and it's good to know how to find them. The tabs below, organized by how you started the wasmCloud host, show you where to find logs:
 
 {{% tabs %}}
 {{% tab " wash up" %}}
