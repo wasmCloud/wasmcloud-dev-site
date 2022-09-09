@@ -1,7 +1,7 @@
 ---
 title: "API Reference"
 date: 2018-12-29T11:02:05+06:00
-weight: 2
+weight: 4
 draft: false
 description: "wadm API Specification"
 ---
@@ -11,7 +11,7 @@ The normal way to interact with a `wadm` installation (which could be a single s
 ### ⚠️ Caution
 _wadm and its corresponding API are under active development_. Many components are not yet written at all. This document serves as a means to solicit feedback and collaborate on API design and will likely change multiple times.
 
-A wadm cluster will use a single connection (and therefore set of credentials) for the API server. This allows a wadm cluster to use a security context for the API server that is different from the context used for remotely controlling lattices.
+A wadm cluster will use a single connection (and therefore set of credentials) for the API server. This allows a wadm cluster to use a security context for the API server that is different from the context used for remotely controlling lattices. This is important so you can plan how you access the wadm API separately from how wadm accesses relevant lattices.
 
 ## Topic Space
 The wadm API is exposed entirely as a NATS service on a topic space. All of the API operations will occur as _requests_ on a topic in the following format:
