@@ -1,7 +1,7 @@
 ---
 title: "OpenTelemetry Tracing"
 date: 2022-07-11T09:02:05+06:00
-weight: 2
+weight: 3
 draft: false
 ---
 
