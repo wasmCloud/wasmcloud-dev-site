@@ -7,10 +7,22 @@ draft: false
 
 In this guide, we'll be taking a tour through some of the most common activities in the wasmCloud ecosystem, like starting and configuring [actors](../../reference/host-runtime/actors/) and [capability providers](../../reference/host-runtime/capabilities/). We will save the guides for actually writing code for actors and providers for later, after you're familiar with the tooling and starting and stopping the runtime.
 
-You should have already [installed wash and started](../installation/) nats and the wasmCloud host runtime.
+You should have already followed the [installation guide](../installation/) to install `wash` and ran the applicable command to start wasmCloud.
 
-> **A note on log files**
-> If you do encounter any problems, the host log files may contain useful error messages, and it's good to know how to find them. If you installed the host from a downloaded release, look in `var/log/erlang.log.1` relative to the folder where you extracted the release tar file. If you started the host with docker, try `docker logs host`.
+> **A note on log files**:
+> If you do encounter any problems, the host log files will contain useful error messages, and it's good to know how to find them. The tabs below, organized by how you started the wasmCloud host, show you where to find logs:
+
+{{% tabs %}}
+{{% tab " wash up" %}}
+Logs with `wash up` are automatically output to your terminal, unless you ran the command with the `--detach` flag. Logs from detached hosts can be found in `~/.wash/downloads/wasmcloud.log`
+{{% /tab %}}
+{{% tab "Docker" %}}
+Logs from hosts running in Docker, if started with our docker compose, can be found by running `docker logs wasmcloud`
+{{% /tab %}}
+{{% tab "Manual" %}}
+If you manually installed the host from a downloaded release, look in `tmp/log/erlang.log.1` relative to the folder where you extracted the release tar file.
+{{% /tab %}}
+{{% /tabs %}}
 
 ### Viewing the wasmCloud dashboard
 
@@ -85,7 +97,7 @@ wash claims inspect wasmcloud.azurecr.io/echo:0.3.4
   None
 ```
 
-To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.16.0` and leave the _link name_ set to `default`. You should now see this capability provider running, and within 30 seconds it should report its status as Healthy.
+To start the HTTP server capability provider, again use the web UI and click **Start Provider** and then select _From Registry_. Supply the OCI URL `wasmcloud.azurecr.io/httpserver:0.16.2` and leave the _link name_ set to `default`. You should now see this capability provider running, and within 30 seconds it should report its status as Healthy.
 
 ![dashboard3](./washboard3.png)
 
@@ -102,7 +114,7 @@ Host Inventory (NCPGH5CVPO3BAZ5OSQKXYHDKPBT3JXLG5EAOTG7XOXUWJ6AHZCFT57SI)
   MBCFOPM6JW2APJLXJD3Z5O4CN7CPYJ2B4FTKLJUR5YR5MITIU7HD3WD5    N/A                wasmcloud.azurecr.io/echo:0.3.4
 
   Provider ID                                                 Name               Link Name          Image Reference
-  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.16.0
+  VAG3QITQQ2ODAOWB5TTQSDJ53XK3SHBEIFNK4AYJ5RKAX2UNSCAPHA5M    N/A                default            wasmcloud.azurecr.io/httpserver:0.16.2
 ```
 
 #### Linking actors and capability providers
@@ -138,7 +150,7 @@ Instead of using `curl`, you can also _directly invoke_ actors' registered funct
 
 **As of `wash` `v0.7.0` and wasmCloud `v0.50.2`, this cluster seed is inferred automatically with the use of [contexts](../../reference/wash/contexts). You can skip ahead to [using call](#using-call)**.
 
-To find your cluster seed, take a look at the logs and look for a 56 character ID that starts with **SC**. You can find the logs either in your terminal where you ran the wasmCloud host, or relative to where you unpacked the application tarball in the file `var/log/erlang.log.1`
+To find your cluster seed, take a look at the logs and look for a 56 character ID that starts with **SC**. You can find the logs either in your terminal where you ran the wasmCloud host, or relative to where you unpacked the application tarball in the file `tmp/log/erlang.log.1`
 
 Look for something like:
 

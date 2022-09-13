@@ -4,6 +4,22 @@ description: "This is a high-level overview of the additions, removals, and chan
 layout: "changelog"
 draft: false
 ---
+### Release 0.57
+{{< changelog "added" >}}
+- Added WASMCLOUD_CTL_TOPIC_PREFIX environment variable for specifying a prefix other than `wasmbus.ctl` in [#452](https://github.com/wasmCloud/wasmcloud-otp/pull/452)
+{{</ changelog >}}
+{{< changelog "changed" >}}
+- wasmCloud hosts releases are now built with [mix releases](https://hexdocs.pm/mix/Mix.Tasks.Release.html) instead of Distillery, changing the commands necessary to run the host in [#451](https://github.com/wasmCloud/wasmcloud-otp/pull/451). Largely this will require any scripts running wasmCloud to change `foreground` to `start`, and `start` to `daemon`.
+{{</ changelog >}}
+
+### Release 0.56
+{{< changelog "added" >}}
+- Added Policy enforcement over NATS to allow users to specify custom topics to additionally restrict invocations and starting actors or providers in [#442](https://github.com/wasmCloud/wasmcloud-otp/pull/442)
+{{</ changelog >}}
+{{< changelog "changed" >}}
+- Fixed console warnings for duplicate dropdown IDs in [#445](https://github.com/wasmCloud/wasmcloud-otp/pull/445)
+- Fixed a helm naming issue for structured logging in [#443](https://github.com/wasmCloud/wasmcloud-otp/pull/443/)
+{{</ changelog >}}
 
 ### Release 0.55
 {{< changelog "added" >}}

@@ -15,7 +15,7 @@ The wasmCloud host logs include the following:
 1. Logs from actors that utilize the `wasmcloud:builtin:logging` capability
 
 ## Finding the logs (release tarball)
-If you followed the [installation](../../../overview/installation/) guide then you likely started the host by running a command like `./bin/wasmcloud_host start` or `./bin/wasmcloud_host foreground`. In the same directory where you unpacked the tarball you'll be able to find the logs in `./var/log/erlang.log.X`, where `X` starts at `1` and will increment monotonically as the log file grows too large.
+If you followed the [installation](../../../overview/installation/) guide then you likely started the host by running a command like `./bin/wasmcloud_host start` or `./bin/wasmcloud_host daemon`. In the same directory where you unpacked the tarball you'll be able to find the logs in `./tmp/log/erlang.log.X`, where `X` starts at `1` and will increment monotonically as the log file grows too large.
 
 If you take a look at the top of one of these logfiles (using `head` for example on Unix systems) you'll see something like:
 ```console
@@ -84,7 +84,7 @@ As mentioned above, you can replace `debug` with `info`, `warn`, or `error`.
 
 Use the following command to attach to the Elixir integrated terminal
 ```shell
-./bin/wasmcloud_host remote_console
+./bin/wasmcloud_host remote
 ```
 
 Then use the `Logger` module to configure the log level
@@ -99,7 +99,7 @@ As mentioned above, you can replace `debug` with `info`, `warn`, or `error`. You
 
 Use the `docker` CLI to `exec` into your container:
 ```shell
-docker exec -it <your_container_id> /opt/app/bin/wasmcloud_host remote_console
+docker exec -it <your_container_id> /opt/app/bin/wasmcloud_host remote
 ```
 
 Then use the `Logger` module to configure the log level
