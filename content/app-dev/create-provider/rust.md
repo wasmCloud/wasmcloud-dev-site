@@ -34,7 +34,7 @@ use wasmcloud_examples_payments::*;
 
 // Start the provider and run until stopped by the host
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    provider_main(FakePayProvider::default())?;
+    provider_main(FakePayProvider::default(), Some("FakePay".to_string()))?;
     eprintln!("FakePay provider exiting");
     Ok(())
 }
@@ -103,7 +103,7 @@ resolver = "2"
 [dependencies]
 async-trait = "0.1"
 log = "0.4"
-wasmbus-rpc = "0.7"
+wasmbus-rpc = "0.10"
 wasmcloud-examples-payments = { path="../payments/rust" }
 
 [[bin]]
