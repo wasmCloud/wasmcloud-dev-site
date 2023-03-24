@@ -1,0 +1,3 @@
+# Redirects requests to the documentation page
+/* https://wasmcloud.com/docs/:splat
+
